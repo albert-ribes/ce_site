@@ -1,13 +1,14 @@
 {% extends "ce_availability/base.html" %}
 
 {% block content %}
+    {% comment %}
     <h3>Login</h3>
-
+    {% endcomment %}
     <div class=login_form>
     <form method="post" action="{% url 'login' %}">
     {% csrf_token %}
 
-	<div class="fieldWrapper">
+	<div class="fieldWrapper_login">
         	<label for="{{ form.username.id_for_label }}">Username:</label>
                 <div class="input_field"> {{ form.username }} </div>
                 {% if form.username.errors %}
@@ -18,7 +19,7 @@
 
         </div>
 
-	<div class="fieldWrapper">
+	<div class="fieldWrapper_login">
                 <label for="{{ form.password.id_for_label }}">Password:</label>
                 <div class="input_field"> {{ form.password }} </div>
                 {% if form.password.errors %}

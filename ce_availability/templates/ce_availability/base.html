@@ -30,7 +30,8 @@
 	    <p class="top-menu">Welcome {{ user.first_name }}!</p>
 	    <a href="{% url 'logout' %}" title="Logout" class="top-menu-icon"><span class="glyphicon glyphicon-log-out"></span></a>
 	{% else %}
-            <p class="top-menu">User not logged in &nbsp;<a href="{% url 'login' %}" title="Login" class="top-menu-icon"><span class="glyphicon glyphicon-log-in"></span></a></p>
+            <p class="top-menu">User not logged in</p>
+	    <a href="{% url 'login' %}" title="Login" class="top-menu-icon"><span class="glyphicon glyphicon-log-in"></span></a>
         {% endif %}
     </div>
     <div class="content container">

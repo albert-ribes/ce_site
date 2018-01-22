@@ -329,6 +329,13 @@ a.list_link:active {
     width: 360px;
     
 }
+.fieldwrapper_login{
+    display: block;
+    height: 40px;
+    width: 600px;
+    /*padding: 10px;*/
+}
+
 
 .login_button{
    float: none;

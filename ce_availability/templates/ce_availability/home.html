@@ -2,7 +2,9 @@
 
 {% block content %}
     {% if user.is_authenticated %}
+        {% comment %}
 	<h3>Home</h3><br>
+	{% endcomment %}
 	{% if user.first_name == 'admin' %}
 		<a href="../admin"><p><span class="glyphicon glyphicon-lock"></span></a>      Go to the admin page</p>
 

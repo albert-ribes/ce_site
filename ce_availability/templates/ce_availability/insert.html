@@ -2,7 +2,9 @@
 
 {% block content %}
     {% if user.is_authenticated %}
+	{% comment %}
         <h3>New Unavailability</h3>
+	{% endcomment%}
         <p>Please introduce the details of your new unavailability:</p>
 	<div class=unavailability_form>	
 		<form method="POST" class="post-form" novalidate>{% csrf_token %}
