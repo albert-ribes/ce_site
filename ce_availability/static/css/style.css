@@ -130,7 +130,7 @@ button.submit-button{
 table.table_registers {
     font-weight: normal;
     border-collapse: collapse;
-    width: 1000px;
+    width: 800px;
     font-size: 13px;
     border: 1px solid #000000;
 }
@@ -160,15 +160,15 @@ table.table_registers td, table.table_registers th {
 }
 
 table.table_registers th.ce {
-    width:180px;
+    width:140px;
 }
 
 table.table_registers th.id {
-    width:60px;
+    width:40px;
 }
 
 table.table_registers th.start {
-    width:140px;
+    width:80px;
 }
 
 table.table_registers th.finish {
@@ -176,15 +176,18 @@ table.table_registers th.finish {
 }
 
 table.table_registers th.hours {
-    width:60px;
+    width:40px;
 }
 
 table.table_registers th.unavailability {
-    width:200px;
+    width:100px;
 }
 
 table.table_registers th.published {
     width:220px;
+}
+table.table_category th.published {
+    width:120px;
 }
 table.table_registers th.comments {
     width:200px;
@@ -348,27 +351,27 @@ a.list_link:active {
     border: 1px solid #ececec;
     /*background-color: #ececec;*/
     height: 80px;
-    width: 1000px;
+    width: 960px;
     display: block;
 }
 
 .filter_left{
    /*border: 1px solid red;*/
    height: 120px;
-   width: 320px;
+   width: 310px;
    height: 100px;
    float: left;
 }
 .filter_center{
    /*border: 1px solid blue;*/
    height: 120px;
-   width: 320px;
+   width: 310px;
    height: 100px;
    float: left;
 }
 .filter_right{
     height:100px;
-    width:320px;
+    width: 310px;
     /*border:1px solid green;*/
     float: left;
 }
@@ -382,13 +385,13 @@ a.list_link:active {
     width: 120px;
     height: 22px;
     margin-top: 10px;
-    margin-left: 100px;
+    margin-left: 120px;
 }
 
 .fieldwrapper_filter{
     display: block;
     height: 40px;
-    width: 420px
+    width: 380px
 }
 
 

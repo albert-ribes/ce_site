@@ -35,9 +35,15 @@ class Employee(models.Model):
     def save_user_profile(sender, instance, **kwargs):
         instance.userprofile.save()
     """
+class Category(models.Model):
+    category = models.CharField(max_length=200)
+
+    def __str__(self):
+        return self.category
 
 class Unavailability(models.Model):
     unavailability = models.CharField(max_length=200)
+    category = models.ForeignKey(Category, related_name='Category')
 
     def __str__(self):
         return self.unavailability

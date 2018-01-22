@@ -72,6 +72,9 @@ $("tr").click(function(){
                                 <th class="unavailability">
 					Unavailability
 				</th>
+                                <th class="category">
+					Category
+				</th>
                                 <th class="comments" >
 					Comments
 				</th>
@@ -87,6 +90,7 @@ $("tr").click(function(){
 				{% endcomment %}
     				<td><a class="list_link" href='/ce_availability/details/{{ register.id }}'>{{ register.hours }}</a></td>
     				<td><a class="list_link" href='/ce_availability/details/{{ register.id }}'>{{ register.unavailability }}</a></td>
+    				<td><a class="list_link" href='/ce_availability/details/{{ register.id }}'>{{ register.unavailability.category }}</a></td>
     				<td><a class="list_link" href='/ce_availability/details/{{ register.id }}'>{{ register.comments }}</a></td>
 				{% comment %}
     				<th>{{ register.created_date }}</th>
@@ -97,6 +101,7 @@ $("tr").click(function(){
                 <hr>
 		<p> TOTAL unavailable hours: <b>{{hours}}</b></p>
 	{% else %}
+    		<hr>
 		<p>No records found </p>
 	{% endif %}
 {% endblock %}

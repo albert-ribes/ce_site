@@ -51,7 +51,10 @@ class ListFilterForm(forms.Form):
     WEEK_CHOICES = (('All', '  All'),(currentWeek,'Current'))
     #Filter selectors
     ce_selector = forms.ChoiceField(label='CE', choices=[(choice.pk, choice) for choice in User.objects.filter(groups__name='CE')])
+    for choice in Unavailability.objects.all():
+        print(choice)
     unavailability_selector = forms.ChoiceField(label='Unavailability', choices=[(choice.pk, choice) for choice in Unavailability.objects.all()])
+    #unavailability_selector = forms.ChoiceField(label='Unavailability', choices=[(choice.pk, choice) for choice in Unavailability.objects.values_list('unavailability').distinct()])
     year_selector = forms.ChoiceField(label='Year',choices=YEAR_CHOICES)
     month_selector = forms.ChoiceField(label='Month',choices=MONTH_CHOICES)
     week_selector = forms.ChoiceField(label='Week',choices=WEEK_CHOICES)

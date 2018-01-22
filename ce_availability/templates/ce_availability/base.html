@@ -7,9 +7,10 @@
         <link href='//fonts.googleapis.com/css?family=Lobster&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
         <link rel="stylesheet" href="{% static 'css/style.css' %}"> 
     	<meta http-equiv="Content-type" content="text/html; charset=utf-8" /> 
-        
+        {% comment%} 
         <script type="text/javascript" src="/my_admin/jsi18n/"></script>
 	<script type="text/javascript" src="/media/admin/js/core.js"></script>
+	{% endcomment %}
 
         {% load static %}
     </head>
@@ -26,7 +27,8 @@
             <a href="{% url 'about' %}" title="About" class="top-menu-icon"><span class="glyphicon glyphicon-info-sign"></span></a>
             <a href="{% url 'logout' %}" title="Logout" class="top-menu-icon"><span class="glyphicon glyphicon-log-out"></span></a>
         {% elif user.is_authenticated  and user.first_name == 'admin' %}
-	    Welcome Admin!
+	    <p class="top-menu">Welcome {{ user.first_name }}!</p>
+	    <a href="{% url 'logout' %}" title="Logout" class="top-menu-icon"><span class="glyphicon glyphicon-log-out"></span></a>
 	{% else %}
             <p class="top-menu">User not logged in &nbsp;<a href="{% url 'login' %}" title="Login" class="top-menu-icon"><span class="glyphicon glyphicon-log-in"></span></a></p>
         {% endif %}

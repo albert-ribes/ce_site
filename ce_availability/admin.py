@@ -5,9 +5,11 @@ from django.contrib import admin
 from .models import Unavailability
 from .models import Register
 from .models import Employee
+from .models import Category
 
 #admin.site.register(CE)
 admin.site.register(Unavailability)
 admin.site.register(Register)
 admin.site.register(Employee)
+admin.site.register(Category)
 
