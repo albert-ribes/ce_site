@@ -453,7 +453,8 @@ label {
 
 .input_field {
     height: 20px;
-    width: 250px;
+    width: 220px;
+    /*Comment*/
     margin-top: 10px;
     margin-right: 10px;
     float: left;
