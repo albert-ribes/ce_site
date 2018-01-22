@@ -1,7 +1,7 @@
 from django.shortcuts import render
 
 # Create your views here.
-from .models import Register, Unavailability
+from .models import Register, Unavailability, Category
 from django.contrib.auth.decorators import login_required
 from django.utils import timezone
 from django import forms
@@ -33,7 +33,7 @@ def getUserType(user):
     return user_type
 
 @login_required
-def list_filter(request, ce, unavailability, year, month, week):
+def list_filter(request, ce, unavailability, category, year, month, week):
 
     print("INFO: VIEWS.list_filter: ce=" + ce + ", unavailability=" + unavailability + ", year=" + year + ", month=" + month) 
     request.session['url'] = "/ce_availability/list/filter/" + str(ce) + "/" + str(unavailability) + "/" + str(year) + "/" + str(month) + "/"  + str(week) 
@@ -57,10 +57,10 @@ def list_filter(request, ce, unavailability, year, month, week):
        manager_id=user.id
        ce_choices=[(choice.pk, choice) for choice in User.objects.filter(groups__name='CE').filter(employee__manager=manager_id)]
        ce_choices= [('All', 'All')] + ce_choices
-    
+    """ 
     for choice in ce_choices:
              print(choice)
-    
+    """
 
     # If this is a POST request then process the Form data
     if request.method == "POST":
@@ -70,14 +70,14 @@ def list_filter(request, ce, unavailability, year, month, week):
         if form.is_valid():
             print("INFO: VIEWS.list: form.is_valid()")
             # process the data in form
-            ce, unavailability, year, month, week = form.save(commit=False)
+            ce, unavailability, category, year, month, week = form.save(commit=False)
             if(year=='All' or month=='All'):
                 week='All'
             if(year!=str(currentYear) or month!=str(currentMonth)):
                 week='All'
-            request.session['url'] = "/ce_availability/list/filter/" + str(ce) + "/" + str(unavailability) + "/" + str(year) + "/" + str(month + "/" + str(week))
+            request.session['url'] = "/ce_availability/list/filter/" + str(ce) + "/" + str(unavailability) + "/" + str(category) + "/" + str(year) + "/" + str(month + "/" + str(week))
             print("INFO: VIEWS.list: URL=" + request.session['url'])
-            return HttpResponseRedirect("/ce_availability/list/filter/" + str(ce) + "/" + str(unavailability) + "/" + str(year) + "/" + str(month) + "/" +  str(week))
+            return HttpResponseRedirect("/ce_availability/list/filter/" + str(ce) + "/" + str(unavailability) + "/" + str(category) + "/" + str(year) + "/" + str(month) + "/" +  str(week))
     #If this is a GET (or any other method) create the default form.
     else:
         if(user_type=='SDM'):
@@ -105,6 +105,15 @@ def list_filter(request, ce, unavailability, year, month, week):
             queryset = queryset.filter(user_id=ce)
         if (unavailability!='All'):
             queryset = queryset.filter(unavailability=unavailability)
+            #category_selector=getattr(Unavailability.objects.filter(unavailability_id=unavailability), 'category_id')
+            category=Unavailability.objects.filter(id=unavailability).values_list('category_id', flat=True).get()
+            print("INFO: VIEWS.list_filter: category_selector=" + str(category))
+        if (category!='All' and unavailability=='All'):
+            queryset = queryset.filter(unavailability__category=category)
+            category_selector=category
+            unavailability='All'
+        if (unavailability!='All'):
+            queryset = queryset.filter(unavailability=unavailability)
         if(week!='All' and year!='All' and month!='All'):
             firstDayWeek = datetime.now() - timedelta(days=datetime.now().weekday())
             lastDayWeek = firstDayWeek + timedelta(days=6)
@@ -119,11 +128,14 @@ def list_filter(request, ce, unavailability, year, month, week):
             hours = hours + register.hours
         
         print("INFO: VIEWS.list_filter: month=" + month)
+        """
         if(user_type=='CE'):
             form = ListFilterForm(request.user, ce_choices, initial={'ce_selector': ce, 'year_selector': year, 'month_selector': month, 'unavailability_selector':unavailability, 'week_selector':week})
+        
         else:
             form = ListFilterForm(request.user, ce_choices, initial={'ce_selector': ce, 'year_selector': year, 'month_selector': month, 'unavailability_selector':unavailability, 'week_selector':week})
-
+        """
+        form = ListFilterForm(request.user, ce_choices, initial={'ce_selector': ce, 'category_selector': category, 'year_selector': year, 'month_selector': month, 'unavailability_selector':unavailability, 'week_selector':week})
     return render(request, 'ce_availability/list.html', {'registers': registers, 'form': form, 'hours': hours})
 
 @login_required
@@ -148,7 +160,8 @@ def list(request):
        manager_id=user.id
        ce='All'
     unavailability='All'
-    return HttpResponseRedirect("/ce_availability/list/filter/" + str(ce) + "/" + str(unavailability) + "/" + str(currentYear) + "/" + str(currentMonth) + "/" + str(currentWeek))
+    category='All'
+    return HttpResponseRedirect("/ce_availability/list/filter/" + str(ce) + "/" + str(unavailability) + "/" + str(category) + "/" + str(currentYear) + "/" + str(currentMonth) + "/" + str(currentWeek))
     #return redirect("/ce_availability/list/filter/" + str(ce) + "/" + str(unavailability) + "/" + str(year) + "/" + str(month))
 
 @login_required

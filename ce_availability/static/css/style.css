@@ -100,6 +100,12 @@ h2{
     margin-right: 10px;
 }
 
+#id_category_selector{
+    margin-left: 4px;
+    margin-right: 10px;
+}
+
+
 #id_year_selector{
     margin-left: 4px;
     margin-right: 10px;
@@ -109,6 +115,11 @@ h2{
     margin-left: 4px;
     margin-right: 10px;
 }
+#id_week_selector{
+    margin-left: 4px;
+    margin-right: 10px;
+}
+
 
 #id_email{
     /*margin-top: 10px;*/
@@ -358,8 +369,8 @@ a.list_link:active {
     margin-bottom: 10px;
     border: 1px solid #ececec;
     /*background-color: #ececec;*/
-    height: 80px;
-    width: 940px;
+    height: 280px;
+    width: 440px;*/
     display: block;
 }
 
@@ -393,7 +404,7 @@ a.list_link:active {
     width: 120px;
     height: 22px;
     margin-top: 10px;
-    margin-left: 120px;
+    margin-left: 160px;
 }
 
 .fieldwrapper_filter{

@@ -15,7 +15,6 @@ $("tr").click(function(){
         {% endcomment %}
 	<div class="filter_form">
         <form method="POST" class="ListFilterForm" novalidate>{% csrf_token %}
-		<div class="filter_left">
 			<div class="fieldWrapper_filter">
 			<label for="{{ form.ce_selector.id_for_label }}">CE:</label>
                 	<div class="input_field_filter"> {{ form.ce_selector }} </div>
@@ -26,9 +25,12 @@ $("tr").click(function(){
 			<label for="{{ form.unavailability_selector.id_for_label }}">Unavailability:</label>
         	        <div class="input_field_filter"> {{ form.unavailability_selector }} </div>
 			</div>
-		</div>
 
-		<div class="filter_center">
+			<div class="fieldWrapper_filter">
+                        <label for="{{ form.category_selector.id_for_label }}">Category:</label>
+                        <div class="input_field_filter"> {{ form.category_selector }} </div>
+                        </div>
+
 			<div class="fieldWrapper_filter">
 			<label for="{{ form.year_selector.id_for_label }}">Year:</label>
                 	<div class="input_field_filter"> {{ form.year_selector }} </div>
@@ -38,16 +40,13 @@ $("tr").click(function(){
 			<label for="{{ form.month_selector.id_for_label }}">Month:</label>
 		   	<div class="input_field_filter"> {{ form.month_selector }} </div>
 			</div>
-		</div>
 
-		<div class="filter_right">
 			<div class="fieldWrapper_filter">
                 	<label for="{{ form.week_selector.id_for_label }}">Week:</label>
                 	<div class="input_field_filter"> {{ form.week_selector }} </div>
                 	</div>
 		
                 	<input class=button_filter type="submit" value="Filter"></input>
-		</div>
         </form>
 	</div>
 	{% if registers %}
