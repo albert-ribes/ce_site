@@ -352,26 +352,26 @@ a.list_link:active {
     border: 1px solid #ececec;
     /*background-color: #ececec;*/
     height: 80px;
-    width: 960px;
+    width: 940px;
     display: block;
 }
 
 .filter_left{
    /*border: 1px solid red;*/
-   height: 120px;
+   height: 80px;
    width: 310px;
    height: 100px;
    float: left;
 }
 .filter_center{
    /*border: 1px solid blue;*/
-   height: 120px;
+   height: 80px;
    width: 310px;
    height: 100px;
    float: left;
 }
 .filter_right{
-    height:100px;
+    height:80px;
     width: 310px;
     /*border:1px solid green;*/
     float: left;
@@ -392,7 +392,7 @@ a.list_link:active {
 .fieldwrapper_filter{
     display: block;
     height: 40px;
-    width: 380px
+    width: 360px
 }
 
 
@@ -406,6 +406,23 @@ a.list_link:active {
     width: 380px;
     display: block;
 }
+.fieldwrapper_user{
+    display: block;
+    height: 40px;
+    width: 600px;
+    /*padding: 10px;*/
+}
+.input_field_user {
+    height: 20px;
+    width: 340px;
+    /*Comment*/
+    margin-top: 10px;
+    margin-right: 10px;
+    float: left;
+}
+
+
+
 
 
 /*MODIFY REGISTER*/
@@ -431,7 +448,16 @@ a.list_link:active {
     /*border: 1px solid #ececec;*/
     /*background-color: #eeeeee;*/
     height: 220px;
-    width: 600px;
+    width: 800px;
+}
+
+.input_field_insert {
+    height: 20px;
+    width: 340px;
+    /*Comment*/
+    margin-top: 10px;
+    margin-right: 10px;
+    float: left;
 }
 
 .fieldwrapper{
@@ -457,8 +483,7 @@ label {
 
 .input_field {
     height: 20px;
-    width: 220px;
-    /*Comment*/
+    width: 240px;
     margin-top: 10px;
     margin-right: 10px;
     float: left;

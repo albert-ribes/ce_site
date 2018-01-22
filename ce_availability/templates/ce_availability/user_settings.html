@@ -18,51 +18,51 @@
 		{% endcomment %}
  		
 
-		<div class="fieldWrapper">
+		<div class="fieldWrapper_user">
                 <label for="{{ user_form.first_name.id_for_label }}">Username (*):</label>
-                <div class="input_field"> {{ user.username }} </div>
+                <div class="input_field_user"> {{ user.username }} </div>
                 </div>	
 
-		<div class="fieldWrapper">
+		<div class="fieldWrapper_user">
                 <label for="{{ user_form.first_name.id_for_label }}">Role (*):</label>
-                <div class="input_field"> {{ user_type }} </div>
+                <div class="input_field_user"> {{ user_type }} </div>
                 </div>
 
 		{% if user.group == 'CE' %}
-		<div class="fieldWrapper">
+		<div class="fieldWrapper_user">
                 <label for="{{ user_form.first_name.id_for_label }}">Manager (*):</label>
-                <div class="input_field"> {{ user.employee.manager.first_name }} {{ user.employee.manager.last_name }} </div>
+                <div class="input_field_user"> {{ user.employee.manager.first_name }} {{ user.employee.manager.last_name }} </div>
                 </div>
 		{% endif %}
 
-		<div class="fieldWrapper">
+		<div class="fieldWrapper_user">
                 <label for="{{ employee_form.employee_id.id_for_label }}">Employee ID:</label>
-                <div class="input_field"> {{ employee_form.employee_id }} </div>
+                <div class="input_field_user"> {{ employee_form.employee_id }} </div>
                 </div>
 
-		<div class="fieldWrapper">
+		<div class="fieldWrapper_user">
                 <label for="{{ employee_form.location.id_for_label }}">Location:</label>
-                <div class="input_field"> {{ employee_form.location }} </div>
+                <div class="input_field_user"> {{ employee_form.location }} </div>
                 </div>
 	
-		<div class="fieldWrapper">
+		<div class="fieldWrapper_user">
                 <label for="{{ user_form.first_name.id_for_label }}">First Name:</label>
-                <div class="input_field"> {{ user_form.first_name }} </div>
+                <div class="input_field_user"> {{ user_form.first_name }} </div>
                 </div>
 
-		<div class="fieldWrapper">
+		<div class="fieldWrapper_user">
                 <label for="{{ user_form.last_name.id_for_label }}">Last Name:</label>
-                <div class="input_field"> {{ user_form.last_name }} </div>
+                <div class="input_field_user"> {{ user_form.last_name }} </div>
                 </div>
 
-		<div class="fieldWrapper">
+		<div class="fieldWrapper_user">
                 <label for="{{ user_form.last_email.id_for_label }}">E-mail:</label>
-                <div class="input_field"> {{ user_form.email }} </div>
+                <div class="input_field_user"> {{ user_form.email }} </div>
                 </div>
 
-		<div class="fieldWrapper">
+		<div class="fieldWrapper_user">
                 <label for="{{ employee_form.phone.id_for_label }}">Phone:</label>
-                <div class="input_field"> {{ employee_form.phone }} </div>
+                <div class="input_field_user"> {{ employee_form.phone }} </div>
                 </div>	
 
         </div>
