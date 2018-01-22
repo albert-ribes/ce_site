@@ -180,7 +180,7 @@ table.table_registers th.id {
 }
 
 table.table_registers th.start {
-    width:80px;
+    width:120px;
 }
 
 table.table_registers th.finish {
@@ -198,8 +198,8 @@ table.table_registers th.unavailability {
 table.table_registers th.published {
     width:220px;
 }
-table.table_category th.published {
-    width:120px;
+table.table_registers th.category {
+    width:140px;
 }
 table.table_registers th.comments {
     width:200px;
@@ -369,7 +369,7 @@ a.list_link:active {
     margin-bottom: 10px;
     border: 1px solid #ececec;
     /*background-color: #ececec;*/
-    height: 280px;
+    height: 320px;
     width: 440px;*/
     display: block;
 }
