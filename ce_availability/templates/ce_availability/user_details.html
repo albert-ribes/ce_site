@@ -1,0 +1,20 @@
+{% extends 'ce_availability/base.html' %}
+
+{% block content %}
+	<h3>User details</h3><br>
+	<div class="user_details">
+	<ul>
+		<li>Username: {{ user.username }} (*)</li>
+		<li>Employee ID: {{ user.employee.employee_id }}</li>
+		<li>Employee type: {{ user_type }}</li>
+		<li>Location: {{ user.employee.location }}</li>	
+		<li>Manager: {{ user.employee.manager.first_name }} {{ user.employee.manager.last_name }}</li>
+		<li>Name: {{ user.first_name }}</li>
+		<li>Surname: {{ user.last_name }}</li>
+		<li>e-mail: {{ user.email }}</li>
+		<li>Phone: {{ user.employee.phone }}</li>
+		<li>Last login: {{ user.last_login }}</li>
+	</ul> 
+	</div>
+{% endblock %}
+

@@ -1,0 +1,103 @@
+{% extends 'ce_availability/base.html' %}
+
+<script>
+$("tr").click(function(){
+    $(this).addClass("selected").siblings().removeClass("selected");
+});
+</script>
+
+{% block content %}
+	<h3>Unavailabilities</h3><br>
+        <p>You can filter the registers by CE, kind of Unavailabily, year or month:</p>
+	{% comment %}
+        {% endcomment %}
+	<div class="filter_form">
+        <form method="POST" class="ListFilterForm" novalidate>{% csrf_token %}
+		<div class="filter_left">
+			<div class="fieldWrapper_filter">
+			<label for="{{ form.ce_selector.id_for_label }}">CE:</label>
+                	<div class="input_field_filter"> {{ form.ce_selector }} </div>
+			</div>
+		
+
+			<div class="fieldWrapper_filter">	
+			<label for="{{ form.unavailability_selector.id_for_label }}">Unavailability:</label>
+        	        <div class="input_field_filter"> {{ form.unavailability_selector }} </div>
+			</div>
+		</div>
+
+		<div class="filter_center">
+			<div class="fieldWrapper_filter">
+			<label for="{{ form.year_selector.id_for_label }}">Year:</label>
+                	<div class="input_field_filter"> {{ form.year_selector }} </div>
+			</div>	
+	
+			<div class="fieldWrapper_filter">	
+			<label for="{{ form.month_selector.id_for_label }}">Month:</label>
+		   	<div class="input_field_filter"> {{ form.month_selector }} </div>
+			</div>
+		</div>
+
+		<div class="filter_right">
+			<div class="fieldWrapper_filter">
+                	<label for="{{ form.week_selector.id_for_label }}">Week:</label>
+                	<div class="input_field_filter"> {{ form.week_selector }} </div>
+                	</div>
+		
+                	<input class=button_filter type="submit" value="Filter"></input>
+		</div>
+        </form>
+	</div>
+	{% if registers %}
+		<table class="table_registers">
+			<tr>
+				<th class="ID">
+                                        ID
+                                </th>
+				
+                                <th class="ce">
+					CE
+				</th>
+				<th class="start">
+					Date
+				</th>
+				{% comment %}
+                                <th class="finish">
+					Finish
+				</th>
+				{% endcomment %}
+                                <th class="hours">
+					Hours
+				</th>
+                                <th class="unavailability">
+					Unavailability
+				</th>
+                                <th class="comments" >
+					Comments
+				</th>
+						
+                        </tr>
+	        {% for register in registers %}
+			<tr>
+    				<td><a  class="list_link" href='/ce_availability/details/{{ register.id }}'>{{ register.id }}</a></td>
+    				<td><a  class="list_link" href='/ce_availability/details/{{ register.id }}'>{{ register.user.last_name }}, {{ register.user.first_name }}</a></td>
+    				<td><a class="list_link" href='/ce_availability/details/{{ register.id }}'>{{ register.start_date }}</a></td>
+				{% comment %}
+    				<td><a class="list_link" href='/ce_availability/details/{{ register.id }}'>{{ register.end_date }}</a></td>
+				{% endcomment %}
+    				<td><a class="list_link" href='/ce_availability/details/{{ register.id }}'>{{ register.hours }}</a></td>
+    				<td><a class="list_link" href='/ce_availability/details/{{ register.id }}'>{{ register.unavailability }}</a></td>
+    				<td><a class="list_link" href='/ce_availability/details/{{ register.id }}'>{{ register.comments }}</a></td>
+				{% comment %}
+    				<th>{{ register.created_date }}</th>
+				{% endcomment %}
+  			</tr>
+	        {% endfor %}
+		</table>
+                <hr>
+		<p> TOTAL unavailable hours: <b>{{hours}}</b></p>
+	{% else %}
+		<p>No records found </p>
+	{% endif %}
+{% endblock %}
+

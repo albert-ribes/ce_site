@@ -1,0 +1,496 @@
+.page-header {
+    background-color: #ffd633;
+    margin-top: 0;
+    margin-bottom: 10px;
+    padding: 20px 20px 20px 40px;
+}
+
+.page-header h1, .page-header h1 a, .page-header h1 a:visited, .page-header h1 a:active {
+    color: #444444;
+    font-weight: bold;
+    font-size: 26pt;
+    text-decoration: none;
+}
+
+.content {
+    margin-left: 40px;
+    padding-left: 4px;
+}
+
+.content_container{
+    padding-left: 0px;
+}
+
+h1, h2, h3, h4 {
+    /*font-family: 'Lobster', cursive;*/
+    margin-top: 0px;
+}
+
+h2{
+    color: #444444;
+    font-weight: bold;
+    font-size: 18pt;
+    text-decoration: none;
+
+}
+
+.date {
+    color: #828282;
+}
+
+.tags {
+    margin: 6px 6px 6px 6px;
+}
+
+.mytag {
+    background-color: #ebebe0;
+    color: #428bca;
+    margin: 10px 10px 0px -2px;
+    padding: 4px 8px 4px 9px;
+}
+
+
+.save {
+    /*float: left;*/
+}
+
+.post-form textarea, .post-form input {
+    width: 100%;
+}
+
+.top-menu, .top-menu:hover, .top-menu:visited {
+    color: #444444;
+    /*float: right;*/
+    font-size: 12pt;
+    /*margin-right: 20px;*/
+    margin-left: 2px;
+    margin-top: 6px;
+    vertical-align:middle;
+}
+
+.top-menu-icon, .top-menu-icon:hover, .top-menu-icon:visited {
+    color: #444444;
+    /*float: right;*/
+    font-size: 14pt;
+    margin-left: 2px;
+    padding-right: 10px;
+}
+
+
+.post {
+    margin-bottom: 70px;
+}
+
+.post h1 a, .post h1 a:visited {
+    color: #000000;
+}
+
+.comment {
+    margin: 20px 20px 20px 20px;
+}
+
+#id_ce_selector{
+    margin-left: 4px;
+    margin-right: 10px;
+}
+
+#id_unavailability_selector{
+    margin-left: 4px;
+    margin-right: 10px;
+}
+
+#id_year_selector{
+    margin-left: 4px;
+    margin-right: 10px;
+}
+ 
+#id_month_selector{
+    margin-left: 4px;
+    margin-right: 10px;
+}
+
+#id_email{
+    /*margin-top: 10px;*/
+}
+
+button.save.btn.btn-default{
+   margin-top: -4px;
+   margin-left: 20px;
+   height: 20px;
+   width: 60px;
+   padding: 0px;
+}
+
+button.submit-button{
+   /*display: block;*/
+   margin-top: 10px;
+}
+
+
+table.table_registers {
+    font-weight: normal;
+    border-collapse: collapse;
+    width: 1000px;
+    font-size: 13px;
+    border: 1px solid #000000;
+}
+
+/*
+table.table_registers tr:first-child td, table.table_registers td:first-child tr { 
+    font-weight: bold;
+    background-color: #cccccc;
+    text-align: center;
+}
+*/
+
+table.table_registers tr:nth-child(1){
+    font-weight: bold;
+    background-color: #cccccc;
+    text-align: center;
+}
+
+
+
+table.table_registers td, table.table_registers th {
+
+    font-weight: normal;
+    border: 1px solid #aaaaaa;
+    text-align: left;
+    padding: 8px;
+}
+
+table.table_registers th.ce {
+    width:180px;
+}
+
+table.table_registers th.id {
+    width:60px;
+}
+
+table.table_registers th.start {
+    width:140px;
+}
+
+table.table_registers th.finish {
+    width:140px;
+}
+
+table.table_registers th.hours {
+    width:60px;
+}
+
+table.table_registers th.unavailability {
+    width:200px;
+}
+
+table.table_registers th.published {
+    width:220px;
+}
+table.table_registers th.comments {
+    width:200px;
+}
+
+
+table.table_registers tr:nth-child(odd) {
+    font-weight: normal;
+    background-color: #eeeeee;
+}
+table.table_registers tr:nth-child(odd):hover,  tr:nth-child(odd).selected {
+    font-weight: normal;
+    background-color: #fffeb3;
+}
+
+table.table_registers tr:first-child th{
+    font-weight: bold;
+    background-color: #999999;
+    color: white;
+}
+
+/*TABLE SELECT COLOR*/
+
+tr:hover, tr.selected {
+    background-color: #fffeb3;
+}
+td {padding: 5px;}
+
+table.table_registers a
+{
+    display:block;
+    text-decoration:none;
+}
+
+a.list_link:link {
+    color: black;
+    text-decoration: none;
+}
+
+/* visited link */
+a.list_link:visited {
+    color: black;
+}
+
+/* mouse over link */
+a.list_link:hover {
+    color: black;
+}
+
+/* selected link */
+a.list_link:active {
+    color: black;
+}
+
+/*Style INSERT */
+
+#id_unavailability {
+}
+#id_hours {
+    width: 50px;
+}
+#id_start_date {
+    width: 80px;
+}
+#id_end_date {
+    width: 80px;
+}
+#id_comments {
+    width: 200px;
+}
+
+/*CHANGE PWD*/
+.change_pwd_form{
+    margin-top: 20px;
+    margin-bottom: 10px;
+    /*border: 1px solid #ececec;*/
+   /*background-ccolor: #ececec;*/
+    height: 240px;
+    width: 960px;
+}
+
+.fieldInputForm{
+    margin-top: 20px;
+    margin-bottom: 10px;
+    /*border: 1px solid green;*/
+   /* background-ccolor: #ececec;*/
+    height: 120px;
+    width: 400px;
+}
+.button-chg-pwd{
+    /*margin-top: 100px;*/
+    margin-left: 200px;
+}
+
+#id_old_password{
+    float: left;
+    display: block;
+}
+#id_new_password1{
+    float: left;
+    display: block;
+}
+#id_new_password2{
+    float: left;
+    display: block;
+}
+#helptext{
+    border: 1px solid #ececec;
+}
+.ul{
+   margin-top: 20px;
+   border: 1px solid #ececec;
+}
+
+.error_field-chg-pwd{
+	/*border: 1px solid red;*/
+	height: 80px;
+	width: 460px;	
+	margin-left: 20px;
+}
+
+.form_error_chg-pwd{
+   color: red;
+   height: 20px;
+   display: block;
+}
+
+
+
+/*LOGIN PAGE*/
+
+.login_form{
+    margin-top: 20px;
+    margin-bottom: 10px;
+    /*border: 1px solid #ececec;*/
+   /* background-ccolor: #ececec;*/
+    height: 140px;
+    width: 360px;
+    
+}
+
+.login_button{
+   float: none;
+    display: block;
+    white-space: normal;
+    text-align: center;
+    width: 60px;
+    margin-top: 16px;
+    margin-left: 210px;
+}
+
+.login_tip{
+   margin-top: 20px;
+   margin-bottom: 20px;
+}
+
+/*LIST REGISTERS*/
+.filter_form{
+    margin-top: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ececec;
+    /*background-color: #ececec;*/
+    height: 80px;
+    width: 1000px;
+    display: block;
+}
+
+.filter_left{
+   /*border: 1px solid red;*/
+   height: 120px;
+   width: 320px;
+   height: 100px;
+   float: left;
+}
+.filter_center{
+   /*border: 1px solid blue;*/
+   height: 120px;
+   width: 320px;
+   height: 100px;
+   float: left;
+}
+.filter_right{
+    height:100px;
+    width:320px;
+    /*border:1px solid green;*/
+    float: left;
+}
+
+
+.button_filter{
+    float: none;
+    display: block;
+    white-space: normal;
+    text-align: center;
+    width: 120px;
+    height: 22px;
+    margin-top: 10px;
+    margin-left: 100px;
+}
+
+.fieldwrapper_filter{
+    display: block;
+    height: 40px;
+    width: 420px
+}
+
+
+/*USER SETTINGS*/
+.user_settings{
+    margin-top: 20px;
+    margin-bottom: 10px;
+    /*border: 1px solid #ececec;*/
+    /*background-color: #ececec;*/
+    height: 340px;
+    width: 380px;
+    display: block;
+}
+
+
+/*MODIFY REGISTER*/
+.modify_register{
+    margin-top: 20px;
+    margin-bottom: 10px;
+    /*border: 1px solid #ececec;*/
+    /*background-color: #ececec;*/
+    height: 220px;
+    width: 560px;
+    display: block;
+}
+.update-button{
+    width: 80px;
+    margin-left:20px;
+}
+
+
+/*INSERT REGISTER*/
+.unavailability_form{
+    margin-top: 20px;
+    padding: 10px;
+    /*border: 1px solid #ececec;*/
+    /*background-color: #eeeeee;*/
+    height: 220px;
+    width: 600px;
+}
+
+.fieldwrapper{
+    display: block;
+    height: 40px;
+    width: 400px;
+    /*padding: 10px;*/
+}
+
+
+
+label {
+    color: #333;
+    height: 20px;
+    width: 140px;
+    margin-top: 10px;
+    margin-left: 10px;
+    text-align: right;
+    clear: both;
+    float:left;
+    margin-right:15px;
+}
+
+.input_field {
+    height: 20px;
+    width: 250px;
+    margin-top: 10px;
+    margin-right: 10px;
+    float: left;
+}
+
+.input_field_filter {
+    height: 20px;
+    width: 160px;
+    margin-top: 10px;
+    margin-right: 10px;
+    float: left;
+}
+
+
+.form_error{
+   color: red;
+   height: 20px;
+    width: 160px;
+    margin-top: 10px;
+    float: left;
+}
+
+.text_error{
+   color: red;
+   height: 20px;
+    /*width: 160px;*/
+    display: block;
+    margin-top: 10px;
+}
+
+button.save.btn.btn-default{
+    float: none;
+    display: block;
+    white-space: normal;
+    text-align: center;
+    width: 80px;
+    margin-top: 10px;
+    margin-left: 180px;
+}
+

@@ -1,0 +1,30 @@
+from django import forms
+from django.forms import ModelForm, DateTimeInput
+from .models import Register
+
+from django.contrib.admin import widgets
+
+class RegisterForm(forms.ModelForm):
+
+    class Meta:
+        model = Register
+        fields = ('unavailability', 'hours', 'comments','date',)
+
+    """def __init__(self, *args, **kwargs):
+        super(RegisterForm, self).__init__(*args, **kwargs)
+        self.fields['date'].widget = widgets.AdminDateWidget()
+        #self.fields['time'].widget = widgets.AdminTimeWidget()
+        #self.fields['date'].widget = widgets.AdminSplitDateTime()
+    """
+
+class ListFilterForm(forms.Form):
+    year_selector = forms.CharField(label='Year', max_length=4)
+    month_selector = forms.CharField(label='Month', max_length=10)
+
+    def save(self, commit=True):
+        #print("> INFO, forms.py: save() method")
+        year = self.cleaned_data.get('year_selector', None)
+        month = self.cleaned_data.get('month_selector', None)
+        #print("> INFO, forms.py. Host: " + host + ", Ports: " + ports)
+        # Take the right actions
+        return(year, month)

@@ -1,0 +1,75 @@
+{% extends 'ce_availability/base.html' %}
+
+{% block content %}
+	<h3>User details</h3>
+        <div class="user_settings">
+        <form method="post">
+		{% csrf_token %}
+		{% comment %}
+  		{{ user_form.as_p }}
+		{{ employee_form.as_p }}
+		{% comment %}
+		<li>Username: {{ user.username }}</li>
+		<li>Employee ID: {{ user.employee.employee_id }}</li>
+		<li>Name: {{ user.first_name }}</li>
+		<li>Surname: {{ user.last_name }}</li>
+		<li>e-mail: {{ user.email }}</li>
+		<li>Phone: {{ user.employee.phone }}</li>
+		{% endcomment %}
+ 		
+
+		<div class="fieldWrapper">
+                <label for="{{ user_form.first_name.id_for_label }}">Username (*):</label>
+                <div class="input_field"> {{ user.username }} </div>
+                </div>	
+
+		<div class="fieldWrapper">
+                <label for="{{ user_form.first_name.id_for_label }}">Role (*):</label>
+                <div class="input_field"> {{ user_type }} </div>
+                </div>
+
+		{% if user.group == 'CE' %}
+		<div class="fieldWrapper">
+                <label for="{{ user_form.first_name.id_for_label }}">Manager (*):</label>
+                <div class="input_field"> {{ user.employee.manager.first_name }} {{ user.employee.manager.last_name }} </div>
+                </div>
+		{% endif %}
+
+		<div class="fieldWrapper">
+                <label for="{{ employee_form.employee_id.id_for_label }}">Employee ID:</label>
+                <div class="input_field"> {{ employee_form.employee_id }} </div>
+                </div>
+
+		<div class="fieldWrapper">
+                <label for="{{ employee_form.location.id_for_label }}">Location:</label>
+                <div class="input_field"> {{ employee_form.location }} </div>
+                </div>
+	
+		<div class="fieldWrapper">
+                <label for="{{ user_form.first_name.id_for_label }}">First Name:</label>
+                <div class="input_field"> {{ user_form.first_name }} </div>
+                </div>
+
+		<div class="fieldWrapper">
+                <label for="{{ user_form.last_name.id_for_label }}">Last Name:</label>
+                <div class="input_field"> {{ user_form.last_name }} </div>
+                </div>
+
+		<div class="fieldWrapper">
+                <label for="{{ user_form.last_email.id_for_label }}">E-mail:</label>
+                <div class="input_field"> {{ user_form.email }} </div>
+                </div>
+
+		<div class="fieldWrapper">
+                <label for="{{ employee_form.phone.id_for_label }}">Phone:</label>
+                <div class="input_field"> {{ employee_form.phone }} </div>
+                </div>	
+
+        </div>
+	<p><a href="{% url 'change_password' %}">Change Password</a></p>
+                <button type="submit">Update changes</button>
+                <p> </p>
+                <p>(*) Not editable. If wrong, please contact the <a href="mailto:albert.ribes@hpcds.com">App Admin</a>.</p>
+	</div>
+{% endblock %}
+

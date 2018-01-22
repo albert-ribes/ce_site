@@ -1,0 +1,28 @@
+{% extends "ce_availability/base.html" %}
+
+{% block content %}
+    {% if user.is_authenticated %}
+	<h3>Home</h3><br>
+	{% if user.first_name == 'admin' %}
+		<a href="../admin"><p><span class="glyphicon glyphicon-lock"></span></a>      Go to the admin page</p>
+
+	{% else %}
+		{% comment %}
+		<a href="{% url 'insert' %}"><p><span class="glyphicon glyphicon-plus"></span></a>      Insert a new unavailability</p>
+                <a href="{% url 'list' %}"><p><span class="glyphicon glyphicon-search"></span></a>      List Unavailabilities</p>
+                <a href="{% url 'user_settings' %}"><p><span class="glyphicon glyphicon-user"></span></a>       User Settings</p>
+		{% endcomment %}
+		<p>Welcome to the <b>CE Availability tool</b>.</p>
+		<br>
+		<p>Please use the menu above to <a href="{% url 'insert' %}">add</a>, <a href="{% url 'list' %}">list, edit and delete </a> unavailabilities and check your <a href="{% url 'user_settings' %}">user settings</a>.</p>
+		<br>
+		<p>Have a nice day!</p>
+	{% endif %}
+    {% else %}
+	<br>
+        <p>Welcome to the <b>CE Availability tool</b>.</p>
+	<p>Please <a href="login">login</a> to add, list, edit and delete unavailabilities. </p>
+    {% endif %}
+    <div id="content">
+    </div>
+{% endblock %}

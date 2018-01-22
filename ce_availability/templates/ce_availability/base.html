@@ -1,0 +1,48 @@
+{% load staticfiles %}
+<html>
+    <head>
+        <title>CE Availability</title>
+        <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+        <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
+        <link href='//fonts.googleapis.com/css?family=Lobster&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
+        <link rel="stylesheet" href="{% static 'css/style.css' %}"> 
+    	<meta http-equiv="Content-type" content="text/html; charset=utf-8" /> 
+        
+        <script type="text/javascript" src="/my_admin/jsi18n/"></script>
+	<script type="text/javascript" src="/media/admin/js/core.js"></script>
+
+        {% load static %}
+    </head>
+<body>
+    <div class="page-header">
+
+        <h1><a href="/ce_availability">CE Availability</a></h1>
+        {% if user.is_authenticated  and user.first_name != 'admin' %}
+            <p class="top-menu">Welcome {{ user.first_name }}!</p>
+            <a href="{% url 'home' %}" title="Home" class="top-menu-icon"><span class="glyphicon glyphicon-home"></span></a>
+            <a href="{% url 'insert' %}" title="Insert a Unavailability" class="top-menu-icon"><span class="glyphicon glyphicon-plus"></span></a>
+            <a href="{% url 'list' %}" title="List, edit and delete Unavailabilities" class="top-menu-icon"><span class="glyphicon glyphicon-search"></span></a>
+            <a href="{% url 'user_settings' %}" title="Edit User Settings" class="top-menu-icon"><span class="glyphicon glyphicon-user"></span></a>
+            <a href="{% url 'about' %}" title="About" class="top-menu-icon"><span class="glyphicon glyphicon-info-sign"></span></a>
+            <a href="{% url 'logout' %}" title="Logout" class="top-menu-icon"><span class="glyphicon glyphicon-log-out"></span></a>
+        {% elif user.is_authenticated  and user.first_name == 'admin' %}
+	    Welcome Admin!
+	{% else %}
+            <p class="top-menu">User not logged in &nbsp;<a href="{% url 'login' %}" title="Login" class="top-menu-icon"><span class="glyphicon glyphicon-log-in"></span></a></p>
+        {% endif %}
+    </div>
+    <div class="content container">
+	{% comment %}
+        <div class="row">
+            <div class="col-md-8">
+            {% block content %}
+            {% endblock %}
+            </div>
+        </div>
+	{% endcomment %}
+	{% block content %}
+        {% endblock %}
+    </div>
+</body>
+</html>
+
