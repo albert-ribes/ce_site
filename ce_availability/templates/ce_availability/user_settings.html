@@ -7,18 +7,6 @@
         <div class="user_settings">
         <form method="post">
 		{% csrf_token %}
-		{% comment %}
-  		{{ user_form.as_p }}
-		{{ employee_form.as_p }}
-		{% comment %}
-		<li>Username: {{ user.username }}</li>
-		<li>Employee ID: {{ user.employee.employee_id }}</li>
-		<li>Name: {{ user.first_name }}</li>
-		<li>Surname: {{ user.last_name }}</li>
-		<li>e-mail: {{ user.email }}</li>
-		<li>Phone: {{ user.employee.phone }}</li>
-		{% endcomment %}
- 		
 
 		<div class="fieldWrapper_user">
                 <label for="{{ user_form.first_name.id_for_label }}">Username (*):</label>
@@ -30,7 +18,7 @@
                 <div class="input_field_user"> {{ user_type }} </div>
                 </div>
 
-		{% if user.group == 'CE' %}
+		{% if user_type == 'CE' %}
 		<div class="fieldWrapper_user">
                 <label for="{{ user_form.first_name.id_for_label }}">Manager (*):</label>
                 <div class="input_field_user"> {{ user.employee.manager.first_name }} {{ user.employee.manager.last_name }} </div>
@@ -38,15 +26,16 @@
 		{% endif %}
 
 		<div class="fieldWrapper_user">
+                <label for="{{ employee_form.location.id_for_label }}">Location (*):</label>
+                <div class="input_field_user"> {{ user.employee.location }} </div>
+                </div>
+
+
+		<div class="fieldWrapper_user">
                 <label for="{{ employee_form.employee_id.id_for_label }}">Employee ID:</label>
                 <div class="input_field_user"> {{ employee_form.employee_id }} </div>
                 </div>
 
-		<div class="fieldWrapper_user">
-                <label for="{{ employee_form.location.id_for_label }}">Location:</label>
-                <div class="input_field_user"> {{ employee_form.location }} </div>
-                </div>
-	
 		<div class="fieldWrapper_user">
                 <label for="{{ user_form.first_name.id_for_label }}">First Name:</label>
                 <div class="input_field_user"> {{ user_form.first_name }} </div>
@@ -56,7 +45,7 @@
                 <label for="{{ user_form.last_name.id_for_label }}">Last Name:</label>
                 <div class="input_field_user"> {{ user_form.last_name }} </div>
                 </div>
-
+		{% comment %}
 		<div class="fieldWrapper_user">
                 <label for="{{ user_form.last_email.id_for_label }}">E-mail:</label>
                 <div class="input_field_user"> {{ user_form.email }} </div>
@@ -65,13 +54,14 @@
 		<div class="fieldWrapper_user">
                 <label for="{{ employee_form.phone.id_for_label }}">Phone:</label>
                 <div class="input_field_user"> {{ employee_form.phone }} </div>
-                </div>	
+                </div>
+		{% endcomment %}
 
         </div>
 	<p><a href="{% url 'change_password' %}">Change Password</a></p>
                 <button type="submit">Update changes</button>
                 <p> </p>
-                <p>(*) Not editable. If wrong, please contact the <a href="mailto:albert.ribes@hpcds.com">App Admin</a>.</p>
+                <p>(*) Not editable. If wrong, please contact your manager.</p>
 	</div>
 {% endblock %}
 

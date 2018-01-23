@@ -31,11 +31,11 @@ class RegisterForm(forms.ModelForm):
         print ("INFO: FORMS.RegisterForm.clean, dayofweek=" + str(dayofweek) + ", hours:" + str(hours))
         if hours: 
             if (dayofweek>=0 and dayofweek<=3 and hours>8.5):
-                raise forms.ValidationError({'hours': ["Max hours is 8,5!",]})
-            if (dayofweek==4 and hours>6.5):
-                raise forms.ValidationError({'hours': ["Max hours is 6,5!",]})
+                raise forms.ValidationError({'hours': ["Max hours is 8,5.",]})
+            if (dayofweek==4 and hours>7):
+                raise forms.ValidationError({'hours': ["Max hours is 7.",]})
             if (dayofweek==5 or dayofweek==6.0):
-                raise forms.ValidationError({'start_date': ["No unavailabilities allowed during the weekend!",]})
+                raise forms.ValidationError({'start_date': ["No unavailabilities allowed during the weekend.",]})
 
 
 class ListFilterForm(forms.Form):
@@ -96,4 +96,5 @@ class UserForm(forms.ModelForm):
 class EmployeeForm(forms.ModelForm):
     class Meta:
         model = Employee
-        fields = ('employee_id', 'phone', 'location')
+        #fields = ('employee_id', 'phone', 'location')
+        fields = ('employee_id', 'phone')

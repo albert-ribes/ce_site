@@ -334,6 +334,7 @@ a.list_link:active {
 .login_form{
     margin-top: 20px;
     margin-bottom: 10px;
+    margin-left: -80px;
     /*border: 1px solid #ececec;*/
    /* background-ccolor: #ececec;*/
     height: 140px;
@@ -369,7 +370,7 @@ a.list_link:active {
     margin-bottom: 10px;
     border: 1px solid #ececec;
     /*background-color: #ececec;*/
-    height: 320px;
+    height: 280px;
     width: 440px;*/
     display: block;
 }
@@ -404,7 +405,7 @@ a.list_link:active {
     width: 120px;
     height: 22px;
     margin-top: 10px;
-    margin-left: 160px;
+    margin-left: 168px;
 }
 
 .fieldwrapper_filter{
@@ -416,12 +417,12 @@ a.list_link:active {
 
 /*USER SETTINGS*/
 .user_settings{
-    margin-top: 20px;
     margin-bottom: 10px;
+    margin-left: -60px;
     /*border: 1px solid #ececec;*/
     /*background-color: #ececec;*/
-    height: 340px;
-    width: 380px;
+    height: 300px;
+    width: 680px;
     display: block;
 }
 .fieldwrapper_user{
@@ -438,10 +439,6 @@ a.list_link:active {
     margin-right: 10px;
     float: left;
 }
-
-
-
-
 
 /*MODIFY REGISTER*/
 .modify_register{
@@ -462,10 +459,10 @@ a.list_link:active {
 /*INSERT REGISTER*/
 .unavailability_form{
     margin-top: 20px;
-    padding: 10px;
+    margin-left: -40px;
     /*border: 1px solid #ececec;*/
     /*background-color: #eeeeee;*/
-    height: 220px;
+    height: 180px;
     width: 800px;
 }
 
@@ -538,7 +535,7 @@ button.save.btn.btn-default{
     white-space: normal;
     text-align: center;
     width: 80px;
-    margin-top: 10px;
-    margin-left: 180px;
+    margin-top: 18px;
+    margin-left: 126px;
 }
 

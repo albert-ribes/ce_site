@@ -13,10 +13,17 @@ from django.db.models.signals import post_save
 from django.dispatch import receiver
 """
 
+class Location(models.Model):
+    location = models.CharField(max_length=200)
+
+    def __str__(self):
+        return self.location
+
 class Employee(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     employee_id = models.CharField(max_length=20, blank=True)
-    location = models.CharField(max_length=30, blank=True)
+    location = models.ForeignKey(Location, related_name='Location')
+    #location = models.CharField(max_length=30, blank=True)
     phone = models.CharField(max_length=40, blank=True)
     manager = models.ForeignKey(User, related_name='Manager', default=1)
     #manager = models.ForeignKey(User, on_delete=models.CASCADE, related_name='Mgr', default=0)
