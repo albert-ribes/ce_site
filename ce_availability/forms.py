@@ -58,7 +58,7 @@ class ListFilterForm(forms.Form):
     MONTH_CHOICES = (('All','  All'),('1','January'), ('2','February'),('3','March'),('4','April'),('5','May'),('6','June'),('7','July'),('8','August'),('9','September'),('10','October'),('11','November'),('12','Desember'))
     WEEK_CHOICES = (('All', '  All'),(currentWeek,'Current'))
     #Filter selectors
-    ce_selector = forms.ChoiceField(label='CE', choices=[(choice.pk, choice) for choice in User.objects.filter(groups__name='CE')])
+    ce_selector = forms.ChoiceField(label='CE', choices=[(choice.pk, choice) for choice in User.objects.filter(groups__name='CE').order_by('username')])
     """
     for choice in Unavailability.objects.all():
         print(choice)
