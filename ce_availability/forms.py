@@ -26,14 +26,22 @@ class RegisterForm(forms.ModelForm):
     def clean(self):
         start_date=self.cleaned_data.get('start_date')
         hours=self.cleaned_data.get('hours')
-        print("INFO: START_DATE:" + str(start_date) + ", hours=" + str(hours))
+        ce=self.cleaned_data.get('user')
+        print("INFO: START_DATE:" + str(start_date) + ", hours=" + str(hours) + ", ce=" + str(ce))
+        registers = Register.objects.filter(start_date=start_date).filter(user__username=ce)
+        sum_hours=0
+        for register in registers:
+            sum_hours=sum_hours+register.hours
+        print(sum_hours)
         dayofweek=start_date.weekday()
-        print ("INFO: FORMS.RegisterForm.clean, dayofweek=" + str(dayofweek) + ", hours:" + str(hours))
+        print ("INFO: FORMS.RegisterForm.clean, user= " + str(ce) + "dayofweek=" + str(dayofweek) + ", inserted_hours:" + str(hours) + ", sum_hours=" + str(sum_hours))
         if hours: 
-            if (dayofweek>=0 and dayofweek<=3 and hours>8.5):
-                raise forms.ValidationError({'hours': ["Max hours is 8,5.",]})
-            if (dayofweek==4 and hours>7):
-                raise forms.ValidationError({'hours': ["Max hours is 7.",]})
+            if (dayofweek>=0 and dayofweek<=3):
+                if (sum_hours + hours > 8.5):
+                    raise forms.ValidationError({'hours': ["The total amount of unavailable hours cannot be greather than 8,5 in that day.",]})
+            if (dayofweek==4):
+                if (sum_hours + hours > 7):
+                    raise forms.ValidationError({'hours': ["The total amount of unavailable hours cannot be greather than 7 in that day.",]})
             if (dayofweek==5 or dayofweek==6.0):
                 raise forms.ValidationError({'start_date': ["No unavailabilities allowed during the weekend.",]})
 
