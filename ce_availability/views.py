@@ -180,8 +180,9 @@ def insert(request):
     for choice in ce_choices:
        print(choice)
     """
+    register_id=0
     if request.method == "POST":
-        form = RegisterForm(ce_choices, request.POST)
+        form = RegisterForm(register_id, ce_choices, request.POST)
         ce = form['user'].value()
         print("INFO: VIEWS.list_filter: ce=" + str(ce))
         if form.is_valid():
@@ -192,7 +193,7 @@ def insert(request):
             return render(request, 'ce_availability/insert_post.html', {'result':result, 'id': register.id})
     else:
         #form = RegisterForm(ce_choices, request.POST)
-        form = RegisterForm(ce_choices)
+        form = RegisterForm(register_id, ce_choices)
     return render(request, 'ce_availability/insert.html', {'form': form})
 
 @login_required
@@ -240,10 +241,11 @@ def register_details(request, pk):
        print(choice)
     """
     register = get_object_or_404(Register, pk=pk)
+    register_id=register.id
     #user=register.user_id
     if request.method == "POST":
         print("INFO: VIEWS.register_details: POST")
-        form = RegisterForm(ce_choices, request.POST, instance=register)
+        form = RegisterForm(register_id, ce_choices, request.POST, instance=register)
         #print("INFO: VIEWS.register_details: form=" +str(form))
         if form.is_valid():
             print("INFO: VIEWS.register_details: FORM_IS_VALID")
@@ -256,7 +258,7 @@ def register_details(request, pk):
             return render(request, 'ce_availability/update_post.html', {'result':result, 'id': register.id})
             
     else:
-        form = RegisterForm(ce_choices, instance=register)
+        form = RegisterForm(register_id, ce_choices, instance=register)
     return render(request, 'ce_availability/register_details.html', {'form': form, 'register': register})
 
 @login_required

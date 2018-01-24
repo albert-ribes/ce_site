@@ -8,6 +8,7 @@ from django.contrib.admin import widgets
 
 class RegisterForm(forms.ModelForm):
     unavailability = forms.ModelChoiceField(queryset=Unavailability.objects.order_by('unavailability'))
+    register_id=0
     
     class Meta:
         currentYear = datetime.now().year
@@ -19,23 +20,29 @@ class RegisterForm(forms.ModelForm):
             #'end_date': forms.SelectDateWidget(years=YEAR_CHOICES),
         }
 
-    def __init__(self, ce_choices, *args, **kwargs):
+    def __init__(self, register_id, ce_choices, *args, **kwargs):
        super(RegisterForm, self).__init__(*args, **kwargs)
        self.fields['user'].choices = ce_choices
+       self.register_id=register_id
+       print ("INFO: FORMS.RegisterForm.__init__, register_id=" + str(register_id))
 
     def clean(self):
         start_date=self.cleaned_data.get('start_date')
         hours=self.cleaned_data.get('hours')
         ce=self.cleaned_data.get('user')
-        print("INFO: START_DATE:" + str(start_date) + ", hours=" + str(hours) + ", ce=" + str(ce))
+        register_id=self.register_id
+        print("INFO: FORMS.RegisterForm.clean, start_date:" + str(start_date) + ", hours=" + str(hours) + ", ce=" + str(ce) + ", register_id=" + str(register_id))
         registers = Register.objects.filter(start_date=start_date).filter(user__username=ce)
         sum_hours=0
         for register in registers:
             sum_hours=sum_hours+register.hours
-        print(sum_hours)
+        if (register_id!=0):
+            sum_hours=sum_hours - Register.objects.filter(id=register_id).values_list('hours', flat=True).get()
         dayofweek=start_date.weekday()
-        print ("INFO: FORMS.RegisterForm.clean, user= " + str(ce) + "dayofweek=" + str(dayofweek) + ", inserted_hours:" + str(hours) + ", sum_hours=" + str(sum_hours))
-        if hours: 
+        print ("INFO: FORMS.RegisterForm.clean, user= " + str(ce) + ", dayofweek=" + str(dayofweek) + ", inserted_hours=" + str(hours) + ", sum_hours=" + str(sum_hours))
+        if hours:
+            if (hours<=0.0):
+               raise forms.ValidationError({'hours': ["Value must be greater than 0.",]})
             if (dayofweek>=0 and dayofweek<=3):
                 if (sum_hours + hours > 8.5):
                     raise forms.ValidationError({'hours': ["The total amount of unavailable hours cannot be greather than 8,5 in that day.",]})
@@ -44,7 +51,8 @@ class RegisterForm(forms.ModelForm):
                     raise forms.ValidationError({'hours': ["The total amount of unavailable hours cannot be greather than 7 in that day.",]})
             if (dayofweek==5 or dayofweek==6.0):
                 raise forms.ValidationError({'start_date': ["No unavailabilities allowed during the weekend.",]})
-
+        elif (hours<=0.0):
+            raise forms.ValidationError({'hours': ["Value must be greater than 0.",]})
 
 class ListFilterForm(forms.Form):
     currentMonth = datetime.now().month
