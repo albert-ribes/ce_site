@@ -15,6 +15,7 @@ from datetime import datetime, timedelta
 from django.contrib import messages
 from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponseRedirect, HttpResponse
+from calendar import monthrange
 
 def home(request):
     return render(request, 'ce_availability/home.html')
@@ -141,6 +142,56 @@ def list_filter(request, ce, unavailability, category, year, month, week):
 @login_required
 def about(request):
     return render(request, 'ce_availability/about.html')
+
+
+@login_required
+def calendar_filter(request, year, month):
+    if (int(month)>12):
+        return HttpResponseRedirect("/ce_availability/calendar/")
+    hours=0,5
+    first_day_of_week, last_day = monthrange(int(year), int(month))
+    month_range = range(1, last_day + 1)
+
+    user=request.user
+    user_type=getUserType(user)
+
+    if user_type=='CE':
+       manager_id=user.employee.manager.id
+       employees=User.objects.filter(id=user.id)
+    if user_type=='SDM':
+       manager_id=user.id
+       #ce='All'
+       employees = User.objects.filter(groups__name='CE').filter(employee__manager=manager_id).order_by('last_name')
+    """
+    w, h = last_day, len(employees);
+    print("INFO:" + str(w) + ", " + str(h))
+    Data = [{0 for x in range(w)} for y in range(h)]
+    """
+    data={}
+    for employee in employees:
+        data[employee.username]={}
+        #print(employee)
+        registers=Register.objects.filter(start_date__year=year).filter(start_date__month=month).filter(user_id=employee)
+        #print(str(registers))
+        for day in month_range:
+            data[employee.username][day]={}
+            hours=0
+            registers_day=registers.filter(start_date__day=day)
+            #print(str(day) + ", " + str(registers_day))
+            for r in registers_day:
+                #print(r)
+                hours = hours + r.hours
+            #print(employee.username + ", " + str(day) + ", " + str(hours))
+            data[employee.username][day]={hours}
+            print(data[employee.username][day])
+    print(data)
+    return render(request, 'ce_availability/calendar.html', {'data': data, 'employees': employees, 'year':year,'month': month, 'first_day_of_week': first_day_of_week, 'month_range':month_range ,'hours':hours})
+
+@login_required
+def calendar(request):
+    currentMonth = datetime.now().month
+    currentYear = datetime.now().year
+    return HttpResponseRedirect("/ce_availability/calendar/" + str(currentYear) + "/" + str(currentMonth))
 
 
 @login_required

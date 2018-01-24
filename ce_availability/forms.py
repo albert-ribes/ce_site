@@ -29,9 +29,12 @@ class RegisterForm(forms.ModelForm):
     def clean(self):
         start_date=self.cleaned_data.get('start_date')
         hours=self.cleaned_data.get('hours')
+        #hours = float(hours)
+        #hours=float(str(hours).replace(',',''))
         ce=self.cleaned_data.get('user')
         register_id=self.register_id
-        print("INFO: FORMS.RegisterForm.clean, start_date:" + str(start_date) + ", hours=" + str(hours) + ", ce=" + str(ce) + ", register_id=" + str(register_id))
+        if hours:
+            print("INFO: FORMS.RegisterForm.clean, start_date:" + str(start_date) + ", hours=" + str(hours) + ", ce=" + str(ce) + ", register_id=" + str(register_id))
         registers = Register.objects.filter(start_date=start_date).filter(user__username=ce)
         sum_hours=0
         for register in registers:
@@ -40,7 +43,10 @@ class RegisterForm(forms.ModelForm):
             sum_hours=sum_hours - Register.objects.filter(id=register_id).values_list('hours', flat=True).get()
         dayofweek=start_date.weekday()
         print ("INFO: FORMS.RegisterForm.clean, user= " + str(ce) + ", dayofweek=" + str(dayofweek) + ", inserted_hours=" + str(hours) + ", sum_hours=" + str(sum_hours))
-        if hours:
+        if hours==None:
+            #raise forms.ValidationError({'comments': ["",]})
+            print(hours)
+        if hours!=None:
             if (hours<=0.0):
                raise forms.ValidationError({'hours': ["Value must be greater than 0.",]})
             if (dayofweek>=0 and dayofweek<=3):
@@ -51,8 +57,9 @@ class RegisterForm(forms.ModelForm):
                     raise forms.ValidationError({'hours': ["The total amount of unavailable hours cannot be greather than 7 in that day.",]})
             if (dayofweek==5 or dayofweek==6.0):
                 raise forms.ValidationError({'start_date': ["No unavailabilities allowed during the weekend.",]})
-        elif (hours<=0.0):
-            raise forms.ValidationError({'hours': ["Value must be greater than 0.",]})
+        else:
+               #raise forms.ValidationError({'hours': ["Comma-separated",]})
+               print("ELSE")
 
 class ListFilterForm(forms.Form):
     currentMonth = datetime.now().month

@@ -1,0 +1,46 @@
+{% extends "ce_availability/base.html" %}
+
+{% block content %}
+	<p>Year: {{ year }}, Month: {{month}}</p>
+	<table class="table_calendar">
+		<tr>
+			<th class='ce'>CE</th>
+			{% for day in month_range %}
+			<th class='day'>{{day}}</th>
+			{% endfor %}
+		</tr>
+            	{% for employee in employees %}
+		<tr>
+			<th class='ce'>{{employee.last_name}}, {{employee.first_name}}</th>
+			{% for day in month_range %}
+			{%comment%}
+                        <th class='day'>{{ data[{{employee.username}}].[{{day}}] }}</th>
+			{%endcomment%}
+                        <th class='day'>
+			{% for usr, value in data.items%}
+	        	        {% ifequal usr employee.username%}
+					{%comment%}
+					{{user}}
+					{%endcomment%}
+					{% for dy, hrs in value.items%}
+						{% ifequal dy day%}
+							{% for h in hrs %}{{h}}{%endfor%}
+						{%endifequal%}
+					{% endfor %}
+				{%endifequal%}
+			{% endfor %}
+				{% for user in data %}	
+					{% ifequal user employee.username%}
+						{% for d in user.split %}
+							{%ifequal d day%}
+							{{d}}
+							{%endifequal%}
+						{% endfor %}
+					{%endifequal%}
+				{% endfor %}
+			</th>
+                        {% endfor %}
+		</tr>
+            	{% endfor %}
+	</table>
+{% endblock %}

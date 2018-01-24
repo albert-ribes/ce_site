@@ -68,5 +68,5 @@ class Register(models.Model):
         return self.start_date.year
 
     def __str__(self):
-        string = self.user.last_name + ", " + self.user.first_name + ": " + self.start_date.strftime("%Y-%m-%d, %I:%M ")
+        string = "ID=" + str(self.id) + ", " + self.user.last_name + ", " + self.user.first_name + ": " + self.start_date.strftime("%Y-%m-%d, %I:%M ")
         return string
