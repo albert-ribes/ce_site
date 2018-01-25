@@ -53,10 +53,10 @@ def list_filter(request, ce, unavailability, category, year, month, week):
        if (ce!=str(user.id)):
            return HttpResponseRedirect("/ce_availability/list")
        manager_id=user.employee.manager.id
-       ce_choices=[(choice.pk, choice) for choice in User.objects.filter(id=ce).order_by('username')]
+       ce_choices=[(choice.pk, choice.last_name + ", " + choice.first_name) for choice in User.objects.filter(id=ce).order_by('last_name')]
     if user_type=='SDM':
        manager_id=user.id
-       ce_choices=[(choice.pk, choice) for choice in User.objects.filter(groups__name='CE').filter(employee__manager=manager_id).order_by('username')]
+       ce_choices=[(choice.pk, choice.last_name + ", " + choice.first_name) for choice in User.objects.filter(groups__name='CE').filter(employee__manager=manager_id).order_by('last_name')]
        ce_choices= [('All', 'All')] + ce_choices
     """ 
     for choice in ce_choices:
