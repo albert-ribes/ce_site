@@ -3,7 +3,7 @@
 {% block content %}
     {% if user.is_authenticated %}
 	{% if result %}
-		<p>Unavailability with ID = <a href='/ce_availability/details/{{ id }}'>{{ id }}</a> sucessfully updated.<p>
+		<p>Unavailability with ID = <a href='/ce_availability/details/{{ id }}'>{{ id }}</a> sucessfully deleted.<p>
 		<p><a href={{ request.session.url }}>Back</a></p>
 	{% else %}
 		<p>Ups! Something went wrong<p>

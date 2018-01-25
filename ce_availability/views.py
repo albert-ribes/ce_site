@@ -15,7 +15,7 @@ from datetime import datetime, timedelta
 from django.contrib import messages
 from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponseRedirect, HttpResponse
-from calendar import monthrange
+from calendar import monthrange, month_name
 
 def home(request):
     return render(request, 'ce_availability/home.html')
@@ -37,7 +37,7 @@ def getUserType(user):
 def list_filter(request, ce, unavailability, category, year, month, week):
 
     print("INFO: VIEWS.list_filter: ce=" + ce + ", unavailability=" + unavailability + ", year=" + year + ", month=" + month) 
-    request.session['url'] = "/ce_availability/list/filter/" + str(ce) + "/" + str(unavailability) + "/" + str(year) + "/" + str(month) + "/"  + str(week) 
+    request.session['url'] = "/ce_availability/list/filter/" + str(ce) + "/" + str(unavailability) + "/" + str(category) + "/" + str(year) + "/" + str(month) + "/"  + str(week) 
     user=request.user
     print("INFO: VIEWS.list_filter: user.id=" + str(user.id))
     user_type=getUserType(user)
@@ -150,8 +150,34 @@ def calendar_filter(request, year, month):
         return HttpResponseRedirect("/ce_availability/calendar/")
     hours=0,5
     first_day_of_week, last_day = monthrange(int(year), int(month))
+    monthname=month_name[int(month)]
+    print("MONTH=" + month)
+    if(month==str(1)):
+        prev_url="/ce_availability/calendar/"+str(int(year)-1)+"/12"
+        next_url="/ce_availability/calendar/"+year+"/"+str(int(month)+1)+"/"
+    elif(month==str(12)):
+        prev_url="/ce_availability/calendar/"+year+"/"+str(int(month)-1)+"/"
+        next_url="/ce_availability/calendar/"+str(int(year)+1)+"/1"
+    else:
+        prev_url="/ce_availability/calendar/"+year+"/"+str(int(month)-1)+"/"
+        next_url="/ce_availability/calendar/"+year+"/"+str(int(month)+1)+"/"
+    print("URLS: " + prev_url + ", " + next_url)
     month_range = range(1, last_day + 1)
-
+    day_of_week = {}
+    day_week = first_day_of_week
+    #F=festiu, L=laborable, I=intensiva
+    for day in month_range:
+        if(5==day_week or day_week==6):
+            day_of_week[day]="F"
+        elif(day_week==4):
+            day_of_week[day]="I"
+        else:
+            day_of_week[day]="L"
+        if (day_week==6):
+            day_week=0
+        else:
+            day_week = day_week + 1
+    #print(day_of_week)
     user=request.user
     user_type=getUserType(user)
 
@@ -162,11 +188,6 @@ def calendar_filter(request, year, month):
        manager_id=user.id
        #ce='All'
        employees = User.objects.filter(groups__name='CE').filter(employee__manager=manager_id).order_by('last_name')
-    """
-    w, h = last_day, len(employees);
-    print("INFO:" + str(w) + ", " + str(h))
-    Data = [{0 for x in range(w)} for y in range(h)]
-    """
     data={}
     for employee in employees:
         data[employee.username]={}
@@ -183,9 +204,9 @@ def calendar_filter(request, year, month):
                 hours = hours + r.hours
             #print(employee.username + ", " + str(day) + ", " + str(hours))
             data[employee.username][day]={hours}
-            print(data[employee.username][day])
-    print(data)
-    return render(request, 'ce_availability/calendar.html', {'data': data, 'employees': employees, 'year':year,'month': month, 'first_day_of_week': first_day_of_week, 'month_range':month_range ,'hours':hours})
+            #print(data[employee.username][day])
+    #print(data)
+    return render(request, 'ce_availability/calendar.html', {'data': data, 'day_of_week': day_of_week,'employees': employees, 'year':year,'month': month, 'monthname':monthname,'first_day_of_week': first_day_of_week, 'month_range':month_range ,'hours':hours, 'next_url':next_url, 'prev_url': prev_url})
 
 @login_required
 def calendar(request):
@@ -315,8 +336,11 @@ def register_details(request, pk):
 @login_required
 def register_delete(request, pk):
     register = get_object_or_404(Register, pk=pk)
+    id = register.id
     register.delete()
-    return redirect('/ce_availability/list')
+    result=True
+    return render(request, 'ce_availability/delete_post.html', {'result':result, 'id': id})
+    #return redirect(request.session['url'])
 
 @login_required
 def change_password(request):

@@ -1,10 +1,10 @@
 {% extends "ce_availability/base.html" %}
 
 {% block content %}
-	<div class=calendar_info><a href="{{prev_url}}" title="Previous month"><<</a> Year: {{ year }}, Month: {{monthname}} <a href="{{next_url}}" title="Next month">>></a></div>
+	<p>Year: {{ year }}, Month: {{month}}</p>
 	<table class="table_calendar">
 		<tr>
-			<th class='ce'><b>Employee</b></th>
+			<th class='ce'>CE</th>
 			{% for day in month_range %}
 				{% for num_day, kind_day in day_of_week.items%}
 					{% ifequal num_day day%}
@@ -41,7 +41,7 @@
 										{% for num_day, kind_day in day_of_week.items%}
                                         					{% ifequal num_day day%}
                                                 					{% ifequal kind_day "F"%}
-                                                					<th class='day_weekend_soft'></th>
+                                                					<th class='day_weekend_soft'>{{h}}</th>
 											{%endifequal%}
 											{% ifequal kind_day "L"%}
 											<th class='non-na'>{{h}}</th>
