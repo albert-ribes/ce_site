@@ -206,7 +206,9 @@ def calendar_filter(request, year, month):
             data[employee.username][day]={hours}
             #print(data[employee.username][day])
     #print(data)
-    sum_hours={}
+
+    #sum_hours: suma d'hores NA per Employee al mes
+    sum_hours = {}
     for usr, value in data.items():
         sum_hours[usr]=0
         for day, hours in value.items():
@@ -215,7 +217,24 @@ def calendar_filter(request, year, month):
                 sum_hours[usr]+=h 
     #print(sum_hours)
 
-    return render(request, 'ce_availability/calendar.html', {'data': data, 'day_of_week': day_of_week,'employees': employees, 'year':year,'month': month, 'monthname':monthname,'first_day_of_week': first_day_of_week, 'month_range':month_range ,'hours':hours, 'next_url':next_url, 'prev_url': prev_url, 'sum_hours': sum_hours})
+    #hours_month: suma d'hores laborables del mes
+    hours_month = 0
+    for day, kind_day in day_of_week.items():
+       #print(str(day) + ", " + kind_day)
+       if(kind_day=="L"):
+           hours_month+=8.5
+       if(kind_day=="I"):
+           hours_month+=7
+    print(hours_month)
+
+    #percentage: percentatge d'hores NA/hours_month per Employee al mes
+    percentage = {}
+    for usr, hours in sum_hours.items():
+        percentage[usr]=100*hours/hours_month
+        percentage[usr]=format(percentage[usr], '.2f')
+    print(percentage)
+
+    return render(request, 'ce_availability/calendar.html', {'data': data, 'day_of_week': day_of_week,'employees': employees, 'year':year,'month': month, 'monthname':monthname,'first_day_of_week': first_day_of_week, 'month_range':month_range ,'hours':hours, 'next_url':next_url, 'prev_url': prev_url, 'sum_hours': sum_hours,'hours_month': hours_month, 'percentage':percentage})
 
 @login_required
 def calendar(request):

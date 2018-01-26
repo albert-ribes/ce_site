@@ -20,7 +20,8 @@
 					{%endifequal%}
 				{% endfor %}
 			{% endfor %}
-			<th class='total_hours'><b>TOTAL</b></th>
+			<th class='total_na_hours'><b>Total NA (hrs)</b></th>
+			<th class='total_percentage_hours'><b>NA/Hours (%)</b></th>
 		</tr>
             	{% for employee in employees %}
 		<tr>
@@ -61,16 +62,18 @@
 				{% endfor %}
                         {% endfor %}
 
-			<td class='total_hours'>
 			{% for usr, hours in sum_hours.items %}
 				{% ifequal usr employee.username%}
-					{{hours}}
+					<td class='total_na_hours'><b>{{hours}}</b></td>
 				{%endifequal%}
 			{% endfor %}
-			<b>
-			
-			</b>
-			</td>
+
+			{% for usr, value in percentage.items %}
+                                {% ifequal usr employee.username%}
+                                        <td class='total_percentage_hours'><b>{{value}}</b></td>
+                                {%endifequal%}
+                        {% endfor %}
+
 		</tr>
             	{% endfor %}
 	</table>

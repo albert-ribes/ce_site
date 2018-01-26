@@ -176,21 +176,49 @@ table.table_calendar td.ce {
     padding-left: 8px;
 }
 
-
-
 table.table_calendar th.total_hours {
-    width:60px;
+    width:80px;
     border: 1px solid #000000;
     text-align: center;
+    font-weight: normal;
 }
 
 table.table_calendar td.total_hours {
-    width:60px;
+    width:80px;
+    border: 1px solid #000000;
+    text-align: center;
+    font-weight: normal;
+}
+
+table.table_calendar th.total_na_hours {
+    width:80px;
+    border: 1px solid #000000;
+    text-align: center;
+    background: #9900ff;
+    color: white;
+    font-weight: normal;
+}
+
+table.table_calendar td.total_na_hours {
+    width:80px;
     border: 1px solid #000000;
     text-align: center;
 }
 
+table.table_calendar th.total_percentage_hours {
+    width:80px;
+    border: 1px solid #000000;
+    text-align: center;
+    background: #ff6600;
+    color: white;
 
+}
+
+table.table_calendar td.total_percentage_hours {
+    width:80px;
+    border: 1px solid #000000;
+    text-align: center;
+}
 
 table.table_calendar th.day {
     width:30px;
