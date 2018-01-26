@@ -188,23 +188,40 @@ def calendar_filter(request, year, month):
        manager_id=user.id
        #ce='All'
        employees = User.objects.filter(groups__name='CE').filter(employee__manager=manager_id).order_by('last_name')
+
+    #data[employee.username][day]={hours} conté el llistat d'hores NA per empleat al mes
+    #data_percent[employee.username][day]={hours} conté el llistat en percentatge d'hores NA per empleat al mes
     data={}
+    data_percent={}
     for employee in employees:
         data[employee.username]={}
+        data_percent[employee.username]={}
         #print(employee)
         registers=Register.objects.filter(start_date__year=year).filter(start_date__month=month).filter(user_id=employee)
         #print(str(registers))
         for day in month_range:
             data[employee.username][day]={}
+            data_percent[employee.username][day]={}
             hours=0
             registers_day=registers.filter(start_date__day=day)
             #print(str(day) + ", " + str(registers_day))
             for r in registers_day:
                 #print(r)
                 hours = hours + r.hours
+            if(day_of_week[day]=="L"):
+                total_hours=8.5
+            if(day_of_week[day]=="I"):
+                total_hours=7
+            if(day_of_week[day]=="F"):
+                total_hours=0.1
+
+            hours_percent=hours/total_hours
+            hours_percent=format(hours_percent, '.2f')
             #print(employee.username + ", " + str(day) + ", " + str(hours))
             data[employee.username][day]={hours}
+            data_percent[employee.username][day]={hours_percent}
             #print(data[employee.username][day])
+            #print(employee.username + ", " + str(day) + ", " + str(data_percent[employee.username][day]))
     #print(data)
 
     #sum_hours: suma d'hores NA per Employee al mes
@@ -234,7 +251,7 @@ def calendar_filter(request, year, month):
         percentage[usr]=format(percentage[usr], '.2f')
     print(percentage)
 
-    return render(request, 'ce_availability/calendar.html', {'data': data, 'day_of_week': day_of_week,'employees': employees, 'year':year,'month': month, 'monthname':monthname,'first_day_of_week': first_day_of_week, 'month_range':month_range ,'hours':hours, 'next_url':next_url, 'prev_url': prev_url, 'sum_hours': sum_hours,'hours_month': hours_month, 'percentage':percentage})
+    return render(request, 'ce_availability/calendar.html', {'data': data, 'data_percent': data_percent,'day_of_week': day_of_week,'employees': employees, 'year':year,'month': month, 'monthname':monthname,'first_day_of_week': first_day_of_week, 'month_range':month_range ,'hours':hours, 'next_url':next_url, 'prev_url': prev_url, 'sum_hours': sum_hours,'hours_month': hours_month, 'percentage':percentage})
 
 @login_required
 def calendar(request):

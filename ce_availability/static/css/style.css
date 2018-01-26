@@ -155,7 +155,11 @@ table.table_calendar {
 }
 
 table.table_calendar td, table.table_calendar th {
+    padding-left:0px;
+    padding-right:0px;
+
     table-layout:fixed;
+    width: 34;
     height: 20px;
     font-weight: normal;
     border: 1px solid #aaaaaa;
@@ -221,13 +225,13 @@ table.table_calendar td.total_percentage_hours {
 }
 
 table.table_calendar th.day {
-    width:30px;
+    width:34px;
     border: 1px solid #000000;
     text-align: center;
 }
 
 table.table_calendar th.day_weekend {
-    width:30px;
+    width:34px;
     border: 1px solid #000000;
     text-align: center;
     background: red;
@@ -235,7 +239,7 @@ table.table_calendar th.day_weekend {
 }
 
 table.table_calendar td.day_weekend_soft {
-    width:30px;
+    width:34px;
     border: 1px solid #000000;
     text-align: center;
     background: #ffe6e6;
@@ -243,7 +247,7 @@ table.table_calendar td.day_weekend_soft {
 
 
 table.table_calendar th.day_laborable {
-    width:30px;
+    width:34px;
     border: 1px solid #000000;
     text-align: center;
     background: green;
@@ -251,7 +255,7 @@ table.table_calendar th.day_laborable {
 }
 
 table.table_calendar th.day_intensive {
-    width:30px;
+    width:34px;
     border: 1px solid #000000;
     text-align: center;
     background: #32cd32;
@@ -259,13 +263,13 @@ table.table_calendar th.day_intensive {
 }
 
 table.table_calendar td.na {
-    width:30px;
+    width:34px;
     border: 1px solid #000000;
     text-align: center;
     background: #87cefa;
 }
 table.table_calendar td.non-na {
-    width:30px;
+    width:34px;
     border: 1px solid #000000;
     text-align: center;
 }

@@ -77,4 +77,97 @@
 		</tr>
             	{% endfor %}
 	</table>
+	
+	
+	
+	
+	
+	<br>
+	
+	
+	
+	
+	<table class="table_calendar">
+		<tr>
+			<th class='ce'><b>Employee</b></th>
+			{% for day in month_range %}
+				{% for num_day, kind_day in day_of_week.items%}
+					{% ifequal num_day day%}
+						{% ifequal kind_day "F"%}
+						<th class='day_weekend'>{{day}}</th>
+						{%endifequal%}
+						{% ifequal kind_day "L"%}
+						<th class='day_laborable'>{{day}}</th>
+						{%endifequal%}
+						{%ifequal kind_day "I" %}
+						<th class='day_intensive'>{{day}}</th>
+						{%endifequal%}
+					{%endifequal%}
+				{% endfor %}
+			{% endfor %}
+			<th class='total_na_hours'><b>Total NA (hrs)</b></th>
+			<th class='total_percentage_hours'><b>NA/Hours (%)</b></th>
+		</tr>
+            	{% for employee in employees %}
+		<tr>
+			<td class='ce'>{{employee.last_name}}, {{employee.first_name}}</td>
+			{% for day in month_range %}
+
+				{% for usr, value in data_percent.items%}
+	        		        {% ifequal usr employee.username%}
+						{% for dy, hrs in value.items%}
+							{% ifequal dy day%}
+
+								
+								{%comment%}
+								{%endcomment%}
+								{% for h in hrs %}
+
+										{% ifnotequal h "0.00"%}
+											<td class='na'>{{h}}</td>
+										{% endifnotequal%}
+										{% ifequal h "0.00" %}
+											{% for num_day, kind_day in day_of_week.items%}
+												{% ifequal num_day day%}
+													{% ifequal kind_day "F"%}
+														<td class='day_weekend_soft'></td>
+													{%endifequal%}
+													{% ifequal kind_day "L"%}
+														<td class='non-na'>0</td>
+													{%endifequal%}
+													{% ifequal kind_day "I"%}
+														<td class='non-na'>0</td>
+													{%endifequal%}
+												{%endifequal%}
+											{% endfor %}
+										{%endifequal%}
+
+
+									{%endfor%}
+								
+							
+							{%endifequal%}
+						{% endfor %}
+					{%endifequal%}
+				{% endfor %}
+                        {% endfor %}
+
+			{% for usr, hours in sum_hours.items %}
+				{% ifequal usr employee.username%}
+					<td class='total_na_hours'><b>{{hours}}</b></td>
+				{%endifequal%}
+			{% endfor %}
+
+			{% for usr, value in percentage.items %}
+                                {% ifequal usr employee.username%}
+                                        <td class='total_percentage_hours'><b>{{value}}</b></td>
+                                {%endifequal%}
+                        {% endfor %}
+
+		</tr>
+            	{% endfor %}
+	</table>
+	
+	
+	
 {% endblock %}
