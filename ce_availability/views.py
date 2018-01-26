@@ -151,7 +151,7 @@ def calendar_filter(request, year, month):
     hours=0,5
     first_day_of_week, last_day = monthrange(int(year), int(month))
     monthname=month_name[int(month)]
-    print("MONTH=" + month)
+    #print("MONTH=" + month)
     if(month==str(1)):
         prev_url="/ce_availability/calendar/"+str(int(year)-1)+"/12"
         next_url="/ce_availability/calendar/"+year+"/"+str(int(month)+1)+"/"
@@ -206,7 +206,16 @@ def calendar_filter(request, year, month):
             data[employee.username][day]={hours}
             #print(data[employee.username][day])
     #print(data)
-    return render(request, 'ce_availability/calendar.html', {'data': data, 'day_of_week': day_of_week,'employees': employees, 'year':year,'month': month, 'monthname':monthname,'first_day_of_week': first_day_of_week, 'month_range':month_range ,'hours':hours, 'next_url':next_url, 'prev_url': prev_url})
+    sum_hours={}
+    for usr, value in data.items():
+        sum_hours[usr]=0
+        for day, hours in value.items():
+            for h in hours:
+                #print(str(usr) + ", " +str(day)+", " + str(h))
+                sum_hours[usr]+=h 
+    #print(sum_hours)
+
+    return render(request, 'ce_availability/calendar.html', {'data': data, 'day_of_week': day_of_week,'employees': employees, 'year':year,'month': month, 'monthname':monthname,'first_day_of_week': first_day_of_week, 'month_range':month_range ,'hours':hours, 'next_url':next_url, 'prev_url': prev_url, 'sum_hours': sum_hours})
 
 @login_required
 def calendar(request):
@@ -244,10 +253,10 @@ def insert(request):
     print("INFO: VIEWS.list_filter: user.id=" + str(user.id) +", user_type=" + user_type)
 
     if user_type=='CE':
-       ce_choices=[(choice.pk, choice) for choice in User.objects.filter(id=user.id)]
+       ce_choices=[(choice.pk, choice.last_name  + ", " + choice.first_name) for choice in User.objects.filter(id=user.id)]
     if user_type=='SDM':
        manager_id=user.id
-       ce_choices=[(choice.pk, choice) for choice in User.objects.filter(groups__name='CE').filter(employee__manager=manager_id)]
+       ce_choices=[(choice.pk, choice.last_name + ", " + choice.first_name) for choice in User.objects.filter(groups__name='CE').filter(employee__manager=manager_id).order_by('last_name')]
     """
     for choice in ce_choices:
        print(choice)
@@ -304,10 +313,10 @@ def register_details(request, pk):
     print("INFO: VIEWS.register_details: user.id=" + str(user.id) +", user_type=" + user_type)
 
     if user_type=='CE':
-       ce_choices=[(choice.pk, choice) for choice in User.objects.filter(id=user.id)]
+       ce_choices=[(choice.pk, choice.last_name  + ", " + choice.first_name) for choice in User.objects.filter(id=user.id)]
     if user_type=='SDM':
        manager_id=user.id
-       ce_choices=[(choice.pk, choice) for choice in User.objects.filter(groups__name='CE').filter(employee__manager=manager_id)]
+       ce_choices=[(choice.pk, choice.last_name  + ", " + choice.first_name) for choice in User.objects.filter(groups__name='CE').filter(employee__manager=manager_id).order_by('last_name')]
     """
     for choice in ce_choices:
        print(choice)

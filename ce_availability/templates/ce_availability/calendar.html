@@ -20,10 +20,11 @@
 					{%endifequal%}
 				{% endfor %}
 			{% endfor %}
+			<th class='total_hours'><b>TOTAL</b></th>
 		</tr>
             	{% for employee in employees %}
 		<tr>
-			<th class='ce'>{{employee.last_name}}, {{employee.first_name}}</th>
+			<td class='ce'>{{employee.last_name}}, {{employee.first_name}}</td>
 			{% for day in month_range %}
 
 				{% for usr, value in data.items%}
@@ -36,18 +37,18 @@
 								{%endcomment%}
 								{% for h in hrs %}
 									{% if h %}
-										<th class='na'>{{h}}</th>
+										<td class='na'>{{h}}</td>
 									{% else %}
 										{% for num_day, kind_day in day_of_week.items%}
                                         					{% ifequal num_day day%}
                                                 					{% ifequal kind_day "F"%}
-                                                					<th class='day_weekend_soft'></th>
+                                                					<td class='day_weekend_soft'></td>
 											{%endifequal%}
 											{% ifequal kind_day "L"%}
-											<th class='non-na'>{{h}}</th>
+											<td class='non-na'>{{h}}</td>
                                                 					{%endifequal%}
 											{% ifequal kind_day "I"%}
-                                                                                        <th class='non-na'>{{h}}</th>
+                                                                                        <td class='non-na'>{{h}}</td>
                                                                                         {%endifequal%}
                                         					{%endifequal%}
                                 						{% endfor %}
@@ -59,6 +60,17 @@
 					{%endifequal%}
 				{% endfor %}
                         {% endfor %}
+
+			<td class='total_hours'>
+			{% for usr, hours in sum_hours.items %}
+				{% ifequal usr employee.username%}
+					{{hours}}
+				{%endifequal%}
+			{% endfor %}
+			<b>
+			
+			</b>
+			</td>
 		</tr>
             	{% endfor %}
 	</table>

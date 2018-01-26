@@ -170,6 +170,28 @@ table.table_calendar th.ce {
     padding-left: 8px;
 }
 
+table.table_calendar td.ce {
+    width:180px;
+    border: 1px solid #000000;
+    padding-left: 8px;
+}
+
+
+
+table.table_calendar th.total_hours {
+    width:60px;
+    border: 1px solid #000000;
+    text-align: center;
+}
+
+table.table_calendar td.total_hours {
+    width:60px;
+    border: 1px solid #000000;
+    text-align: center;
+}
+
+
+
 table.table_calendar th.day {
     width:30px;
     border: 1px solid #000000;
@@ -184,7 +206,7 @@ table.table_calendar th.day_weekend {
     color: white;
 }
 
-table.table_calendar th.day_weekend_soft {
+table.table_calendar td.day_weekend_soft {
     width:30px;
     border: 1px solid #000000;
     text-align: center;
@@ -208,13 +230,13 @@ table.table_calendar th.day_intensive {
     color: white;
 }
 
-table.table_calendar th.na {
+table.table_calendar td.na {
     width:30px;
     border: 1px solid #000000;
     text-align: center;
     background: #87cefa;
 }
-table.table_calendar th.non-na {
+table.table_calendar td.non-na {
     width:30px;
     border: 1px solid #000000;
     text-align: center;
