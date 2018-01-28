@@ -141,9 +141,9 @@ button.submit-button{
 /* CALENDAR */
 .calendar_info{
     margin:10px;
-    width: 1000px;
+    /*width: 1000px;
     padding-left:170;
-    text-align: center;
+    text-align: center;*/
 }
 table.table_calendar {
     font-weight: normal;
@@ -377,6 +377,8 @@ table.table_registers a
     display:block;
     text-decoration:none;
 }
+
+/*LINK COLORS*/
 
 a.list_link:link {
     color: black;

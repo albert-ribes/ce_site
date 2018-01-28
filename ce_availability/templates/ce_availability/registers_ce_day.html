@@ -1,0 +1,91 @@
+{% load staticfiles %}
+<html>
+    <head>
+        <title>CE Availability</title>
+        <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+        <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
+        <link href='//fonts.googleapis.com/css?family=Lobster&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
+        <link rel="stylesheet" href="{% static 'css/style.css' %}">
+        <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+        {% comment%}
+        <script type="text/javascript" src="/my_admin/jsi18n/"></script>
+        <script type="text/javascript" src="/media/admin/js/core.js"></script>
+        {% endcomment %}
+
+        {% load static %}
+    </head>
+
+
+<script>
+$("tr").click(function(){
+    $(this).addClass("selected").siblings().removeClass("selected");
+});
+</script>
+
+<br>
+
+<p>Register details for {{employee.first_name}} {{employee.last_name}} at {{day}}/{{month}}/{{year}}:<p>
+
+{% block content %}
+	{% comment %}
+	<h3>Unavailabilities</h3><br>
+	{% endcomment %}
+	</div>
+	{% if registers %}
+		<table class="table_registers">
+			<tr>
+				<th class="ID">
+                                        ID
+                                </th>
+				
+                                <th class="ce">
+					CE
+				</th>
+				<th class="start">
+					Date
+				</th>
+				{% comment %}
+                                <th class="finish">
+					Finish
+				</th>
+				{% endcomment %}
+                                <th class="hours">
+					Hours
+				</th>
+                                <th class="unavailability">
+					Unavailability
+				</th>
+                                <th class="category">
+					Category
+				</th>
+                                <th class="comments" >
+					Comments
+				</th>
+						
+                        </tr>
+	        {% for register in registers %}
+			<tr>
+    				<td><a  class="list_link" href='/ce_availability/details/{{ register.id }}'>{{ register.id }}</a></td>
+    				<td><a  class="list_link" href='/ce_availability/details/{{ register.id }}'>{{ register.user.last_name }}, {{ register.user.first_name }}</a></td>
+    				<td><a class="list_link" href='/ce_availability/details/{{ register.id }}'>{{ register.start_date }}</a></td>
+				{% comment %}
+    				<td><a class="list_link" href='/ce_availability/details/{{ register.id }}'>{{ register.end_date }}</a></td>
+				{% endcomment %}
+    				<td><a class="list_link" href='/ce_availability/details/{{ register.id }}'>{{ register.hours }}</a></td>
+    				<td><a class="list_link" href='/ce_availability/details/{{ register.id }}'>{{ register.unavailability }}</a></td>
+    				<td><a class="list_link" href='/ce_availability/details/{{ register.id }}'>{{ register.unavailability.category }}</a></td>
+    				<td><a class="list_link" href='/ce_availability/details/{{ register.id }}'>{{ register.comments }}</a></td>
+				{% comment %}
+    				<th>{{ register.created_date }}</th>
+				{% endcomment %}
+  			</tr>
+	        {% endfor %}
+		</table>
+                <hr>
+		<p> TOTAL unavailable hours: <b>{{hours}}</b></p>
+	{% else %}
+    		<hr>
+		<p>No records found </p>
+	{% endif %}
+{% endblock %}
+</html>

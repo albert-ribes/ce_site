@@ -34,10 +34,35 @@ def getUserType(user):
     return user_type
 
 @login_required
+def registers_ce_day(request, ce, year, month, day):
+    print("INFO: VIEWS.registers_ce_day: ce=" + ce + ", year=" + year + ", month=" + month + ", day", day)
+    #request.session['url'] = "/ce_availability/registers/" + str(ce) + "/" + str(year) + "/" + str(month + "/" + str(day))
+    queryset = Register.objects.filter(user_id=ce).filter(start_date__year=year).filter(start_date__month=month).filter(start_date__day=day).order_by('-start_date')
+    registers = queryset
+    hours=0
+    for register in registers:
+        hours = hours + register.hours
+
+    user=User.objects.filter(id=ce).get()
+    #user=User.objects.filter(id=ce)
+    print("EMPLOYEE" + str(user))
+    
+    data={
+        'registers': registers,
+        'hours': hours,
+        'year': year,
+        'month': month,
+        'day':day,
+        'employee': user
+    }
+    #return render(request, 'ce_availability/registers_ce_day.html', {'registers': registers, 'hours': hours})
+    return render(request, 'ce_availability/registers_ce_day.html', data)
+
+@login_required
 def list_filter(request, ce, unavailability, category, year, month, week):
 
     print("INFO: VIEWS.list_filter: ce=" + ce + ", unavailability=" + unavailability + ", year=" + year + ", month=" + month) 
-    request.session['url'] = "/ce_availability/list/filter/" + str(ce) + "/" + str(unavailability) + "/" + str(category) + "/" + str(year) + "/" + str(month) + "/"  + str(week) 
+    request.session['url'] = "/ce_availability/list/" + str(ce) + "/" + str(unavailability) + "/" + str(category) + "/" + str(year) + "/" + str(month) + "/"  + str(week) 
     user=request.user
     print("INFO: VIEWS.list_filter: user.id=" + str(user.id))
     user_type=getUserType(user)
@@ -76,9 +101,9 @@ def list_filter(request, ce, unavailability, category, year, month, week):
                 week='All'
             if(year!=str(currentYear) or month!=str(currentMonth)):
                 week='All'
-            request.session['url'] = "/ce_availability/list/filter/" + str(ce) + "/" + str(unavailability) + "/" + str(category) + "/" + str(year) + "/" + str(month + "/" + str(week))
+            request.session['url'] = "/ce_availability/list/" + str(ce) + "/" + str(unavailability) + "/" + str(category) + "/" + str(year) + "/" + str(month + "/" + str(week))
             print("INFO: VIEWS.list: URL=" + request.session['url'])
-            return HttpResponseRedirect("/ce_availability/list/filter/" + str(ce) + "/" + str(unavailability) + "/" + str(category) + "/" + str(year) + "/" + str(month) + "/" +  str(week))
+            return HttpResponseRedirect("/ce_availability/list/" + str(ce) + "/" + str(unavailability) + "/" + str(category) + "/" + str(year) + "/" + str(month) + "/" +  str(week))
     #If this is a GET (or any other method) create the default form.
     else:
         if(user_type=='SDM'):
@@ -129,13 +154,6 @@ def list_filter(request, ce, unavailability, category, year, month, week):
             hours = hours + register.hours
         
         print("INFO: VIEWS.list_filter: month=" + month)
-        """
-        if(user_type=='CE'):
-            form = ListFilterForm(request.user, ce_choices, initial={'ce_selector': ce, 'year_selector': year, 'month_selector': month, 'unavailability_selector':unavailability, 'week_selector':week})
-        
-        else:
-            form = ListFilterForm(request.user, ce_choices, initial={'ce_selector': ce, 'year_selector': year, 'month_selector': month, 'unavailability_selector':unavailability, 'week_selector':week})
-        """
         form = ListFilterForm(request.user, ce_choices, initial={'ce_selector': ce, 'category_selector': category, 'year_selector': year, 'month_selector': month, 'unavailability_selector':unavailability, 'week_selector':week})
     return render(request, 'ce_availability/list.html', {'registers': registers, 'form': form, 'hours': hours})
 
@@ -146,6 +164,7 @@ def about(request):
 
 @login_required
 def calendar_filter(request, year, month):
+    request.session['url'] = "/ce_availability/calendar/" + str(year) + "/" + str(month)
     if (int(month)>12):
         return HttpResponseRedirect("/ce_availability/calendar/")
     hours=0,5
@@ -278,7 +297,7 @@ def list(request):
        ce='All'
     unavailability='All'
     category='All'
-    return HttpResponseRedirect("/ce_availability/list/filter/" + str(ce) + "/" + str(unavailability) + "/" + str(category) + "/" + str(currentYear) + "/" + str(currentMonth) + "/" + str(currentWeek))
+    return HttpResponseRedirect("/ce_availability/list/" + str(ce) + "/" + str(unavailability) + "/" + str(category) + "/" + str(currentYear) + "/" + str(currentMonth) + "/" + str(currentWeek))
     #return redirect("/ce_availability/list/filter/" + str(ce) + "/" + str(unavailability) + "/" + str(year) + "/" + str(month))
 
 @login_required
