@@ -22,15 +22,15 @@ $("tr").click(function(){
 });
 </script>
 
+<div class="content container">
 <br>
 
-<p>Register details for {{employee.first_name}} {{employee.last_name}} at {{day}}/{{month}}/{{year}}:<p>
 
-{% block content %}
+<p>Register details for <i>{{employee.first_name}} {{employee.last_name}}</i> at {{day}}/{{month}}/{{year}}:<p>
+
 	{% comment %}
 	<h3>Unavailabilities</h3><br>
 	{% endcomment %}
-	</div>
 	{% if registers %}
 		<table class="table_registers">
 			<tr>
@@ -65,19 +65,13 @@ $("tr").click(function(){
                         </tr>
 	        {% for register in registers %}
 			<tr>
-    				<td><a  class="list_link" href='/ce_availability/details/{{ register.id }}'>{{ register.id }}</a></td>
-    				<td><a  class="list_link" href='/ce_availability/details/{{ register.id }}'>{{ register.user.last_name }}, {{ register.user.first_name }}</a></td>
-    				<td><a class="list_link" href='/ce_availability/details/{{ register.id }}'>{{ register.start_date }}</a></td>
-				{% comment %}
-    				<td><a class="list_link" href='/ce_availability/details/{{ register.id }}'>{{ register.end_date }}</a></td>
-				{% endcomment %}
-    				<td><a class="list_link" href='/ce_availability/details/{{ register.id }}'>{{ register.hours }}</a></td>
-    				<td><a class="list_link" href='/ce_availability/details/{{ register.id }}'>{{ register.unavailability }}</a></td>
-    				<td><a class="list_link" href='/ce_availability/details/{{ register.id }}'>{{ register.unavailability.category }}</a></td>
-    				<td><a class="list_link" href='/ce_availability/details/{{ register.id }}'>{{ register.comments }}</a></td>
-				{% comment %}
-    				<th>{{ register.created_date }}</th>
-				{% endcomment %}
+    				<td><a  class="list_link" href=""{%comment%}'/ce_availability/details/{{ register.id }}'{% endcomment %}>{{ register.id }}</a></td>
+    				<td><a  class="list_link" href=""{%comment%}'/ce_availability/details/{{ register.id }}'{% endcomment %}>{{ register.user.last_name }}, {{ register.user.first_name }}</a></td>
+    				<td><a class="list_link" href=""{%comment%}'/ce_availability/details/{{ register.id }}'{% endcomment %}>{{ register.start_date }}</a></td>
+    				<td><a class="list_link" href=""{%comment%}'/ce_availability/details/{{ register.id }}'{% endcomment %}>{{ register.hours }}</a></td>
+    				<td><a class="list_link" href=""{%comment%}'/ce_availability/details/{{ register.id }}'{% endcomment %}>{{ register.unavailability }}</a></td>
+    				<td><a class="list_link" href=""{%comment%}'/ce_availability/details/{{ register.id }}'{% endcomment %}>{{ register.unavailability.category }}</a></td>
+    				<td><a class="list_link" href=""{%comment%}'/ce_availability/details/{{ register.id }}'{% endcomment %}>{{ register.comments }}</a></td>
   			</tr>
 	        {% endfor %}
 		</table>
@@ -87,5 +81,6 @@ $("tr").click(function(){
     		<hr>
 		<p>No records found </p>
 	{% endif %}
-{% endblock %}
+
+</div>
 </html>

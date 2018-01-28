@@ -320,7 +320,7 @@ table.table_registers th.ce {
 }
 
 table.table_registers th.id {
-    width:40px;
+    width:80px;
 }
 
 table.table_registers th.start {
@@ -379,6 +379,11 @@ table.table_registers a
 }
 
 /*LINK COLORS*/
+a.list_link {
+    color: black;
+    text-decoration: none;
+}
+
 
 a.list_link:link {
     color: black;

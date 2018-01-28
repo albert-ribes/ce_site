@@ -52,7 +52,7 @@ function resizeWin() {
 								{%endcomment%}
 								{% for h in hrs %}
 									{% if h %}
-										<td class='na'><a target="popup" onclick="window.open('/ce_availability/registers/{{employee.id}}/{{year}}/{{month}}/{{day}}' ,'name','width=860,height=280')">{{h}}</a></td>
+										<td class='na'><a class="list_link" target="popup" onclick="window.open('/ce_availability/registers/{{employee.id}}/{{year}}/{{month}}/{{day}}' ,'name','width=920,height=280')">{{h}}</a></td>
 									{% else %}
 										{% for num_day, kind_day in day_of_week.items%}
                                         					{% ifequal num_day day%}

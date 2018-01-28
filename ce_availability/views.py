@@ -36,7 +36,6 @@ def getUserType(user):
 @login_required
 def registers_ce_day(request, ce, year, month, day):
     print("INFO: VIEWS.registers_ce_day: ce=" + ce + ", year=" + year + ", month=" + month + ", day", day)
-    #request.session['url'] = "/ce_availability/registers/" + str(ce) + "/" + str(year) + "/" + str(month + "/" + str(day))
     queryset = Register.objects.filter(user_id=ce).filter(start_date__year=year).filter(start_date__month=month).filter(start_date__day=day).order_by('-start_date')
     registers = queryset
     hours=0
@@ -154,7 +153,16 @@ def list_filter(request, ce, unavailability, category, year, month, week):
             hours = hours + register.hours
         
         print("INFO: VIEWS.list_filter: month=" + month)
-        form = ListFilterForm(request.user, ce_choices, initial={'ce_selector': ce, 'category_selector': category, 'year_selector': year, 'month_selector': month, 'unavailability_selector':unavailability, 'week_selector':week})
+        initial = {
+            'ce_selector': ce,
+            'category_selector': category,
+            'year_selector': year,
+            'month_selector': month,
+            'unavailability_selector':unavailability,
+            'week_selector':week
+        }
+        #form = ListFilterForm(request.user, ce_choices, initial={'ce_selector': ce, 'category_selector': category, 'year_selector': year, 'month_selector': month, 'unavailability_selector':unavailability, 'week_selector':week})
+        form = ListFilterForm(request.user, ce_choices, initial)
     return render(request, 'ce_availability/list.html', {'registers': registers, 'form': form, 'hours': hours})
 
 @login_required

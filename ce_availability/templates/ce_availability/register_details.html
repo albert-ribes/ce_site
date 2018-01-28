@@ -65,19 +65,6 @@
 	                        {% endif %}
 			</div>
 	        </div>
-   		{%comment%}	
-		<div class="fieldForm">
-        	        <label for="{{ form.end_date.id_for_label }}">Finish date:</label>
-	                <div class="input_field"> {{ form.end_date }} </div>
-			<div class="error_field">
-				{% if form.end_date.errors  %}
-        	                        {% for error in form.end_date.errors  %}
-	                                <div class="form_error"> {{ error|escape }}</div>
-	                                {% endfor %}
-	                        {% endif %}
-			</div>
-                </div>
-		{%endcomment%}
 
 		<div class="fieldForm">
 	                <label for="{{ form.comments.id_for_label }}">Comments:</label>
