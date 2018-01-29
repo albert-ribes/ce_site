@@ -15,7 +15,33 @@ function resizeWin() {
 
 
 {% block content %}
+
+	<div class="calendar_filter_form">
+        <form method="POST" class="CalendarFilterForm" novalidate>{% csrf_token %}
+                        <div class="fieldWrapper_filter">
+                        <label for="{{ form.mode_selector.id_for_label }}">View Mode:</label>
+                        <div class="input_field_filter"> {{ form.mode_selector }} </div>
+                        </div>
+
+
+                        <div class="fieldWrapper_filter">
+                        <label for="{{ form.year_selector.id_for_label }}">Year:</label>
+                        <div class="input_field_filter"> {{ form.year_selector }} </div>
+                        </div>
+
+                        <div class="fieldWrapper_filter">
+                        <label for="{{ form.month_selector.id_for_label }}">Month:</label>
+                        <div class="input_field_filter"> {{ form.month_selector }} </div>
+                        </div>
+
+
+                        <input class=button_filter type="submit" value="Filter"></input>
+        </form>
+        </div>
+
 	<div class=calendar_info><a href="{{prev_url}}" title="Previous month"><<</a> Year: {{ year }}, Month: {{monthname}} <a href="{{next_url}}" title="Next month">>></a></div>
+
+	{%ifequal mode "hours"%}
 	<table class="table_calendar">
 		<tr>
 			<th class='ce'><b>Employee</b></th>
@@ -42,7 +68,7 @@ function resizeWin() {
 			<td class='ce'>{{employee.last_name}}, {{employee.first_name}}</td>
 			{% for day in month_range %}
 
-				{% for usr, value in data.items%}
+				{% for usr, value in employee_day_hours_data.items%}
 	        		        {% ifequal usr employee.username%}
 						{% for dy, hrs in value.items%}
 							{% ifequal dy day%}
@@ -95,8 +121,7 @@ function resizeWin() {
 	
 	
 	
-	
-	<br>
+	{%endifequal%}	
 
 	{%comment%}
 	<script>
@@ -117,10 +142,9 @@ function resizeWin() {
 	</iframe>
 	{%endcomment%}
 	
+	{%ifequal mode "percentage"%}	
 	
 	
-	
-	{% comment %}	
 	<table class="table_calendar">
 		<tr>
 			<th class='ce'><b>Employee</b></th>
@@ -147,7 +171,7 @@ function resizeWin() {
 			<td class='ce'>{{employee.last_name}}, {{employee.first_name}}</td>
 			{% for day in month_range %}
 
-				{% for usr, value in data_percent.items%}
+				{% for usr, value in employee_day_hours_data_percent.items%}
 	        		        {% ifequal usr employee.username%}
 						{% for dy, hrs in value.items%}
 							{% ifequal dy day%}
@@ -198,7 +222,8 @@ function resizeWin() {
 		</tr>
             	{% endfor %}
 	</table>
+
+	{%endifequal%}
 	
-	{%endcomment%}	
 	
 {% endblock %}

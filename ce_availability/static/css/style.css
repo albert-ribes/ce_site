@@ -139,6 +139,16 @@ button.submit-button{
 }
 
 /* CALENDAR */
+
+.calendar_filter_form{
+    margin-top: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ececec;
+    /*background-color: #ececec;*/
+    height: 160px;
+    width: 440px;*/
+    display: block;
+}
 .calendar_info{
     margin:10px;
     /*width: 1000px;

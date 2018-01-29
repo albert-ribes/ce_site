@@ -111,6 +111,28 @@ class ListFilterForm(forms.Form):
         print("INFO: FORMS.ListFilterForm.clean, " + str(data))
         return data
 
+class CalendarFilterForm(forms.Form):
+    currentMonth = datetime.now().month
+    currentYear = datetime.now().year
+
+    YEAR_CHOICES =  (('All','  All'),(str(currentYear+1),str(currentYear+1)), (str(currentYear),str(currentYear)),(str(currentYear-1),str(currentYear-1)),(str(currentYear-2),str(currentYear-2)))
+    MONTH_CHOICES = (('All','  All'),('1','January'), ('2','February'),('3','March'),('4','April'),('5','May'),('6','June'),('7','July'),('8','August'),('9','September'),('10','October'),('11','November'),('12','Desember'))
+    MODE_CHOICES = (('hours','  Hours'),('percentage','Percentage'))
+
+    year_selector = forms.ChoiceField(label='Year',choices=YEAR_CHOICES)
+    month_selector = forms.ChoiceField(label='Month',choices=MONTH_CHOICES)
+    mode_selector = forms.ChoiceField(label='Year',choices=MODE_CHOICES)
+
+    def save(self, commit=True):
+        #print("> INFO, forms.py: save() method")
+        year = self.cleaned_data.get('year_selector', None)
+        month = self.cleaned_data.get('month_selector', None)
+        mode = self.cleaned_data.get('mode_selector', None)
+        print("INFO: FORMS.ListFilterForm.save " + mode + ", " + year + ", " + month)
+        return(mode, year, month)
+
+
+
 class UserForm(forms.ModelForm):
     class Meta:
         model = User

@@ -5,7 +5,7 @@ from .models import Register, Unavailability, Category
 from django.contrib.auth.decorators import login_required
 from django.utils import timezone
 from django import forms
-from .forms import RegisterForm, ListFilterForm, UserForm, EmployeeForm
+from .forms import RegisterForm, ListFilterForm, UserForm, EmployeeForm, CalendarFilterForm
 from django.contrib.auth.forms import PasswordChangeForm
 from django.contrib.auth import update_session_auth_hash
 from django.shortcuts import redirect
@@ -171,7 +171,7 @@ def about(request):
 
 
 @login_required
-def calendar_filter(request, year, month):
+def calendar_filter(request, mode, year, month):
     request.session['url'] = "/ce_availability/calendar/" + str(year) + "/" + str(month)
     if (int(month)>12):
         return HttpResponseRedirect("/ce_availability/calendar/")
@@ -180,14 +180,14 @@ def calendar_filter(request, year, month):
     monthname=month_name[int(month)]
     #print("MONTH=" + month)
     if(month==str(1)):
-        prev_url="/ce_availability/calendar/"+str(int(year)-1)+"/12"
-        next_url="/ce_availability/calendar/"+year+"/"+str(int(month)+1)+"/"
+        prev_url="/ce_availability/calendar/"+mode+"/"+str(int(year)-1)+"/12"
+        next_url="/ce_availability/calendar/"+mode+"/"+year+"/"+str(int(month)+1)+"/"
     elif(month==str(12)):
-        prev_url="/ce_availability/calendar/"+year+"/"+str(int(month)-1)+"/"
-        next_url="/ce_availability/calendar/"+str(int(year)+1)+"/1"
+        prev_url="/ce_availability/calendar/"+mode+"/"+year+"/"+str(int(month)-1)+"/"
+        next_url="/ce_availability/calendar/"+mode+"/"+str(int(year)+1)+"/1"
     else:
-        prev_url="/ce_availability/calendar/"+year+"/"+str(int(month)-1)+"/"
-        next_url="/ce_availability/calendar/"+year+"/"+str(int(month)+1)+"/"
+        prev_url="/ce_availability/calendar/"+mode+"/"+year+"/"+str(int(month)-1)+"/"
+        next_url="/ce_availability/calendar/"+mode+"/"+year+"/"+str(int(month)+1)+"/"
     print("URLS: " + prev_url + ", " + next_url)
     month_range = range(1, last_day + 1)
     day_of_week = {}
@@ -218,17 +218,17 @@ def calendar_filter(request, year, month):
 
     #data[employee.username][day]={hours} conté el llistat d'hores NA per empleat al mes
     #data_percent[employee.username][day]={hours} conté el llistat en percentatge d'hores NA per empleat al mes
-    data={}
-    data_percent={}
+    employee_day_hours_data={}
+    employee_day_hours_data_percent={}
     for employee in employees:
-        data[employee.username]={}
-        data_percent[employee.username]={}
+        employee_day_hours_data[employee.username]={}
+        employee_day_hours_data_percent[employee.username]={}
         #print(employee)
         registers=Register.objects.filter(start_date__year=year).filter(start_date__month=month).filter(user_id=employee)
         #print(str(registers))
         for day in month_range:
-            data[employee.username][day]={}
-            data_percent[employee.username][day]={}
+            employee_day_hours_data[employee.username][day]={}
+            employee_day_hours_data_percent[employee.username][day]={}
             hours=0
             registers_day=registers.filter(start_date__day=day)
             #print(str(day) + ", " + str(registers_day))
@@ -245,15 +245,15 @@ def calendar_filter(request, year, month):
             hours_percent=hours/total_hours
             hours_percent=format(hours_percent, '.2f')
             #print(employee.username + ", " + str(day) + ", " + str(hours))
-            data[employee.username][day]={hours}
-            data_percent[employee.username][day]={hours_percent}
+            employee_day_hours_data[employee.username][day]={hours}
+            employee_day_hours_data_percent[employee.username][day]={hours_percent}
             #print(data[employee.username][day])
             #print(employee.username + ", " + str(day) + ", " + str(data_percent[employee.username][day]))
     #print(data)
 
     #sum_hours: suma d'hores NA per Employee al mes
     sum_hours = {}
-    for usr, value in data.items():
+    for usr, value in employee_day_hours_data.items():
         sum_hours[usr]=0
         for day, hours in value.items():
             for h in hours:
@@ -269,7 +269,7 @@ def calendar_filter(request, year, month):
            hours_month+=8.5
        if(kind_day=="I"):
            hours_month+=7
-    print(hours_month)
+    #print(hours_month)
 
     #percentage: percentatge d'hores NA/hours_month per Employee al mes
     percentage = {}
@@ -278,13 +278,61 @@ def calendar_filter(request, year, month):
         percentage[usr]=format(percentage[usr], '.2f')
     print(percentage)
 
-    return render(request, 'ce_availability/calendar.html', {'data': data, 'data_percent': data_percent,'day_of_week': day_of_week,'employees': employees, 'year':year,'month': month, 'monthname':monthname,'first_day_of_week': first_day_of_week, 'month_range':month_range ,'hours':hours, 'next_url':next_url, 'prev_url': prev_url, 'sum_hours': sum_hours,'hours_month': hours_month, 'percentage':percentage})
+        # If this is a POST request then process the Form data
+    if request.method == "POST":
+        # Create a form instance and populate it with data from the request (binding):
+        form = CalendarFilterForm(request.POST)
+         # Check if the form is valid:
+        if form.is_valid():
+            
+            print("INFO: VIEWS.list: form.is_valid()")
+            # process the data in form
+            mode, year, month = form.save(commit=False)
+            form_url="/ce_availability/calendar/"+mode+"/"+year+"/"+month+"/"            
+
+            #return render(request, 'ce_availability/calendar.html', {'registers': registers, 'form': form, 'hours': hours})
+            return HttpResponseRedirect(form_url)
+            """
+            if(year=='All' or month=='All'):
+                week='All'
+            if(year!=str(currentYear) or month!=str(currentMonth)):
+                week='All'
+            request.session['url'] = "/ce_availability/list/" + str(ce) + "/" + str(unavailability) + "/" + str(category) + "/" + str(year) + "/" + str(month + "/" + str(week))
+            print("INFO: VIEWS.list: URL=" + request.session['url'])
+            return HttpResponseRedirect("/ce_availability/list/" + str(ce) + "/" + str(unavailability) + "/" + str(category) + "/" + str(year) + "/" + str(month) + "/" +  str(week))
+           """
+    #If this is a GET (or any other method) create the default form.
+    else:
+        initial = {
+            'mode_selector': mode,
+            'year_selector': year,
+            'month_selector': month,
+        }
+
+        form = CalendarFilterForm(initial)
+    data = {
+        'employee_day_hours_data': employee_day_hours_data,
+        'employee_day_hours_data_percent': employee_day_hours_data_percent,
+        'day_of_week': day_of_week,'employees': employees, 
+        'year':year,'month': month, 'monthname':monthname,
+        'first_day_of_week': first_day_of_week,
+        'month_range':month_range ,
+        'hours':hours,
+        'next_url':next_url,
+        'prev_url': prev_url,
+        'sum_hours': sum_hours,
+        'hours_month': hours_month,
+        'percentage':percentage,
+        'form': form,
+        'mode': mode
+    }
+    return render(request, 'ce_availability/calendar.html', data)
 
 @login_required
 def calendar(request):
     currentMonth = datetime.now().month
     currentYear = datetime.now().year
-    return HttpResponseRedirect("/ce_availability/calendar/" + str(currentYear) + "/" + str(currentMonth))
+    return HttpResponseRedirect("/ce_availability/calendar/hours/" + str(currentYear) + "/" + str(currentMonth))
 
 
 @login_required
