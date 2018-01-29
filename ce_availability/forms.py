@@ -101,7 +101,7 @@ class ListFilterForm(forms.Form):
         unavailability = self.cleaned_data.get('unavailability_selector', None)
         category = self.cleaned_data.get('category_selector', None)
         week =  self.cleaned_data.get('week_selector', None)
-        print("INFO: FORMS.ListFilterForm.save " + ce + ", " + year + ", " + month + ", " + week + ", " + category)
+        print("INFO: FORMS.ListFilterForm.save " + ce + ", " + unavailability + ", " +  category + ", " + year + ", " + month + ", " + week)
         return(ce, unavailability, category, year, month, week)
 
     def clean_ce_selector(self):

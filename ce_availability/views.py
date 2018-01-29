@@ -122,8 +122,8 @@ def list_filter(request, ce, unavailability, category, year, month, week):
             start_month=month
             end_month=month
             
-        queryset = Register.objects.filter(start_date__year__gte=start_year).filter(start_date__year__lte=end_year).filter(start_date__month__gte=start_month).filter(start_date__month__lte=end_month).order_by('-start_date')
-        #queryset = Register.objects.filter(start_date__lte=timezone.now()).filter(start_date__year__gte=start_year).filter(start_date__year__lte=end_year).filter(start_date__month__gte=start_month).filter(start_date__month__lte=end_month).order_by('-start_date')
+        #queryset = Register.objects.filter(start_date__year__gte=start_year).filter(start_date__year__lte=end_year).filter(start_date__month__gte=start_month).filter(start_date__month__lte=end_month).order_by('-start_date')
+        queryset = Register.objects.order_by('-start_date')
         if (ce=='All'):
             queryset = queryset.filter(user__employee__manager=manager_id)
         else:
@@ -139,7 +139,20 @@ def list_filter(request, ce, unavailability, category, year, month, week):
             unavailability='All'
         if (unavailability!='All'):
             queryset = queryset.filter(unavailability=unavailability)
-        if(week!='All' and year!='All' and month!='All'):
+
+        #Arreglar filtratge dates!!!
+        print("WEEK=" + week + ": " + str(firstDayWeek.year) + "-" + str(firstDayWeek.month) + "-" + str(firstDayWeek.day)  + ", " + str(lastDayWeek.year) + "-" +str(lastDayWeek.month) + "-" + str(lastDayWeek.day))
+        print(queryset)
+        if(week!='All'):
+            queryset = queryset.filter(start_date__range=(firstDayWeek, lastDayWeek))
+            """
+            queryset = queryset.filter(start_date__year__gte=firstDayWeek.year).filter(start_date__month__gte=firstDayWeek.month).filter(start_date__day__gte=firstDayWeek.day)
+            print(queryset)
+            queryset = queryset.filter(start_date__year__lte=lastDayWeek.year).filter(start_date__month__lte=lastDayWeek.month).filter(start_date__day__lte=lastDayWeek.day)
+            print(queryset)
+            """
+        """
+        elif(week=='All' and year!='All' and month!='All'):
             firstDayWeek = datetime.now() - timedelta(days=datetime.now().weekday())
             lastDayWeek = firstDayWeek + timedelta(days=6)
             queryset = queryset.filter(start_date__day__gte=firstDayWeek.day).filter(start_date__day__lte=lastDayWeek.day)
@@ -147,6 +160,8 @@ def list_filter(request, ce, unavailability, category, year, month, week):
             week='All'
         if(year!=str(currentYear) or month!=str(currentMonth)):
             week='All'
+        """
+        
         registers = queryset
         hours=0
         for register in registers:
