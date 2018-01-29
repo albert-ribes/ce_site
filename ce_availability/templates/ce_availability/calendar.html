@@ -179,7 +179,7 @@ function resizeWin() {
 								{% for h in hrs %}
 
 										{% ifnotequal h "0.00"%}
-											<td class='na'>{{h}}</td>
+											<td class='na'><a class="list_link" target="popup" onclick="window.open('/ce_availability/registers/{{employee.id}}/{{year}}/{{month}}/{{day}}' ,'name','width=920,height=280')">{{h}}</a></td>
 										{% endifnotequal%}
 										{% ifequal h "0.00" %}
 											{% for num_day, kind_day in day_of_week.items%}
@@ -225,5 +225,5 @@ function resizeWin() {
 
 	{%endifequal%}
 	
-	
+	<br>	
 {% endblock %}
