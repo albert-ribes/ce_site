@@ -31,6 +31,11 @@ class RegisterForm(forms.ModelForm):
         hours=self.cleaned_data.get('hours')
         #hours = float(hours)
         #hours=float(str(hours).replace(',',''))
+
+        if(start_date):
+            dayofweek=start_date.weekday()
+        else:
+            raise forms.ValidationError({'start_date': ["Invalid date.",]})
         ce=self.cleaned_data.get('user')
         register_id=self.register_id
         if hours:
@@ -41,7 +46,7 @@ class RegisterForm(forms.ModelForm):
             sum_hours=sum_hours+register.hours
         if (register_id!=0):
             sum_hours=sum_hours - Register.objects.filter(id=register_id).values_list('hours', flat=True).get()
-        dayofweek=start_date.weekday()
+        
         print ("INFO: FORMS.RegisterForm.clean, user= " + str(ce) + ", dayofweek=" + str(dayofweek) + ", inserted_hours=" + str(hours) + ", sum_hours=" + str(sum_hours))
         if hours==None:
             #raise forms.ValidationError({'comments': ["",]})

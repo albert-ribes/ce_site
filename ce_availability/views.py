@@ -43,7 +43,6 @@ def registers_ce_day(request, ce, year, month, day):
         hours = hours + register.hours
 
     user=User.objects.filter(id=ce).get()
-    #user=User.objects.filter(id=ce)
     print("EMPLOYEE" + str(user))
     
     data={
@@ -54,7 +53,6 @@ def registers_ce_day(request, ce, year, month, day):
         'day':day,
         'employee': user
     }
-    #return render(request, 'ce_availability/registers_ce_day.html', {'registers': registers, 'hours': hours})
     return render(request, 'ce_availability/registers_ce_day.html', data)
 
 @login_required
@@ -130,7 +128,6 @@ def list_filter(request, ce, unavailability, category, year, month, week):
             queryset = queryset.filter(user_id=ce)
         if (unavailability!='All'):
             queryset = queryset.filter(unavailability=unavailability)
-            #category_selector=getattr(Unavailability.objects.filter(unavailability_id=unavailability), 'category_id')
             category=Unavailability.objects.filter(id=unavailability).values_list('category_id', flat=True).get()
             print("INFO: VIEWS.list_filter: category_selector=" + str(category))
         if (category!='All' and unavailability=='All'):
@@ -145,22 +142,17 @@ def list_filter(request, ce, unavailability, category, year, month, week):
         print(queryset)
         if(week!='All'):
             queryset = queryset.filter(start_date__range=(firstDayWeek, lastDayWeek))
-            """
-            queryset = queryset.filter(start_date__year__gte=firstDayWeek.year).filter(start_date__month__gte=firstDayWeek.month).filter(start_date__day__gte=firstDayWeek.day)
-            print(queryset)
-            queryset = queryset.filter(start_date__year__lte=lastDayWeek.year).filter(start_date__month__lte=lastDayWeek.month).filter(start_date__day__lte=lastDayWeek.day)
-            print(queryset)
-            """
-        """
-        elif(week=='All' and year!='All' and month!='All'):
-            firstDayWeek = datetime.now() - timedelta(days=datetime.now().weekday())
-            lastDayWeek = firstDayWeek + timedelta(days=6)
-            queryset = queryset.filter(start_date__day__gte=firstDayWeek.day).filter(start_date__day__lte=lastDayWeek.day)
-        if(year=='All' or month=='All'):
+        
+        elif(year!='All' and month!='All'):
+            queryset = queryset.filter(start_date__year=year).filter(start_date__month=month)
+        elif(year!='All' and month=='All'):
+            queryset = queryset.filter(start_date__year=year)
+            week='All'
+        elif(year=='All' and month!='All'):
+            queryset = queryset.filter(start_date__month=month)
             week='All'
         if(year!=str(currentYear) or month!=str(currentMonth)):
             week='All'
-        """
         
         registers = queryset
         hours=0
