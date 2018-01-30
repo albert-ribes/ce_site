@@ -8,9 +8,17 @@
         <p>Please introduce the details of your new unavailability:</p>
 	<div class=unavailability_form>	
 		<form method="POST" class="post-form" novalidate>{% csrf_token %}
-        	{% comment %}
-		{{ form.as_p }}
-		{% endcomment%}
+		{% comment %}
+		<script type="text/javascript" src="/admin/jsi18n/"></script>
+		<script type="text/javascript" src="/static/admin/js/core.js"></script>
+		<script type="text/javascript" src="/static/admin/js/admin/RelatedObjectLookups.js">        </script>
+		<script type="text/javascript" src="/static/admin/js/jquery.min.js"></script>
+		<script type="text/javascript" src="/static/admin/js/jquery.init.js"></script>
+		<script type="text/javascript" src="/static/admin/js/actions.min.js"></script>
+		<script type="text/javascript" src="/static/admin/js/calendar.js"></script>
+		<script type="text/javascript" src="/static/admin/js/admin/DateTimeShortcuts.js"></script>
+                {{ form.media }}
+      		{% endcomment%}
 
 		<div class="fieldForm">
                         <label for="{{ form.unavailability.id_for_label }}">CE:</label>
@@ -59,19 +67,7 @@
 	                        {% endif %}
 			</div>
 		</div>
-		{%comment%}
-		<div class="fieldForm">
-		     	<label for="{{ form.end_date.id_for_label }}">End date:</label>
-		     	<div class="input_field"> {{ form.end_date }} </div>
-			<div class="error_field">
-				{% if form.end_date.errors  %}
-	                                {% for error in form.end_date.errors  %}
-					<div class="form_error"> {{ error|escape }}</div>
-					{% endfor %}
-	                        {% endif %}
-			</div>
-		</div>
-		{%endcomment%}
+		
 		<div class="fieldForm">
                     	<label for="{{ form.comments.id_for_label }}">Comments:</label>
                     	<div class="input_field_insert"> {{ form.comments }} </div>

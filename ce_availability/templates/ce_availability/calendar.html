@@ -39,7 +39,18 @@ function resizeWin() {
         </form>
         </div>
 
-	<div class=calendar_info><a href="{{prev_url}}" title="Previous month"><<</a> Year: {{ year }}, Month: {{monthname}} <a href="{{next_url}}" title="Next month">>></a></div>
+	<div class=calendar_info>
+	<a href="{{prev_url}}" title="Previous month" class="top-menu-icon"><<
+		<span class="glyphicon glyphicon-menu-left">
+		</span>
+	</a> Year: {{ year }}, Month: {{monthname}} 
+	<a href="{{next_url}}" title="Next month" class="top-menu-icon">>>
+		<span class="glyphicon glyphicon-menu-right">
+		</span>
+	</a>
+	</div>
+
+	<p>Total working hours: <b>{{hours_month}}</b></p>
 
 	{%ifequal mode "hours"%}
 	<table class="table_calendar">
@@ -48,8 +59,11 @@ function resizeWin() {
 			{% for day in month_range %}
 				{% for num_day, kind_day in day_of_week.items%}
 					{% ifequal num_day day%}
+						{% ifequal kind_day "W"%}
+                                                <th class='day_weekend'>{{day}}</th>
+                                                {%endifequal%}
 						{% ifequal kind_day "F"%}
-						<th class='day_weekend'>{{day}}</th>
+						<th class='day_festive'>{{day}}</th>
 						{%endifequal%}
 						{% ifequal kind_day "L"%}
 						<th class='day_laborable'>{{day}}</th>
@@ -83,8 +97,11 @@ function resizeWin() {
 										{% for num_day, kind_day in day_of_week.items%}
                                         					{% ifequal num_day day%}
                                                 					{% ifequal kind_day "F"%}
-                                                					<td class='day_weekend_soft'></td>
+                                                					<td class='day_festive_soft'></td>
 											{%endifequal%}
+											{% ifequal kind_day "W"%}
+                                                                                        <td class='day_weekend_soft'></td>
+                                                                                        {%endifequal%}
 											{% ifequal kind_day "L"%}
 											<td class='non-na'>{{h}}</td>
                                                 					{%endifequal%}
@@ -193,7 +210,7 @@ function resizeWin() {
 													{% ifequal kind_day "I"%}
 														<td class='non-na'>0</td>
 													{%endifequal%}
-												{%endifequal%}
+		<td class='day_weekend_soft'></td>										{%endifequal%}
 											{% endfor %}
 										{%endifequal%}
 
@@ -226,4 +243,29 @@ function resizeWin() {
 	{%endifequal%}
 	
 	<br>	
+
+<p>Legend:<p>
+<table>	
+	<tr>
+		<th class='day_weekend'>W</th>
+		<td class='day_weekend_soft'>Weekend</td>
+	</tr>
+	<tr>
+                <th class='day_festive'>F</th>
+                <td class='day_festive_soft'>Festive</td>
+	</tr>
+	<tr>
+                <th class='day_laborable'>L</th>
+                <td class='non-na'>Laboral</td>
+	</tr>
+	<tr>
+                <th class='day_intensive'>I</th>
+                <td class='non-na'>Intensive</td>
+	</tr>
+	<tr>
+		<td class='na'>NA</td>
+		<td class='non-na'>NonAvailability</td>
+	</tr
+<table>
+
 {% endblock %}

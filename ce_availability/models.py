@@ -19,6 +19,21 @@ class Location(models.Model):
     def __str__(self):
         return self.location
 
+class KindOfDay(models.Model):
+    kindofday = models.CharField(max_length=20, blank=True)
+    comment = models.CharField(max_length=41, blank=True)
+    def __str__(self):
+        return self.kindofday
+
+class CalendarEvent(models.Model):
+    location = models.ForeignKey(Location, related_name='Loc')
+    start_date = models.DateField(default=timezone.now)
+    end_date = models.DateField(default=timezone.now)
+    kindofday = models.ForeignKey(KindOfDay, related_name='KindOfDay')
+    def __str__(self):
+        string = "ID=" + str(self.id) + "; " + self.start_date.strftime("%Y-%m-%d") + " - " + self.end_date.strftime("%Y-%m-%d") + ", " + self.location.location + ", " + self.kindofday.kindofday
+        return string
+
 class Employee(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     employee_id = models.CharField(max_length=20, blank=True)

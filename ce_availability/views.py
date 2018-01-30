@@ -1,7 +1,7 @@
 from django.shortcuts import render
 
 # Create your views here.
-from .models import Register, Unavailability, Category
+from .models import Register, Unavailability, Category, CalendarEvent
 from django.contrib.auth.decorators import login_required
 from django.utils import timezone
 from django import forms
@@ -11,7 +11,7 @@ from django.contrib.auth import update_session_auth_hash
 from django.shortcuts import redirect
 from django.core.exceptions import ObjectDoesNotExist
 from django.contrib.auth.models import User, Group
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, date
 from django.contrib import messages
 from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponseRedirect, HttpResponse
@@ -84,7 +84,6 @@ def list_filter(request, ce, unavailability, category, year, month, week):
     for choice in ce_choices:
              print(choice)
     """
-
     # If this is a POST request then process the Form data
     if request.method == "POST":
         # Create a form instance and populate it with data from the request (binding):
@@ -139,7 +138,6 @@ def list_filter(request, ce, unavailability, category, year, month, week):
 
         #Arreglar filtratge dates!!!
         print("WEEK=" + week + ": " + str(firstDayWeek.year) + "-" + str(firstDayWeek.month) + "-" + str(firstDayWeek.day)  + ", " + str(lastDayWeek.year) + "-" +str(lastDayWeek.month) + "-" + str(lastDayWeek.day))
-        print(queryset)
         if(week!='All'):
             queryset = queryset.filter(start_date__range=(firstDayWeek, lastDayWeek))
         
@@ -168,7 +166,6 @@ def list_filter(request, ce, unavailability, category, year, month, week):
             'unavailability_selector':unavailability,
             'week_selector':week
         }
-        #form = ListFilterForm(request.user, ce_choices, initial={'ce_selector': ce, 'category_selector': category, 'year_selector': year, 'month_selector': month, 'unavailability_selector':unavailability, 'week_selector':week})
         form = ListFilterForm(request.user, ce_choices, initial)
     return render(request, 'ce_availability/list.html', {'registers': registers, 'form': form, 'hours': hours})
 
@@ -195,14 +192,23 @@ def calendar_filter(request, mode, year, month):
     else:
         prev_url="/ce_availability/calendar/"+mode+"/"+year+"/"+str(int(month)-1)+"/"
         next_url="/ce_availability/calendar/"+mode+"/"+year+"/"+str(int(month)+1)+"/"
-    print("URLS: " + prev_url + ", " + next_url)
+    #print("URLS: " + prev_url + ", " + next_url)
     month_range = range(1, last_day + 1)
     day_of_week = {}
     day_week = first_day_of_week
+    datetime_first_day_of_week = date(int(year), int(month), 1)
+    datetime_last_day_of_week = date(int(year), int(month), int(last_day))
+
+    #print(datetime_first_day_of_week)
+    #print(datetime_last_day_of_week)
+
+    calendar_events=CalendarEvent.objects.filter(start_date__lte=datetime_last_day_of_week).filter(end_date__gte=datetime_first_day_of_week).order_by('start_date')
+
     #F=festiu, L=laborable, I=intensiva
+
     for day in month_range:
         if(5==day_week or day_week==6):
-            day_of_week[day]="F"
+            day_of_week[day]="W"
         elif(day_week==4):
             day_of_week[day]="I"
         else:
@@ -211,7 +217,21 @@ def calendar_filter(request, mode, year, month):
             day_week=0
         else:
             day_week = day_week + 1
-    #print(day_of_week)
+
+    for event in calendar_events:
+        #Modificar pq caigui dins del rang del mes
+        delta = event.end_date - event.start_date
+        print(event)
+        
+        for i in range(delta.days +1):
+            day=event.start_date + timedelta(days=i)
+            print(str(day.year) + "-"+ str(day.month) + "-" + str(day.day) + ", weekday=" + str(day.weekday()))
+            if(str(day.month) == month and day.weekday()!=6 and day.weekday()!=5):
+                day_of_week[day.day]=event.kindofday.kindofday
+                #print(day_of_week[day.day])
+
+    print(day_of_week)
+
     user=request.user
     user_type=getUserType(user)
 
@@ -223,8 +243,8 @@ def calendar_filter(request, mode, year, month):
        #ce='All'
        employees = User.objects.filter(groups__name='CE').filter(employee__manager=manager_id).order_by('last_name')
 
-    #data[employee.username][day]={hours} conté el llistat d'hores NA per empleat al mes
-    #data_percent[employee.username][day]={hours} conté el llistat en percentatge d'hores NA per empleat al mes
+    #employee_day_hours_data[employee.username][day]={hours} conté el llistat d'hores NA per empleat al mes
+    #employee_day_hours_data_percent[employee.username][day]={hours} conté el llistat en percentatge d'hores NA per empleat al mes
     employee_day_hours_data={}
     employee_day_hours_data_percent={}
     for employee in employees:
@@ -247,6 +267,8 @@ def calendar_filter(request, mode, year, month):
             if(day_of_week[day]=="I"):
                 total_hours=7
             if(day_of_week[day]=="F"):
+                total_hours=0.1
+            if(day_of_week[day]=="W"):
                 total_hours=0.1
 
             hours_percent=hours/total_hours
@@ -283,7 +305,7 @@ def calendar_filter(request, mode, year, month):
     for usr, hours in sum_hours.items():
         percentage[usr]=100*hours/hours_month
         percentage[usr]=format(percentage[usr], '.2f')
-    print(percentage)
+    #print(percentage)
 
         # If this is a POST request then process the Form data
     if request.method == "POST":
@@ -299,15 +321,6 @@ def calendar_filter(request, mode, year, month):
 
             #return render(request, 'ce_availability/calendar.html', {'registers': registers, 'form': form, 'hours': hours})
             return HttpResponseRedirect(form_url)
-            """
-            if(year=='All' or month=='All'):
-                week='All'
-            if(year!=str(currentYear) or month!=str(currentMonth)):
-                week='All'
-            request.session['url'] = "/ce_availability/list/" + str(ce) + "/" + str(unavailability) + "/" + str(category) + "/" + str(year) + "/" + str(month + "/" + str(week))
-            print("INFO: VIEWS.list: URL=" + request.session['url'])
-            return HttpResponseRedirect("/ce_availability/list/" + str(ce) + "/" + str(unavailability) + "/" + str(category) + "/" + str(year) + "/" + str(month) + "/" +  str(week))
-           """
     #If this is a GET (or any other method) create the default form.
     else:
         initial = {
@@ -361,7 +374,6 @@ def list(request):
     unavailability='All'
     category='All'
     return HttpResponseRedirect("/ce_availability/list/" + str(ce) + "/" + str(unavailability) + "/" + str(category) + "/" + str(currentYear) + "/" + str(currentMonth) + "/" + str(currentWeek))
-    #return redirect("/ce_availability/list/filter/" + str(ce) + "/" + str(unavailability) + "/" + str(year) + "/" + str(month))
 
 @login_required
 def insert(request):
@@ -466,7 +478,11 @@ def register_delete(request, pk):
     id = register.id
     register.delete()
     result=True
-    return render(request, 'ce_availability/delete_post.html', {'result':result, 'id': id})
+    data = {
+        'result':result,
+        'id': id
+    }
+    return render(request, 'ce_availability/delete_post.html', data)
     #return redirect(request.session['url'])
 
 @login_required

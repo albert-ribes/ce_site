@@ -3,6 +3,7 @@ from django.forms import ModelForm, DateTimeInput
 from .models import Register, Employee, Unavailability, Category
 from django.contrib.auth.models import User
 from datetime import datetime, timedelta
+from django.contrib.admin.widgets import AdminDateWidget
 
 from django.contrib.admin import widgets
 
@@ -16,6 +17,7 @@ class RegisterForm(forms.ModelForm):
         model = Register
         fields = ('user', 'unavailability', 'hours', 'start_date','comments',)
         widgets = {
+            #'start_date': forms.DateField(widget=AdminDateWidget()),
             'start_date': forms.SelectDateWidget(years=YEAR_CHOICES),
             #'end_date': forms.SelectDateWidget(years=YEAR_CHOICES),
         }
