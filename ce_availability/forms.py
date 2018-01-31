@@ -26,7 +26,7 @@ class RegisterForm(forms.ModelForm):
        super(RegisterForm, self).__init__(*args, **kwargs)
        self.fields['user'].choices = ce_choices
        self.register_id=register_id
-       print ("INFO: FORMS.RegisterForm.__init__, register_id=" + str(register_id))
+       #print ("INFO: FORMS.RegisterForm.__init__, register_id=" + str(register_id))
 
     def clean(self):
         start_date=self.cleaned_data.get('start_date')
@@ -40,8 +40,10 @@ class RegisterForm(forms.ModelForm):
             raise forms.ValidationError({'start_date': ["Invalid date.",]})
         ce=self.cleaned_data.get('user')
         register_id=self.register_id
+        """
         if hours:
             print("INFO: FORMS.RegisterForm.clean, start_date:" + str(start_date) + ", hours=" + str(hours) + ", ce=" + str(ce) + ", register_id=" + str(register_id))
+        """
         registers = Register.objects.filter(start_date=start_date).filter(user__username=ce)
         sum_hours=0
         for register in registers:
@@ -49,10 +51,9 @@ class RegisterForm(forms.ModelForm):
         if (register_id!=0):
             sum_hours=sum_hours - Register.objects.filter(id=register_id).values_list('hours', flat=True).get()
         
-        print ("INFO: FORMS.RegisterForm.clean, user= " + str(ce) + ", dayofweek=" + str(dayofweek) + ", inserted_hours=" + str(hours) + ", sum_hours=" + str(sum_hours))
+        #print ("INFO: FORMS.RegisterForm.clean, user= " + str(ce) + ", dayofweek=" + str(dayofweek) + ", inserted_hours=" + str(hours) + ", sum_hours=" + str(sum_hours))
         if hours==None:
-            #raise forms.ValidationError({'comments': ["",]})
-            print(hours)
+            raise forms.ValidationError({'comments': ["",]})
         if hours!=None:
             if (hours<=0.0):
                raise forms.ValidationError({'hours': ["Value must be greater than 0.",]})
@@ -64,9 +65,11 @@ class RegisterForm(forms.ModelForm):
                     raise forms.ValidationError({'hours': ["The total amount of unavailable hours cannot be greather than 7 in that day.",]})
             if (dayofweek==5 or dayofweek==6.0):
                 raise forms.ValidationError({'start_date': ["No unavailabilities allowed during the weekend.",]})
+        """
         else:
                #raise forms.ValidationError({'hours': ["Comma-separated",]})
                print("ELSE")
+        """ 
 
 class ListFilterForm(forms.Form):
     currentMonth = datetime.now().month
@@ -108,14 +111,14 @@ class ListFilterForm(forms.Form):
         unavailability = self.cleaned_data.get('unavailability_selector', None)
         category = self.cleaned_data.get('category_selector', None)
         week =  self.cleaned_data.get('week_selector', None)
-        print("INFO: FORMS.ListFilterForm.save " + ce + ", " + unavailability + ", " +  category + ", " + year + ", " + month + ", " + week)
+        #print("INFO: FORMS.ListFilterForm.save " + ce + ", " + unavailability + ", " +  category + ", " + year + ", " + month + ", " + week)
         return(ce, unavailability, category, year, month, week)
 
     def clean_ce_selector(self):
-        print ("INFO: FORMS.ListFilterForm.clean, ")
+        #print ("INFO: FORMS.ListFilterForm.clean, ")
         data = self.cleaned_data.get('ce_selector')
         data = self.cleaned_data['ce_selector']
-        print("INFO: FORMS.ListFilterForm.clean, " + str(data))
+        #print("INFO: FORMS.ListFilterForm.clean, " + str(data))
         return data
 
 class CalendarFilterForm(forms.Form):
@@ -135,10 +138,8 @@ class CalendarFilterForm(forms.Form):
         year = self.cleaned_data.get('year_selector', None)
         month = self.cleaned_data.get('month_selector', None)
         mode = self.cleaned_data.get('mode_selector', None)
-        print("INFO: FORMS.ListFilterForm.save " + mode + ", " + year + ", " + month)
+        #print("INFO: FORMS.ListFilterForm.save " + mode + ", " + year + ", " + month)
         return(mode, year, month)
-
-
 
 class UserForm(forms.ModelForm):
     class Meta:

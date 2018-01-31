@@ -325,9 +325,9 @@ table.table_legend {
 
 
 table.table_legend td.non-na {
-    width:34px;
+    width:160px;
     border: 1px solid #000000;
-    text-align: center;
+    text-align: left;
 }
 
 table.table_legend td.na {

@@ -93,7 +93,7 @@ function resizeWin() {
 								{%endcomment%}
 								{% for h in hrs %}
 									{% if h %}
-										<td class='na'><a class="list_link" target="popup" onclick="window.open('/ce_availability/registers/{{employee.id}}/{{year}}/{{month}}/{{day}}' ,'name','width=920,height=280')">{{h}}</a></td>
+										<td class='na'><a class="list_link" target="popup" onclick="window.open('/ce_availability/registers/{{employee.id}}/{{year}}/{{month}}/{{day}}' ,'name','width=1100,height=280')">{{h}}</a></td>
 									{% else %}
 										{% for num_day, kind_day in day_of_week.items%}
                                         					{% ifequal num_day day%}
@@ -267,15 +267,15 @@ function resizeWin() {
                 </tr>
                 <tr>
                         <th class='day_laborable'>L</th>
-                        <td class='non-na'>Laboral</td>
+                        <td class='non-na'>Working Day</td>
                 </tr>
                 <tr>
                         <th class='day_intensive'>I</th>
-                        <td class='non-na'>Intensive</td>
+                        <td class='non-na'>Intensive Working Day</td>
                 </tr>
                 <tr>
                         <td class='na'>NA</td>
-                        <td class='non-na'>NonAvailability</td>
+                        <td class='non-na'>Day with a NonAvailability</td>
                 </tr>
                 </table>
 

@@ -22,6 +22,7 @@ class Location(models.Model):
 class KindOfDay(models.Model):
     kindofday = models.CharField(max_length=20, blank=True)
     comment = models.CharField(max_length=41, blank=True)
+    laborablehours = models.FloatField()
     def __str__(self):
         return self.kindofday
 

@@ -1,7 +1,7 @@
 from django.shortcuts import render
 
 # Create your views here.
-from .models import Register, Unavailability, Category, CalendarEvent
+from .models import Register, Unavailability, Category, CalendarEvent, KindOfDay
 from django.contrib.auth.decorators import login_required
 from django.utils import timezone
 from django import forms
@@ -35,7 +35,7 @@ def getUserType(user):
 
 @login_required
 def registers_ce_day(request, ce, year, month, day):
-    print("INFO: VIEWS.registers_ce_day: ce=" + ce + ", year=" + year + ", month=" + month + ", day", day)
+    #print("INFO: VIEWS.registers_ce_day: ce=" + ce + ", year=" + year + ", month=" + month + ", day", day)
     queryset = Register.objects.filter(user_id=ce).filter(start_date__year=year).filter(start_date__month=month).filter(start_date__day=day).order_by('-start_date')
     registers = queryset
     hours=0
@@ -43,7 +43,7 @@ def registers_ce_day(request, ce, year, month, day):
         hours = hours + register.hours
 
     user=User.objects.filter(id=ce).get()
-    print("EMPLOYEE" + str(user))
+    #print("EMPLOYEE" + str(user))
     
     data={
         'registers': registers,
@@ -58,18 +58,18 @@ def registers_ce_day(request, ce, year, month, day):
 @login_required
 def list_filter(request, ce, unavailability, category, year, month, week):
 
-    print("INFO: VIEWS.list_filter: ce=" + ce + ", unavailability=" + unavailability + ", year=" + year + ", month=" + month) 
+    #print("INFO: VIEWS.list_filter: ce=" + ce + ", unavailability=" + unavailability + ", year=" + year + ", month=" + month) 
     request.session['url'] = "/ce_availability/list/" + str(ce) + "/" + str(unavailability) + "/" + str(category) + "/" + str(year) + "/" + str(month) + "/"  + str(week) 
     user=request.user
-    print("INFO: VIEWS.list_filter: user.id=" + str(user.id))
+    #print("INFO: VIEWS.list_filter: user.id=" + str(user.id))
     user_type=getUserType(user)
     currentMonth = datetime.now().month
     currentYear = datetime.now().year
     currentWeek = datetime.now().isocalendar()[1]
     firstDayWeek = datetime.now() - timedelta(days=datetime.now().weekday())
     lastDayWeek = firstDayWeek + timedelta(days=6)
-    print("INFO: VIEWS.list_filter: currentYear=" + str(currentYear) + ", currentMonth=" + str(currentMonth))
-    print("INFO: VIEWS.list_filter: currentWeek=" + str(currentWeek) + ", firstDayWeek=" + str(firstDayWeek.day)  + ", lastDayWeek=" + str(lastDayWeek.day))
+    #print("INFO: VIEWS.list_filter: currentYear=" + str(currentYear) + ", currentMonth=" + str(currentMonth))
+    #print("INFO: VIEWS.list_filter: currentWeek=" + str(currentWeek) + ", firstDayWeek=" + str(firstDayWeek.day)  + ", lastDayWeek=" + str(lastDayWeek.day))
 
     if user_type=='CE':
        if (ce!=str(user.id)):
@@ -90,7 +90,7 @@ def list_filter(request, ce, unavailability, category, year, month, week):
         form = ListFilterForm(request.user, ce_choices, request.POST)
          # Check if the form is valid:
         if form.is_valid():
-            print("INFO: VIEWS.list: form.is_valid()")
+            #print("INFO: VIEWS.list: form.is_valid()")
             # process the data in form
             ce, unavailability, category, year, month, week = form.save(commit=False)
             if(year=='All' or month=='All'):
@@ -98,7 +98,7 @@ def list_filter(request, ce, unavailability, category, year, month, week):
             if(year!=str(currentYear) or month!=str(currentMonth)):
                 week='All'
             request.session['url'] = "/ce_availability/list/" + str(ce) + "/" + str(unavailability) + "/" + str(category) + "/" + str(year) + "/" + str(month + "/" + str(week))
-            print("INFO: VIEWS.list: URL=" + request.session['url'])
+            #print("INFO: VIEWS.list: URL=" + request.session['url'])
             return HttpResponseRedirect("/ce_availability/list/" + str(ce) + "/" + str(unavailability) + "/" + str(category) + "/" + str(year) + "/" + str(month) + "/" +  str(week))
     #If this is a GET (or any other method) create the default form.
     else:
@@ -131,13 +131,15 @@ def list_filter(request, ce, unavailability, category, year, month, week):
             print("INFO: VIEWS.list_filter: category_selector=" + str(category))
         if (category!='All' and unavailability=='All'):
             queryset = queryset.filter(unavailability__category=category)
+            print(queryset)
             category_selector=category
             unavailability='All'
+        """
         if (unavailability!='All'):
             queryset = queryset.filter(unavailability=unavailability)
+        """
 
-        #Arreglar filtratge dates!!!
-        print("WEEK=" + week + ": " + str(firstDayWeek.year) + "-" + str(firstDayWeek.month) + "-" + str(firstDayWeek.day)  + ", " + str(lastDayWeek.year) + "-" +str(lastDayWeek.month) + "-" + str(lastDayWeek.day))
+        #print("WEEK=" + week + ": " + str(firstDayWeek.year) + "-" + str(firstDayWeek.month) + "-" + str(firstDayWeek.day)  + ", " + str(lastDayWeek.year) + "-" +str(lastDayWeek.month) + "-" + str(lastDayWeek.day))
         if(week!='All'):
             queryset = queryset.filter(start_date__range=(firstDayWeek, lastDayWeek))
         
@@ -157,7 +159,7 @@ def list_filter(request, ce, unavailability, category, year, month, week):
         for register in registers:
             hours = hours + register.hours
         
-        print("INFO: VIEWS.list_filter: month=" + month)
+        #print("INFO: VIEWS.list_filter: month=" + month)
         initial = {
             'ce_selector': ce,
             'category_selector': category,
@@ -232,7 +234,7 @@ def calendar_filter(request, mode, year, month):
                 day_of_week[day.day]=event.kindofday.kindofday
                 #print(day_of_week[day.day])
 
-    print(day_of_week)
+    #print(day_of_week)
 
     user=request.user
     user_type=getUserType(user)
@@ -265,9 +267,11 @@ def calendar_filter(request, mode, year, month):
                 #print(r)
                 hours = hours + r.hours
             if(day_of_week[day]=="WorkingDay"):
-                total_hours=8.5
+                #total_hours=8.5
+                total_hours = KindOfDay.objects.filter(kindofday="WorkingDay").values_list('laborablehours', flat=True).get()
             if(day_of_week[day]=="Intensive"):
-                total_hours=7
+                #total_hours=7
+                total_hours = KindOfDay.objects.filter(kindofday="Intensive").values_list('laborablehours', flat=True).get()
             if(day_of_week[day]=="Festive"):
                 total_hours=0.1
             if(day_of_week[day]=="Weekend"):
@@ -365,7 +369,7 @@ def list(request):
     currentYear = datetime.now().year
     currentWeek = datetime.now().isocalendar()[1]
 
-    print("INFO: VIEWS.list: usertype=" + user_type)
+    #print("INFO: VIEWS.list: usertype=" + user_type)
 
     if user_type=='CE':
        manager_id=user.employee.manager.id
@@ -442,7 +446,7 @@ def user_settings(request):
 def register_details(request, pk):
     user=request.user
     user_type=getUserType(user)
-    print("INFO: VIEWS.register_details: user.id=" + str(user.id) +", user_type=" + user_type)
+    #print("INFO: VIEWS.register_details: user.id=" + str(user.id) +", user_type=" + user_type)
 
     if user_type=='CE':
        ce_choices=[(choice.pk, choice.last_name  + ", " + choice.first_name) for choice in User.objects.filter(id=user.id)]
@@ -455,19 +459,15 @@ def register_details(request, pk):
     """
     register = get_object_or_404(Register, pk=pk)
     register_id=register.id
-    #user=register.user_id
     if request.method == "POST":
-        print("INFO: VIEWS.register_details: POST")
+        #print("INFO: VIEWS.register_details: POST")
         form = RegisterForm(register_id, ce_choices, request.POST, instance=register)
         #print("INFO: VIEWS.register_details: form=" +str(form))
         if form.is_valid():
-            print("INFO: VIEWS.register_details: FORM_IS_VALID")
-            #register.delete()
+            #print("INFO: VIEWS.register_details: FORM_IS_VALID")
             register = form.save(commit=False)
-            #register.user_id = user
             register.save()
             result=True
-            #return redirect(request.session['url'])
             return render(request, 'ce_availability/update_post.html', {'result':result, 'id': register.id})
             
     else:
