@@ -34,24 +34,25 @@ function resizeWin() {
                         <div class="input_field_filter"> {{ form.month_selector }} </div>
                         </div>
 
-
                         <input class=button_filter type="submit" value="Filter"></input>
         </form>
         </div>
 
+	<br>
+
 	<div class=calendar_info>
-	<a href="{{prev_url}}" title="Previous month" class="top-menu-icon"><<
+	<a href="{{prev_url}}" title="Previous month"><<
 		<span class="glyphicon glyphicon-menu-left">
 		</span>
-	</a> Year: {{ year }}, Month: {{monthname}} 
-	<a href="{{next_url}}" title="Next month" class="top-menu-icon">>>
+	</a> Year: {{ year }}, Month: {{monthname}}  
+	<a href="{{next_url}}" title="Next month">>>
 		<span class="glyphicon glyphicon-menu-right">
 		</span>
 	</a>
 	</div>
 
-	<p>Total working hours: <b>{{hours_month}}</b></p>
-
+	<hr>
+	
 	{%ifequal mode "hours"%}
 	<table class="table_calendar">
 		<tr>
@@ -59,16 +60,16 @@ function resizeWin() {
 			{% for day in month_range %}
 				{% for num_day, kind_day in day_of_week.items%}
 					{% ifequal num_day day%}
-						{% ifequal kind_day "W"%}
+						{% ifequal kind_day "Weekend"%}
                                                 <th class='day_weekend'>{{day}}</th>
                                                 {%endifequal%}
-						{% ifequal kind_day "F"%}
+						{% ifequal kind_day "Festive"%}
 						<th class='day_festive'>{{day}}</th>
 						{%endifequal%}
-						{% ifequal kind_day "L"%}
+						{% ifequal kind_day "WorkingDay"%}
 						<th class='day_laborable'>{{day}}</th>
 						{%endifequal%}
-						{%ifequal kind_day "I" %}
+						{%ifequal kind_day "Intensive" %}
 						<th class='day_intensive'>{{day}}</th>
 						{%endifequal%}
 					{%endifequal%}
@@ -96,16 +97,16 @@ function resizeWin() {
 									{% else %}
 										{% for num_day, kind_day in day_of_week.items%}
                                         					{% ifequal num_day day%}
-                                                					{% ifequal kind_day "F"%}
+                                                					{% ifequal kind_day "Festive"%}
                                                 					<td class='day_festive_soft'></td>
 											{%endifequal%}
-											{% ifequal kind_day "W"%}
+											{% ifequal kind_day "Weekend"%}
                                                                                         <td class='day_weekend_soft'></td>
                                                                                         {%endifequal%}
-											{% ifequal kind_day "L"%}
+											{% ifequal kind_day "WorkingDay"%}
 											<td class='non-na'>{{h}}</td>
                                                 					{%endifequal%}
-											{% ifequal kind_day "I"%}
+											{% ifequal kind_day "Intensive"%}
                                                                                         <td class='non-na'>{{h}}</td>
                                                                                         {%endifequal%}
                                         					{%endifequal%}
@@ -168,16 +169,16 @@ function resizeWin() {
 			{% for day in month_range %}
 				{% for num_day, kind_day in day_of_week.items%}
 					{% ifequal num_day day%}
-						{% ifequal kind_day "W"%}
+						{% ifequal kind_day "Weekend"%}
 						<th class='day_weekend'>{{day}}</th>
 						{%endifequal%}
-						{% ifequal kind_day "F"%}
+						{% ifequal kind_day "Festive"%}
                                                 <th class='day_festive'>{{day}}</th>
                                                 {%endifequal%}
-						{% ifequal kind_day "L"%}
+						{% ifequal kind_day "WorkingDay"%}
 						<th class='day_laborable'>{{day}}</th>
 						{%endifequal%}
-						{%ifequal kind_day "I" %}
+						{%ifequal kind_day "Intensive" %}
 						<th class='day_intensive'>{{day}}</th>
 						{%endifequal%}
 					{%endifequal%}
@@ -204,16 +205,16 @@ function resizeWin() {
 										{% ifequal h "0.00" %}
 											{% for num_day, kind_day in day_of_week.items%}
 												{% ifequal num_day day%}
-													{% ifequal kind_day "F"%}
+													{% ifequal kind_day "Festive"%}
 			                                                                                        <td class='day_festive_soft'></td>
                         		                                                                {%endifequal%}
-													{% ifequal kind_day "W"%}
+													{% ifequal kind_day "Weekend"%}
 														<td class='day_weekend_soft'></td>
 													{%endifequal%}
-													{% ifequal kind_day "L"%}
+													{% ifequal kind_day "WorkingDay"%}
 														<td class='non-na'>0</td>
 													{%endifequal%}
-													{% ifequal kind_day "I"%}
+													{% ifequal kind_day "Intensive"%}
 														<td class='non-na'>0</td>
 													{%endifequal%}
 												{%endifequal%}
@@ -250,28 +251,33 @@ function resizeWin() {
 	
 	<br>	
 
-<p>Legend:<p>
-<table>	
-	<tr>
-		<th class='day_weekend'>W</th>
-		<td class='day_weekend_soft'>Weekend</td>
-	</tr>
-	<tr>
-                <th class='day_festive'>F</th>
-                <td class='day_festive_soft'>Festive</td>
-	</tr>
-	<tr>
-                <th class='day_laborable'>L</th>
-                <td class='non-na'>Laboral</td>
-	</tr>
-	<tr>
-                <th class='day_intensive'>I</th>
-                <td class='non-na'>Intensive</td>
-	</tr>
-	<tr>
-		<td class='na'>NA</td>
-		<td class='non-na'>NonAvailability</td>
-	</tr
-<table>
+<p>Total working hours: <b>{{hours_month}}</b></p>
+
+<hr>
+
+		<table class="table_legend">
+                <p>Legend:</p>
+                <tr>
+                        <th class='day_weekend'>W</th>
+                        <td class='non-na'>Weekend</td>
+                </tr>
+                <tr>
+                        <th class='day_festive'>F</th>
+                        <td class='non-na'>Festive</td>
+                </tr>
+                <tr>
+                        <th class='day_laborable'>L</th>
+                        <td class='non-na'>Laboral</td>
+                </tr>
+                <tr>
+                        <th class='day_intensive'>I</th>
+                        <td class='non-na'>Intensive</td>
+                </tr>
+                <tr>
+                        <td class='na'>NA</td>
+                        <td class='non-na'>NonAvailability</td>
+                </tr>
+                </table>
+
 
 {% endblock %}

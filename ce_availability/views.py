@@ -176,6 +176,8 @@ def about(request):
 
 @login_required
 def calendar_filter(request, mode, year, month):
+    user=request.user
+    #print(user.employee.location)
     request.session['url'] = "/ce_availability/calendar/" + str(year) + "/" + str(month)
     if (int(month)>12):
         return HttpResponseRedirect("/ce_availability/calendar/")
@@ -202,17 +204,17 @@ def calendar_filter(request, mode, year, month):
     #print(datetime_first_day_of_week)
     #print(datetime_last_day_of_week)
 
-    calendar_events=CalendarEvent.objects.filter(start_date__lte=datetime_last_day_of_week).filter(end_date__gte=datetime_first_day_of_week).order_by('start_date')
+    calendar_events=CalendarEvent.objects.filter(start_date__lte=datetime_last_day_of_week).filter(end_date__gte=datetime_first_day_of_week).filter(location=user.employee.location).order_by('start_date')
 
     #F=festiu, L=laborable, I=intensiva
 
     for day in month_range:
         if(5==day_week or day_week==6):
-            day_of_week[day]="W"
+            day_of_week[day]="Weekend"
         elif(day_week==4):
-            day_of_week[day]="I"
+            day_of_week[day]="Intensive"
         else:
-            day_of_week[day]="L"
+            day_of_week[day]="WorkingDay"
         if (day_week==6):
             day_week=0
         else:
@@ -262,13 +264,13 @@ def calendar_filter(request, mode, year, month):
             for r in registers_day:
                 #print(r)
                 hours = hours + r.hours
-            if(day_of_week[day]=="L"):
+            if(day_of_week[day]=="WorkingDay"):
                 total_hours=8.5
-            if(day_of_week[day]=="I"):
+            if(day_of_week[day]=="Intensive"):
                 total_hours=7
-            if(day_of_week[day]=="F"):
+            if(day_of_week[day]=="Festive"):
                 total_hours=0.1
-            if(day_of_week[day]=="W"):
+            if(day_of_week[day]=="Weekend"):
                 total_hours=0.1
 
             hours_percent=hours/total_hours
@@ -294,9 +296,9 @@ def calendar_filter(request, mode, year, month):
     hours_month = 0
     for day, kind_day in day_of_week.items():
        #print(str(day) + ", " + kind_day)
-       if(kind_day=="L"):
+       if(kind_day=="WorkingDay"):
            hours_month+=8.5
-       if(kind_day=="I"):
+       if(kind_day=="Intensive"):
            hours_month+=7
     #print(hours_month)
 
