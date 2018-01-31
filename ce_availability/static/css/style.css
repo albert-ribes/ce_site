@@ -383,7 +383,7 @@ table.table_calendar tr:first-child th{
 table.table_registers {
     font-weight: normal;
     border-collapse: collapse;
-    width: 800px;
+    width: 1000px;
     font-size: 13px;
     border: 1px solid #000000;
 }
