@@ -125,8 +125,8 @@ class CalendarFilterForm(forms.Form):
     currentMonth = datetime.now().month
     currentYear = datetime.now().year
 
-    YEAR_CHOICES =  (('All','  All'),(str(currentYear+1),str(currentYear+1)), (str(currentYear),str(currentYear)),(str(currentYear-1),str(currentYear-1)),(str(currentYear-2),str(currentYear-2)))
-    MONTH_CHOICES = (('All','  All'),('1','January'), ('2','February'),('3','March'),('4','April'),('5','May'),('6','June'),('7','July'),('8','August'),('9','September'),('10','October'),('11','November'),('12','Desember'))
+    YEAR_CHOICES =  ((str(currentYear+1),str(currentYear+1)), (str(currentYear),str(currentYear)),(str(currentYear-1),str(currentYear-1)),(str(currentYear-2),str(currentYear-2)))
+    MONTH_CHOICES = (('1','January'), ('2','February'),('3','March'),('4','April'),('5','May'),('6','June'),('7','July'),('8','August'),('9','September'),('10','October'),('11','November'),('12','Desember'))
     MODE_CHOICES = (('hours','  Hours'),('percentage','Percentage'))
 
     year_selector = forms.ChoiceField(label='Year',choices=YEAR_CHOICES)
