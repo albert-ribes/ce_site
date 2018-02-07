@@ -83,7 +83,7 @@ function resizeWin() {
 			<td class='ce'>{{employee.last_name}}, {{employee.first_name}}</td>
 			{% for day in month_range %}
 
-				{% for usr, value in employee_day_hours_data.items%}
+				{% for usr, value in employee_day_hours.items%}
 	        		        {% ifequal usr employee.username%}
 						{% for dy, hrs in value.items%}
 							{% ifequal dy day%}
@@ -192,7 +192,7 @@ function resizeWin() {
 			<td class='ce'>{{employee.last_name}}, {{employee.first_name}}</td>
 			{% for day in month_range %}
 
-				{% for usr, value in employee_day_hours_data_percent.items%}
+				{% for usr, value in employee_day_hours_percent.items%}
 	        		        {% ifequal usr employee.username%}
 						{% for dy, hrs in value.items%}
 							{% ifequal dy day%}
@@ -278,6 +278,6 @@ function resizeWin() {
                         <td class='non-na'>Day with a NonAvailability</td>
                 </tr>
                 </table>
-
+<br>
 
 {% endblock %}

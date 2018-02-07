@@ -1,6 +1,6 @@
 from django import forms
 from django.forms import ModelForm, DateTimeInput
-from .models import Register, Employee, Unavailability, Category
+from .models import Register, Employee, Unavailability, Category, CalendarEvent
 from django.contrib.auth.models import User
 from datetime import datetime, timedelta
 from django.contrib.admin.widgets import AdminDateWidget
@@ -10,6 +10,7 @@ from django.contrib.admin import widgets
 class RegisterForm(forms.ModelForm):
     unavailability = forms.ModelChoiceField(queryset=Unavailability.objects.order_by('unavailability'))
     register_id=0
+    user=0
     
     class Meta:
         currentYear = datetime.now().year
@@ -22,18 +23,23 @@ class RegisterForm(forms.ModelForm):
             #'end_date': forms.SelectDateWidget(years=YEAR_CHOICES),
         }
 
-    def __init__(self, register_id, ce_choices, *args, **kwargs):
+    def __init__(self, user, register_id, ce_choices, *args, **kwargs):
        super(RegisterForm, self).__init__(*args, **kwargs)
        self.fields['user'].choices = ce_choices
        self.register_id=register_id
+       self.user=user
        #print ("INFO: FORMS.RegisterForm.__init__, register_id=" + str(register_id))
 
     def clean(self):
         start_date=self.cleaned_data.get('start_date')
         hours=self.cleaned_data.get('hours')
+        user = User.objects.filter(id=self.user.id).get()
+        #print(user)
         #hours = float(hours)
         #hours=float(str(hours).replace(',',''))
-
+        calendar_events = CalendarEvent.objects.filter(start_date__lte=start_date).filter(end_date__gte=start_date).filter(location=user.employee.location).order_by('start_date')
+        for event in calendar_events:
+             print(event)
         if(start_date):
             dayofweek=start_date.weekday()
         else:

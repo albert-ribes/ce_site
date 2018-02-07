@@ -1,7 +1,7 @@
 from django.shortcuts import render
 
 # Create your views here.
-from .models import Register, Unavailability, Category, CalendarEvent, KindOfDay, Location, Employee
+from .models import Register, Unavailability, Category, CalendarEvent, KindOfDay, Employee, Location
 from django.contrib.auth.decorators import login_required
 from django.utils import timezone
 from django import forms
@@ -180,8 +180,6 @@ def about(request):
 def calendar_filter(request, mode, year, month):
     user=request.user
     #print(user.employee.location)
-    
-    """ -------- GESTIÓ DE DATES/URLs -------- """
     request.session['url'] = "/ce_availability/calendar/" + str(year) + "/" + str(month)
     if (int(month)>12):
         return HttpResponseRedirect("/ce_availability/calendar/")
@@ -199,27 +197,18 @@ def calendar_filter(request, mode, year, month):
         prev_url="/ce_availability/calendar/"+mode+"/"+year+"/"+str(int(month)-1)+"/"
         next_url="/ce_availability/calendar/"+mode+"/"+year+"/"+str(int(month)+1)+"/"
     #print("URLS: " + prev_url + ", " + next_url)
-
-    """ -------- PROCESSAMENT DADES EMPLOYEE/MONTH/DAY/HOURS -------- 
-
-    day_of_week[day] = "Weekend" | "Intensive" | "WorkingDay" | "Festive"
-    employee_day_kindofday[employee][day] = "Weekend" | "Intensive" | "WorkingDay" | "Festive"
-    employee_day_hours[employee][day] = {hours}
-    employee_day_hours_percent[employee][day] = {hours_percent}
-    sum_hours[employee] = hours
-    sum_hours_month[employee] = hours
-    percentage[employee]= %
-
-    """
     month_range = range(1, last_day + 1)
     day_of_week = {}
     day_week = first_day_of_week
     datetime_first_day_of_week = date(int(year), int(month), 1)
     datetime_last_day_of_week = date(int(year), int(month), int(last_day))
+
     #print(datetime_first_day_of_week)
     #print(datetime_last_day_of_week)
 
     calendar_events=CalendarEvent.objects.filter(start_date__lte=datetime_last_day_of_week).filter(end_date__gte=datetime_first_day_of_week).filter(location=user.employee.location).order_by('start_date')
+
+    #F=festiu, L=laborable, I=intensiva
 
     for day in month_range:
         if(5==day_week or day_week==6):
@@ -233,6 +222,20 @@ def calendar_filter(request, mode, year, month):
         else:
             day_week = day_week + 1
 
+    for event in calendar_events:
+        #Modificar pq caigui dins del rang del mes
+        delta = event.end_date - event.start_date
+        print(event)
+        
+        for i in range(delta.days +1):
+            day=event.start_date + timedelta(days=i)
+            print(str(day.year) + "-"+ str(day.month) + "-" + str(day.day) + ", weekday=" + str(day.weekday()))
+            if(str(day.month) == month and day.weekday()!=6 and day.weekday()!=5):
+                day_of_week[day.day]=event.kindofday.kindofday
+                #print(day_of_week[day.day])
+
+    #print(day_of_week)
+
     user=request.user
     user_type=getUserType(user)
 
@@ -243,17 +246,17 @@ def calendar_filter(request, mode, year, month):
        manager_id=user.id
        #ce='All'
        employees = User.objects.filter(groups__name='CE').filter(employee__manager=manager_id).order_by('last_name')
-    
-    employee_day_kindofday={} 
+
+    employee_day_kindofday={}
     for employee in employees:
         employee_day_kindofday[employee.username]={}
-        print("-------------------------------------------------")
-        print(">>>" + employee.username)
-        location=Employee.objects.filter(id=employee.id).get()
-        calendar_events=CalendarEvent.objects.filter(start_date__lte=datetime_last_day_of_week).filter(end_date__gte=datetime_first_day_of_week).filter(location=location.location).order_by('start_date')
-        print("@" + str(location.location))
-        day_week=first_day_of_week
+        #print(employee)
+        usr_location=Employee.objects.filter(id=employee.id).values_list('location', flat=True).get()
+        usr_location=Location.objects.filter(id=usr_location).get()
+        #print(usr_location)
         for day in month_range:
+            employee_day_kindofday[employee.username][day]={}
+
             if(5==day_week or day_week==6):
                 employee_day_kindofday[employee.username][day]="Weekend"
             elif(day_week==4):
@@ -264,103 +267,59 @@ def calendar_filter(request, mode, year, month):
                 day_week=0
             else:
                 day_week = day_week + 1
+    print(employee_day_kindofday)
 
-        for event in calendar_events:
-            delta = event.end_date - event.start_date
-            print(event)
-            for i in range(delta.days +1):
-                day_event=event.start_date + timedelta(days=i)
-                #print(str(day.year) + "-"+ str(day.month) + "-" + str(day.day) + ", weekday=" + str(day.weekday()))
-                if(str(day_event.month) == month and day_event.weekday()!=6 and day_event.weekday()!=5 and employee_day_kindofday[employee.username][day_event.day]!="Festive"):
-                    employee_day_kindofday[employee.username][day_event.day]=event.kindofday.kindofday
-
-        print(employee_day_kindofday[employee.username])
-
-    print(" ################################################# ")
-
-    for event in calendar_events:
-        delta = event.end_date - event.start_date
-        #print(event)
-        for i in range(delta.days +1):
-            day=event.start_date + timedelta(days=i)
-            #print(str(day.year) + "-"+ str(day.month) + "-" + str(day.day) + ", weekday=" + str(day.weekday()))
-            if(str(day.month) == month and day.weekday()!=6 and day.weekday()!=5):
-                day_of_week[day.day]=event.kindofday.kindofday
-                #print(day_of_week[day.day])
-    #print(day_of_week)
-
-    #employee_day_hours[employee.username][day]={hours} conté el llistat d'hores NA per empleat al mes
-    #employee_day_hours_percent[employee.username][day]={hours} conté el llistat en percentatge d'hores NA per empleat al mes
-    employee_day_hours={}
-    employee_day_hours_percent={}
+    #employee_day_hours_data[employee.username][day]={hours} conté el llistat d'hores NA per empleat al mes
+    #employee_day_hours_data_percent[employee.username][day]={hours} conté el llistat en percentatge d'hores NA per empleat al mes
+    employee_day_hours_data={}
+    employee_day_hours_data_percent={}
     for employee in employees:
-        employee_day_hours[employee.username]={}
-        employee_day_hours_percent[employee.username]={}
+        employee_day_hours_data[employee.username]={}
+        employee_day_hours_data_percent[employee.username]={}
         #print(employee)
         registers=Register.objects.filter(start_date__year=year).filter(start_date__month=month).filter(user_id=employee)
         #print(str(registers))
         for day in month_range:
-            employee_day_hours[employee.username][day]={}
-            employee_day_hours_percent[employee.username][day]={}
+            employee_day_hours_data[employee.username][day]={}
+            employee_day_hours_data_percent[employee.username][day]={}
             hours=0
             registers_day=registers.filter(start_date__day=day)
             #print(str(day) + ", " + str(registers_day))
             for r in registers_day:
                 #print(r)
                 hours = hours + r.hours
-            if(employee_day_kindofday[employee.username][day]=="WorkingDay"):
+            if(day_of_week[day]=="WorkingDay"):
                 #total_hours=8.5
                 total_hours = KindOfDay.objects.filter(kindofday="WorkingDay").values_list('laborablehours', flat=True).get()
-            if(employee_day_kindofday[employee.username][day]=="Intensive"):
+            if(day_of_week[day]=="Intensive"):
                 #total_hours=7
                 total_hours = KindOfDay.objects.filter(kindofday="Intensive").values_list('laborablehours', flat=True).get()
-            if(employee_day_kindofday[employee.username][day]=="Festive"):
+            if(day_of_week[day]=="Festive"):
                 total_hours=0.1
-            if(employee_day_kindofday[employee.username][day]=="Weekend"):
+            if(day_of_week[day]=="Weekend"):
                 total_hours=0.1
-            #print(total_hours)
+
             hours_percent=hours/total_hours
             hours_percent=format(hours_percent, '.2f')
             #print(employee.username + ", " + str(day) + ", " + str(hours))
-            employee_day_hours[employee.username][day]={hours}
-            employee_day_hours_percent[employee.username][day]={hours_percent}
-            #print(employee.username + ", " + str(day) + ", " + str(employee_day_hours[employee.username][day]))
-            #print(employee.username + ", " + str(day) + ", " + str(employee_day_hours_percent[employee.username][day]))
+            employee_day_hours_data[employee.username][day]={hours}
+            employee_day_hours_data_percent[employee.username][day]={hours_percent}
+            #print(data[employee.username][day])
+            #print(employee.username + ", " + str(day) + ", " + str(data_percent[employee.username][day]))
+    #print(data)
 
     #sum_hours: suma d'hores NA per Employee al mes
-    employee_nahours_month={}
     sum_hours = {}
-    for employee, value in employee_day_hours.items():
-        sum_hours[employee]=0
-        employee_nahours_month[employee]=0
+    for usr, value in employee_day_hours_data.items():
+        sum_hours[usr]=0
         for day, hours in value.items():
             for h in hours:
                 #print(str(usr) + ", " +str(day)+", " + str(h))
-                sum_hours[employee]+=h
-                employee_nahours_month[employee]+=h 
+                sum_hours[usr]+=h 
     #print(sum_hours)
 
     #hours_month: suma d'hores laborables del mes
-    employee_total_hours_month={}
-    for employee in employees:
-        employee_total_hours_month[employee.username]=0
-        print("<<<<" + employee.username)
-        for day, kind_day in employee_day_kindofday[employee.username].items():
-            #print(str(day) + ", " + kind_day)
-            if (kind_day=="WorkingDay"):
-                employee_total_hours_month[employee.username]=employee_total_hours_month[employee.username] + KindOfDay.objects.filter(kindofday="WorkingDay").values_list('laborablehours', flat=True).get()
-            elif (kind_day=="Intensive"):
-                employee_total_hours_month[employee.username]=employee_total_hours_month[employee.username] + KindOfDay.objects.filter(kindofday="Intensive").values_list('laborablehours', flat=True).get()
-            else:
-                employee_total_hours_month[employee.username]=employee_total_hours_month[employee.username] + 0
-
-        print(employee_nahours_month[employee.username])
-        print(employee_total_hours_month[employee.username])
-
-    print(" ################################################# ")
-
     hours_month = 0
-    sum_hours_month = {}
     for day, kind_day in day_of_week.items():
        #print(str(day) + ", " + kind_day)
        if(kind_day=="WorkingDay"):
@@ -400,8 +359,8 @@ def calendar_filter(request, mode, year, month):
 
         form = CalendarFilterForm(initial)
     data = {
-        'employee_day_hours': employee_day_hours,
-        'employee_day_hours_percent': employee_day_hours_percent,
+        'employee_day_hours_data': employee_day_hours_data,
+        'employee_day_hours_data_percent': employee_day_hours_data_percent,
         'day_of_week': day_of_week,'employees': employees, 
         'year':year,'month': month, 'monthname':monthname,
         'first_day_of_week': first_day_of_week,
