@@ -524,7 +524,7 @@ def register_details(request, pk):
     register_id=register.id
     if request.method == "POST":
         #print("INFO: VIEWS.register_details: POST")
-        form = RegisterForm(register_id, ce_choices, request.POST, instance=register)
+        form = RegisterForm(user, register_id, ce_choices, request.POST, instance=register)
         #print("INFO: VIEWS.register_details: form=" +str(form))
         if form.is_valid():
             #print("INFO: VIEWS.register_details: FORM_IS_VALID")
@@ -534,7 +534,7 @@ def register_details(request, pk):
             return render(request, 'ce_availability/update_post.html', {'result':result, 'id': register.id})
             
     else:
-        form = RegisterForm(register_id, ce_choices, instance=register)
+        form = RegisterForm(user, register_id, ce_choices, instance=register)
     return render(request, 'ce_availability/register_details.html', {'form': form, 'register': register})
 
 @login_required
