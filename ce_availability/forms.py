@@ -37,7 +37,7 @@ class RegisterForm(forms.ModelForm):
         #print(user)
         #hours = float(hours)
         #hours=float(str(hours).replace(',',''))
-        if(start_date and start_date!=None):
+        if(start_date and start_date!=None start_date!="None"):
             dayofweek=start_date.weekday()
             calendar_events = CalendarEvent.objects.filter(start_date__lte=start_date).filter(end_date__gte=start_date).filter(location=user.employee.location).order_by('start_date')
             for event in calendar_events:
