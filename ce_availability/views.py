@@ -216,10 +216,11 @@ def calendar_filter(request, mode, year, month):
     day_week = first_day_of_week
     datetime_first_day_of_week = date(int(year), int(month), 1)
     datetime_last_day_of_week = date(int(year), int(month), int(last_day))
-    #print(datetime_first_day_of_week)
-    #print(datetime_last_day_of_week)
+    print(datetime_first_day_of_week)
+    print(datetime_last_day_of_week)
 
-    calendar_events=CalendarEvent.objects.filter(start_date__lte=datetime_last_day_of_week).filter(end_date__gte=datetime_first_day_of_week).filter(location=user.employee.location).order_by('start_date')
+    #calendar_events=CalendarEvent.objects.filter(start_date__lte=datetime_last_day_of_week).filter(end_date__gte=datetime_first_day_of_week).filter(location=user.employee.location).order_by('start_date')
+    #print(calendar_events)
 
     for day in month_range:
         if(5==day_week or day_week==6):
@@ -250,6 +251,7 @@ def calendar_filter(request, mode, year, month):
         print("-------------------------------------------------")
         print(">>>" + employee.username)
         location=Employee.objects.filter(id=employee.id).get()
+        print(str(datetime_last_day_of_week) + ", " + str(datetime_first_day_of_week) + ", " + str(location.location))
         calendar_events=CalendarEvent.objects.filter(start_date__lte=datetime_last_day_of_week).filter(end_date__gte=datetime_first_day_of_week).filter(location=location.location).order_by('start_date')
         print("@" + str(location.location))
         day_week=first_day_of_week
