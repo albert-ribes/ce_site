@@ -3,6 +3,7 @@ from django.db import models
 # Create your models here.
 
 from django.utils import timezone
+import datetime
 
 # Extending User Model Using a One-To-One Link
 # From: https://simpleisbetterthancomplex.com/tutorial/2016/07/22/how-to-extend-django-user-model.html#onetoone
@@ -22,7 +23,6 @@ class Location(models.Model):
 class KindOfDay(models.Model):
     kindofday = models.CharField(max_length=20, blank=True)
     comment = models.CharField(max_length=41, blank=True)
-    laborablehours = models.FloatField()
     def __str__(self):
         return self.kindofday
 
@@ -32,8 +32,7 @@ class CalendarEvent(models.Model):
     end_date = models.DateField(default=timezone.now)
     kindofday = models.ForeignKey(KindOfDay, related_name='KindOfDay')
     def __str__(self):
-        string = "ID=" + str(self.id) + "; " + self.start_date.strftime("%Y-%m-%d") + " - " + self.end_date.strftime("%Y-%m-%d") + ", " + self.location.location + ", " + self.kindofday.kindofday
-        return string
+        return self.id
 
 class Employee(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)

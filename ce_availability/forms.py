@@ -37,13 +37,14 @@ class RegisterForm(forms.ModelForm):
         #print(user)
         #hours = float(hours)
         #hours=float(str(hours).replace(',',''))
-        calendar_events = CalendarEvent.objects.filter(start_date__lte=start_date).filter(end_date__gte=start_date).filter(location=user.employee.location).order_by('start_date')
-        for event in calendar_events:
-             print(event)
-        if(start_date):
+        if(start_date and start_date!=None):
             dayofweek=start_date.weekday()
+            calendar_events = CalendarEvent.objects.filter(start_date__lte=start_date).filter(end_date__gte=start_date).filter(location=user.employee.location).order_by('start_date')
+            for event in calendar_events:
+                 print(event)
         else:
-            raise forms.ValidationError({'start_date': ["Invalid date.",]})
+            raise forms.ValidationError({'start_date': ["",]})
+            print("Invalid Date")
         ce=self.cleaned_data.get('user')
         register_id=self.register_id
         """
