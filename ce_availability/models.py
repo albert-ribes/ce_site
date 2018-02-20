@@ -15,9 +15,9 @@ from django.dispatch import receiver
 
 class Location(models.Model):
     location = models.CharField(max_length=200)
-
     def __str__(self):
-        return self.location
+        string=self.location + ", ID=" + str(self.id)
+        return string
 
 class KindOfDay(models.Model):
     kindofday = models.CharField(max_length=20, blank=True)
@@ -31,8 +31,9 @@ class CalendarEvent(models.Model):
     start_date = models.DateField(default=timezone.now)
     end_date = models.DateField(default=timezone.now)
     kindofday = models.ForeignKey(KindOfDay, related_name='KindOfDay')
+    comment = models.CharField(max_length=80, blank=True)
     def __str__(self):
-        string = "ID=" + str(self.id) + "; " + self.start_date.strftime("%Y-%m-%d") + " - " + self.end_date.strftime("%Y-%m-%d") + ", " + self.location.location + ", " + self.kindofday.kindofday
+        string = "ID=" + str(self.id) + "; " + self.start_date.strftime("%Y-%m-%d") + " - " + self.end_date.strftime("%Y-%m-%d") + ", " + self.location.location + ", " + self.kindofday.kindofday + "  -  " + self.comment
         return string
 
 class Employee(models.Model):
@@ -79,6 +80,7 @@ class Register(models.Model):
     start_date = models.DateField(default=timezone.now)
     #end_date = models.DateField(default=timezone.now)
     created_date = models.DateTimeField(default=timezone.now)
+    createdby = models.ForeignKey(User, related_name='CreatedByUser')
 
     def get_start_year(self):
         return self.start_date.year

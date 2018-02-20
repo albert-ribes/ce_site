@@ -114,7 +114,7 @@
 	{%endif %}		
 		
                 <hr>
-                <p>Unavailability created by <i>{{ register.user.first_name }} {{ register.user.last_name }}</i> at {{ register.created_date }} </p>
+                <p>Unavailability created by <i>{{ register.createdby.first_name }} {{ register.createdby.last_name }}</i> at {{ register.created_date }} </p>
                 <hr>
 	{% if register.user.id == user.id  or register.user.employee.manager.id == user.id%}
 

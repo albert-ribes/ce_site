@@ -10,6 +10,7 @@ urlpatterns = [
     url(r'^list/(?P<ce>[-\w]+)/(?P<unavailability>[-\w]+)/(?P<category>[-\w]+)/(?P<year>[-\w]+)/(?P<month>[-\w]+)/(?P<week>[-\w]+)/', views.list_filter, name='list_filter'),
     url(r'^calendar/(?P<mode>[-\w]+)/(?P<year>[-\w]+)/(?P<month>[-\w]+)/$', views.calendar_filter, name='calendar'),
     url(r'^registers/(?P<ce>[-\w]+)/(?P<year>[-\w]+)/(?P<month>[-\w]+)/(?P<day>[-\w]+)/$', views.registers_ce_day, name='registers_ce_day'),
+    url(r'^day_info/(?P<ce>[-\w]+)/(?P<year>[-\w]+)/(?P<month>[-\w]+)/(?P<day>[-\w]+)/$', views.day_info, name='day_info'),
     url(r'^calendar/$', views.calendar, name='calendar'),
     url(r'^details/(?P<pk>\d+)/$', views.register_details, name='register_details'),
     url(r'^delete/(?P<pk>\d+)/$', views.register_delete, name='register_delete'),

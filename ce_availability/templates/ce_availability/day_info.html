@@ -1,0 +1,37 @@
+{% load staticfiles %}
+<html>
+    <head>
+        <title>CE Availability</title>
+        <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+        <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
+        <link href='//fonts.googleapis.com/css?family=Lobster&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
+        <link rel="stylesheet" href="{% static 'css/style.css' %}">
+        <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+        {% comment%}
+        <script type="text/javascript" src="/my_admin/jsi18n/"></script>
+        <script type="text/javascript" src="/media/admin/js/core.js"></script>
+        {% endcomment %}
+
+        {% load static %}
+    </head>
+
+
+<div class="content container">
+<br>
+<p>Day details for <i>{{employee.first_name}} {{employee.last_name}}</i> at {{day}}/{{month}}/{{year}}:<p>
+
+	{% comment %}
+	<h3>Unavailabilities</h3><br>
+	{% endcomment %}
+	
+	{% for event in calendar_events%}
+		<ul>
+			<li>Event ID: {{event.id}}</li>
+			<ul>
+				<li>Kind of day: {{event.kindofday}}</li>
+				<li>Comments: {{event.comment}}</li>
+			</ul>
+		</ul>
+	{%endfor%}
+</div>
+</html>

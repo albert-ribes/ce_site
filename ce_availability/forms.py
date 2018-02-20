@@ -1,5 +1,5 @@
 from django import forms
-from django.forms import ModelForm, DateTimeInput
+from django.forms import ModelForm, DateTimeInput, DateInput
 from .models import Register, Employee, Unavailability, Category, CalendarEvent
 from django.contrib.auth.models import User
 from datetime import datetime, timedelta
@@ -19,7 +19,8 @@ class RegisterForm(forms.ModelForm):
         fields = ('user', 'unavailability', 'hours', 'start_date','comments',)
         widgets = {
             #'start_date': forms.DateField(widget=AdminDateWidget()),
-            'start_date': forms.SelectDateWidget(years=YEAR_CHOICES),
+            #'start_date': forms.SelectDateWidget(years=YEAR_CHOICES),
+            'start_date': DateInput(attrs={'type': 'date'}),
             #'end_date': forms.SelectDateWidget(years=YEAR_CHOICES),
         }
 
@@ -31,9 +32,15 @@ class RegisterForm(forms.ModelForm):
        #print ("INFO: FORMS.RegisterForm.__init__, register_id=" + str(register_id))
 
     def clean(self):
-        start_date=self.cleaned_data.get('start_date')
+        try:
+           start_date=self.cleaned_data.get('start_date')
+        except:
+           print("Oops!  That was no valid number.  Try again...")
         hours=self.cleaned_data.get('hours')
         user = User.objects.filter(id=self.user.id).get()
+        location_id=Employee.objects.filter(user_id=self.user.id).values_list('location', flat=True).get()
+        calendar_events=CalendarEvent.objects.filter(start_date__lte=start_date).filter(end_date__gte=start_date).filter(location=location_id).order_by('start_date')
+        print(calendar_events)
         #print(user)
         #hours = float(hours)
         #hours=float(str(hours).replace(',',''))

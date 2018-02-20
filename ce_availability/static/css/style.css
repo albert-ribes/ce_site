@@ -142,7 +142,7 @@ button.submit-button{
 
 .calendar_filter_form{
     margin-top: 10px;
-    margin-bottom: 10px;
+    margin-bottom: 20px;
     margin-right: 10px;
     border: 1px solid #ececec;
     /*background-color: #ececec;*/
@@ -162,13 +162,31 @@ table.table_calendar {
     font-size: 14px;
     border: 1px solid #000000;
     width: 1000px;
-    table-layout:fixed
+    table-layout:fixed;
+    	margin-top: 60px;
 }
+/*
+table.table_calendar tr:nth-child(odd) {
+    font-weight: normal;
+    background-color: #eeeeee;
+}
+*/
+
+table.table_calendar tr:nth-child(odd):hover,  tr:nth-child(odd).selected {
+    font-weight: normal;
+    background-color: #fffeb3;
+}
+/*
+table.table_calendar tr:first-child th{
+    font-weight: bold;
+    background-color: #999999;
+    color: white;
+}
+*/
 
 table.table_calendar td, table.table_calendar th {
     padding-left:0px;
     padding-right:0px;
-
     table-layout:fixed;
     width: 34;
     height: 20px;
@@ -185,6 +203,19 @@ table.table_calendar th.ce {
     padding-left: 8px;
 }
 
+table.table_calendar th.ce_header {
+    width:180px;
+    border: 1px solid #000000;
+    padding-left: 8px;
+	background: white;
+}
+table.table_calendar th.ce_header:hover {
+    width:180px;
+    border: 1px solid #000000;
+    padding-left: 8px;
+	background: white;
+}
+
 table.table_calendar td.ce {
     width:180px;
     border: 1px solid #000000;
@@ -196,6 +227,8 @@ table.table_calendar th.total_hours {
     border: 1px solid #000000;
     text-align: center;
     font-weight: normal;
+	background: #ff33cc;
+	color: white;
 }
 
 table.table_calendar td.total_hours {
@@ -264,11 +297,12 @@ table.table_calendar th.day_festive {
     color: white;
 }
 
-table.table_calendar td.day_festive_soft {
+table.table_calendar td.day_festive {
     width:34px;
     border: 1px solid #000000;
     text-align: center;
-    background: #d1e0e0;
+	color:white;
+    background: #660066;
 }
 
 
@@ -349,7 +383,7 @@ table.table_legend th.day_festive {
     width:34px;
     border: 1px solid #000000;
     text-align: center;
-    background: #669999;
+    background: #660066;
     color: white;
 }
 
@@ -368,6 +402,8 @@ table.table_legend th.day_intensive {
     background: #32cd32;
     color: white;
 }
+
+
 
 
 /*
@@ -444,7 +480,6 @@ table.table_registers th.comments {
     width:200px;
 }
 
-
 table.table_registers tr:nth-child(odd) {
     font-weight: normal;
     background-color: #eeeeee;
@@ -485,6 +520,8 @@ a.list_link:link {
     text-decoration: none;
 }
 
+
+
 /* visited link */
 a.list_link:visited {
     color: black;
@@ -500,6 +537,35 @@ a.list_link:active {
     color: black;
 }
 
+/*LINK COLORS*/
+a.festive_link {
+    color: white;
+    text-decoration: none;
+}
+
+
+a.festive_link:link {
+    color: white;
+    text-decoration: none;
+}
+
+
+
+/* visited link */
+a.festive_link:visited {
+    color: white;
+}
+
+/* mouse over link */
+a.festive_link:hover {
+    color: white;
+}
+
+/* selected link */
+a.list_link:active {
+    color: black;
+}
+
 /*Style INSERT */
 
 #id_unavailability {
@@ -508,7 +574,8 @@ a.list_link:active {
     width: 50px;
 }
 #id_start_date {
-    width: 80px;
+    width: 120px;
+    height: 26px;
 }
 #id_end_date {
     width: 80px;
