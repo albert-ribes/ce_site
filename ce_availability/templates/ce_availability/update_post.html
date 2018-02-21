@@ -4,7 +4,9 @@
     {% if user.is_authenticated %}
 	{% if result %}
 		<p>Unavailability with ID = <a href='/ce_availability/details/{{ id }}'>{{ id }}</a> sucessfully updated.<p>
-		<p><a href={{ request.session.url }}>Back</a></p>
+		{% if request.session.url %}
+			<p><a href={{ request.session.url }}>Back</a></p>
+		{%endif%}
 	{% else %}
 		<p>Ups! Something went wrong<p>
 	{% endif %}

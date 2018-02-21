@@ -474,6 +474,7 @@ def insert(request):
 
     user=request.user
     user_type=getUserType(user)
+    request.session['url'] = ""
     print("INFO: VIEWS.list_filter: user.id=" + str(user.id) +", user_type=" + user_type)
 
     if user_type=='CE':
