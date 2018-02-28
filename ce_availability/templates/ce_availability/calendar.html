@@ -69,7 +69,7 @@ function resizeWin() {
 							{% ifequal dy day%}
 								{% for h in hrs %}
 									{% if h %}
-										<td class='na'><a class="list_link" title="Check {{employee.first_name}}'s unavailabilites for that day" target="popup" onclick="window.open('/ce_availability/registers/{{employee.id}}/{{year}}/{{month}}/{{day}}' ,'name','width=1200,height=200')">{{h}}</a></td>
+										<td class='na'><a class="list_link" title="Check {{employee.first_name}}'s unavailabilites for that day" target="popup" onclick="window.open('/ce_availability/registers/{{employee.id}}/{{year}}/{{month}}/{{day}}' ,'name','width=1200,height=480')">{{h}}</a></td>
 									{% else %}
 										{% for usr_, value in employee_day_kindofday.items%}
 											{% ifequal usr_ employee.username%}
@@ -210,7 +210,7 @@ function resizeWin() {
 															
 
 															<td class='{{category}}'>
-																<a class="{{category}}_link" title="Check {{employee.first_name}}'s unavailabilites for that day" target="popup" onclick="window.open('/ce_availability/registers/{{employee.id}}/{{year}}/{{month}}/{{day}}' ,'name','width=1200,height=280')">
+																<a class="{{category}}_link" title="Check {{employee.first_name}}'s unavailabilites for that day" target="popup" onclick="window.open('/ce_availability/registers/{{employee.id}}/{{year}}/{{month}}/{{day}}' ,'name','width=1200,height=480')">
 																{{h}}
 																</a>
 															</td>
