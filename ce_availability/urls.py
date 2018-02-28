@@ -15,6 +15,7 @@ urlpatterns = [
     url(r'^details/(?P<pk>\d+)/$', views.register_details, name='register_details'),
     url(r'^details_popup/(?P<pk>\d+)/$', views.register_details_popup, name='register_details_popup'),
     url(r'^delete/(?P<pk>\d+)/$', views.register_delete, name='register_delete'),
+    url(r'^delete_popup/(?P<pk>\d+)/$', views.register_delete_popup, name='register_delete_popup'),
     url(r'^edit/', views.edit, name='edit'),
     url(r'^insert/', views.insert, name='insert'),
     url(r'^user_settings/', views.user_settings, name='user_settings'),

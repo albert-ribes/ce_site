@@ -620,7 +620,19 @@ def register_delete(request, pk):
         'id': id
     }
     return render(request, 'ce_availability/delete_post.html', data)
-    #return redirect(request.session['url'])
+
+
+@login_required
+def register_delete_popup(request, pk):
+    register = get_object_or_404(Register, pk=pk)
+    id = register.id
+    register.delete()
+    result=True
+    data = {
+        'result':result,
+        'id': id
+    }
+    return render(request, 'ce_availability/delete_post_popup.html', data)
 
 @login_required
 def change_password(request):

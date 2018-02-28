@@ -136,7 +136,7 @@
                 <hr>
 	{% if register.user.id == user.id  or register.user.employee.manager.id == user.id%}
 
-                <a href='/ce_availability/delete/{{ register.id }}'><p><span class="glyphicon glyphicon-remove"></span></a> Delete Unavailability
+                <a href='/ce_availability/delete_popup/{{ register.id }}'><p><span class="glyphicon glyphicon-remove"></span></a> Delete Unavailability
                 <button type="submit" class="update-button">Update</button>
 		</form>
 	{%endif%}
