@@ -1,0 +1,145 @@
+{% load staticfiles %}
+<html>
+    <head>
+        <title>CE Availability</title>
+        <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+        <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
+        <link href='//fonts.googleapis.com/css?family=Lobster&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
+        <link rel="stylesheet" href="{% static 'css/style.css' %}">
+        <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+        {% comment%}
+        <script type="text/javascript" src="/my_admin/jsi18n/"></script>
+        <script type="text/javascript" src="/media/admin/js/core.js"></script>
+        {% endcomment %}
+
+        {% load static %}
+    </head>
+	
+	
+<div class="content container">
+<br>
+
+	<h2>Unavailability details</h2>
+	{% comment %}
+	<p>If you have proper persmissions, you can modify or delete an unavailability<p>
+	{% endcomment %}
+      	{% if register.user.id == user.id  or register.user.employee.manager.id == user.id%}
+	<div class="modify_register">
+		<form method="POST" class="post-form" novalidate>{% csrf_token %}
+                {% comment %}
+                {{ form.as_p }}
+		{% endcomment %}
+		<div class="fielForm">
+	                <label for="{{ form.id.id_for_label }}">ID:</label>
+        	        <div class="input_field_insert"> {{ register.id }} </div>
+                </div>
+
+		<div class="fieldForm">
+                        <label for="{{ form.unavailability.id_for_label }}">CE:</label>
+                        <div class="input_field_insert"> {{ form.user }} </div>
+                        <div class="error_field">
+                                {% if form.user.errors %}
+                                        {% for error in form.user.errors %}
+                                        <div class="form_error"> {{ error|escape }}</div>
+                                        {% endfor %}
+                                {% endif %}
+                        </div>
+                </div>
+
+
+
+                <div class="fielForm">
+			<label for="{{ form.unavailability.id_for_label }}">Unavailability:</label>
+	                <div class="input_field_insert"> {{ form.unavailability }} </div>
+			<div class="error_field">
+				{% if form.unavailability.errors %}
+	                                {% for error in form.unavailability.errors %}
+	                                <div class="form_error"> {{ error|escape }}</div>
+	                                {% endfor %}
+	                        {% endif %}
+			</div>
+                </div>
+
+                <div class="fielForm">
+        	        <label for="{{ form.hours.id_for_label }}">Hours:</label>
+	                <div class="input_field_insert"> {{ form.hours }} </div>
+			<div class="error_field">
+				{% if form.hours.errors  %}
+	                                {% for error in  form.hours.errors %}
+	                                <div class="form_error"> {{ error|escape }}</div>
+	                                {% endfor %}
+	                        {% endif %}
+			</div>
+                </div>
+
+                <div class="fieldForm">
+        	        <label for="{{ form.start_date.id_for_label }}">Start date:</label>
+	                <div class="input_field_insert"> {{ form.start_date }} </div>
+			<div class="error_field">
+				{% if form.start_date.errors  %}
+        	                        {% for error in form.start_date.errors  %}
+	                                <div class="form_error"> {{ error|escape }}</div>
+	                                {% endfor %}
+	                        {% endif %}
+			</div>
+	        </div>
+
+		<div class="fieldForm">
+	                <label for="{{ form.comments.id_for_label }}">Comments:</label>
+	                <div class="input_field_insert"> {{ form.comments }} </div>
+			<div class="error_field">
+				{% if form.comments.errors  %}
+	                                {% for error in form.comments.errors  %}
+	                                <div class="form_error"> {{ error|escape }}</div>
+	                                {% endfor %}
+	                        {% endif %}
+			</div>
+                </div>
+	</div>
+	{% else %}
+	<div class="modify_register">_insert		
+		<div class="fieldWrapper">
+                <label for="{{ form.id.id_for_label }}">ID:</label>
+                <div class="input_field_insert"> {{ register.id }} </div>
+                </div>
+
+		<div class="fieldWrapper">
+                <label for="{{ form.unavailability.id_for_label }}">Unavailability:</label>
+                <div class="input_field_insert"> {{ register.unavailability }} </div>
+                </div>
+
+                <div class="fieldWrapper">
+                <label for="{{ form.hours.id_for_label }}">Hours:</label>
+                <div class="input_field_insert"> {{ register.hours }} </div>
+                </div>
+
+                <div class="fieldWrapper">
+                <label for="{{ form.start_date.id_for_label }}">Start date:</label>
+                <div class="input_field_insert"> {{ register.start_date }} </div>
+                </div>
+		{%comment%}
+                <div class="fieldWrapper">
+                <label for="{{ form.end_date.id_for_label }}">Finish date:</label>
+                <div class="input_field"> {{ register.end_date }} </div>
+                </div>
+		{%endcomment%}
+
+                <div class="fieldWrapper">
+                <label for="{{ form.comments.id_for_label }}">Comments:</label>
+                <div class="input_field_insert"> {{ register.comments }} </div>
+                </div>
+	</div>
+	{%endif %}		
+		
+                <hr>
+                <p>Unavailability created by <i>{{ register.createdby.first_name }} {{ register.createdby.last_name }}</i> at {{ register.created_date }} </p>
+                <hr>
+	{% if register.user.id == user.id  or register.user.employee.manager.id == user.id%}
+
+                <a href='/ce_availability/delete/{{ register.id }}'><p><span class="glyphicon glyphicon-remove"></span></a> Delete Unavailability
+                <button type="submit" class="update-button">Update</button>
+		</form>
+	{%endif%}
+</div>
+</html>
+		

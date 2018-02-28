@@ -13,6 +13,7 @@ urlpatterns = [
     url(r'^day_info/(?P<ce>[-\w]+)/(?P<year>[-\w]+)/(?P<month>[-\w]+)/(?P<day>[-\w]+)/$', views.day_info, name='day_info'),
     url(r'^calendar/$', views.calendar, name='calendar'),
     url(r'^details/(?P<pk>\d+)/$', views.register_details, name='register_details'),
+    url(r'^details_popup/(?P<pk>\d+)/$', views.register_details_popup, name='register_details_popup'),
     url(r'^delete/(?P<pk>\d+)/$', views.register_delete, name='register_delete'),
     url(r'^edit/', views.edit, name='edit'),
     url(r'^insert/', views.insert, name='insert'),

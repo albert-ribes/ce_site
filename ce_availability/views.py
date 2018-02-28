@@ -522,7 +522,6 @@ def user_details(request):
     user_type=getUserType(request.user)
     return render(request, 'ce_availability/user_details.html', {'user_type':user_type})
 
-
 @login_required
 def user_settings(request):
     user_type=getUserType(request.user)
@@ -577,6 +576,38 @@ def register_details(request, pk):
     else:
         form = RegisterForm(user, register_id, ce_choices, instance=register)
     return render(request, 'ce_availability/register_details.html', {'form': form, 'register': register})
+
+@login_required
+def register_details_popup(request, pk):
+    user=request.user
+    user_type=getUserType(user)
+    #print("INFO: VIEWS.register_details: user.id=" + str(user.id) +", user_type=" + user_type)
+
+    if user_type=='CE':
+       ce_choices=[(choice.pk, choice.last_name  + ", " + choice.first_name) for choice in User.objects.filter(id=user.id)]
+    if user_type=='SDM':
+       manager_id=user.id
+       ce_choices=[(choice.pk, choice.last_name  + ", " + choice.first_name) for choice in User.objects.filter(groups__name='CE').filter(employee__manager=manager_id).order_by('last_name')]
+    """
+    for choice in ce_choices:
+       print(choice)
+    """
+    register = get_object_or_404(Register, pk=pk)
+    register_id=register.id
+    if request.method == "POST":
+        #print("INFO: VIEWS.register_details: POST")
+        form = RegisterForm(user, register_id, ce_choices, request.POST, instance=register)
+        #print("INFO: VIEWS.register_details: form=" +str(form))
+        if form.is_valid():
+            #print("INFO: VIEWS.register_details: FORM_IS_VALID")
+            register = form.save(commit=False)
+            register.save()
+            result=True
+            return render(request, 'ce_availability/update_post_popup.html', {'result':result, 'id': register.id})
+            
+    else:
+        form = RegisterForm(user, register_id, ce_choices, instance=register)
+    return render(request, 'ce_availability/register_details_popup.html', {'form': form, 'register': register})
 
 @login_required
 def register_delete(request, pk):
