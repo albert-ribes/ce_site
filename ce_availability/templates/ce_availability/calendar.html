@@ -69,7 +69,7 @@ function resizeWin() {
 							{% ifequal dy day%}
 								{% for h in hrs %}
 									{% if h %}
-										<td class='na'><a class="list_link" title="Check {{employee.first_name}}'s unavailabilites for that day" target="popup" onclick="window.open('/ce_availability/registers/{{employee.id}}/{{year}}/{{month}}/{{day}}' ,'name','width=1200,height=480')">{{h}}</a></td>
+										<td class='na'><a class="list_link" title="Check {{employee.first_name}}'s unavailabilites of this day" target="popup" onclick="window.open('/ce_availability/registers/{{employee.id}}/{{year}}/{{month}}/{{day}}' ,'name','width=1200,height=480')">{{h}}</a></td>
 									{% else %}
 										{% for usr_, value in employee_day_kindofday.items%}
 											{% ifequal usr_ employee.username%}
@@ -191,7 +191,7 @@ function resizeWin() {
 		</tr>
             	{% for employee in employees %}
 		<tr>
-			<td class='ce'><a href='/ce_availability/list/{{employee.id}}/All/All/{{year}}/{{month}}/All/' title="Check {{employee.first_name}}'s unavailabilites for that month">{{employee.last_name}}, {{employee.first_name}}</a></td>
+			<td class='ce'><a href='/ce_availability/list/{{employee.id}}/All/All/{{year}}/{{month}}/All/' title="Check {{employee.first_name}}'s unavailabilites of this month">{{employee.last_name}}, {{employee.first_name}}</a></td>
 			{% for day in month_range %}
 
 				{% for usr, value in employee_day_nahours_percent.items%}
@@ -210,7 +210,7 @@ function resizeWin() {
 															
 
 															<td class='{{category}}'>
-																<a class="{{category}}_link" title="Check {{employee.first_name}}'s unavailabilites for that day" target="popup" onclick="window.open('/ce_availability/registers/{{employee.id}}/{{year}}/{{month}}/{{day}}' ,'name','width=1200,height=480')">
+																<a class="{{category}}_link" title="Check {{employee.first_name}}'s unavailabilites of this day" target="popup" onclick="window.open('/ce_availability/registers/{{employee.id}}/{{year}}/{{month}}/{{day}}' ,'name','width=1200,height=480')">
 																{{h}}
 																</a>
 															</td>
