@@ -61,7 +61,7 @@ class Employee(models.Model):
     """
 class Category(models.Model):
     category = models.CharField(max_length=200)
-
+    short_name = models.CharField(max_length=80, blank=True, null=True, default=" ")
     def __str__(self):
         return self.category
 

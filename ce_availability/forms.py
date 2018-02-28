@@ -1,6 +1,6 @@
 from django import forms
 from django.forms import ModelForm, DateTimeInput, DateInput
-from .models import Register, Employee, Unavailability, Category, CalendarEvent
+from .models import Register, Employee, Unavailability, CalendarEvent, Category
 from django.contrib.auth.models import User
 from datetime import datetime, timedelta
 from django.contrib.admin.widgets import AdminDateWidget
@@ -103,6 +103,7 @@ class ListFilterForm(forms.Form):
         print(choice)
     """
     unavailability_selector = forms.ChoiceField(label='Unavailability', choices=[(choice.pk, choice) for choice in Unavailability.objects.all().order_by('unavailability')])
+    #category_selector = forms.ChoiceField(label='Category', choices=[(choice.pk, choice) for choice in Category.objects.all().order_by('category')])
     category_selector = forms.ChoiceField(label='Category', choices=[(choice.pk, choice) for choice in Category.objects.all().order_by('category')])
     #unavailability_selector = forms.ChoiceField(label='Unavailability', choices=[(choice.pk, choice) for choice in Unavailability.objects.values_list('unavailability').distinct()])
     year_selector = forms.ChoiceField(label='Year',choices=YEAR_CHOICES)

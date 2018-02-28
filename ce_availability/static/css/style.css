@@ -223,7 +223,7 @@ table.table_calendar td.ce {
 }
 
 table.table_calendar th.total_hours {
-    width:80px;
+    width:62px;
     border: 1px solid #000000;
     text-align: center;
     font-weight: normal;
@@ -232,14 +232,14 @@ table.table_calendar th.total_hours {
 }
 
 table.table_calendar td.total_hours {
-    width:80px;
+    width:62px;
     border: 1px solid #000000;
     text-align: center;
     font-weight: normal;
 }
 
 table.table_calendar th.total_na_hours {
-    width:80px;
+    width:62px;
     border: 1px solid #000000;
     text-align: center;
     background: #9900ff;
@@ -248,13 +248,13 @@ table.table_calendar th.total_na_hours {
 }
 
 table.table_calendar td.total_na_hours {
-    width:80px;
+    width:62px;
     border: 1px solid #000000;
     text-align: center;
 }
 
 table.table_calendar th.total_percentage_hours {
-    width:80px;
+    width:72px;
     border: 1px solid #000000;
     text-align: center;
     background: #ff6600;
@@ -263,7 +263,7 @@ table.table_calendar th.total_percentage_hours {
 }
 
 table.table_calendar td.total_percentage_hours {
-    width:80px;
+    width:72px;
     border: 1px solid #000000;
     text-align: center;
 }
@@ -278,7 +278,7 @@ table.table_calendar th.day_weekend {
     width:34px;
     border: 1px solid #000000;
     text-align: center;
-    background: red;
+    background: green;
     color: white;
 }
 
@@ -286,7 +286,7 @@ table.table_calendar td.day_weekend_soft {
     width:34px;
     border: 1px solid #000000;
     text-align: center;
-    background: #ffe6e6;
+    background: #d9d9d9;
 }
 
 table.table_calendar th.day_festive {
@@ -310,8 +310,8 @@ table.table_calendar th.day_laborable {
     width:34px;
     border: 1px solid #000000;
     text-align: center;
-    background: green;
-    color: white;
+    background: #5bd75b;
+    color: black;
 }
 
 table.table_calendar th.day_intensive {
@@ -328,6 +328,35 @@ table.table_calendar td.na {
     text-align: center;
     background: #87cefa;
 }
+table.table_calendar td.medical {
+    width:34px;
+    border: 1px solid #000000;
+    text-align: center;
+    background: #ffff00;
+}
+
+table.table_calendar td.rest {
+    width:34px;
+    border: 1px solid #000000;
+    color: black;
+    text-align: center;
+    background: red;
+}
+
+table.table_calendar td.professional-tasks {
+    width:34px;
+    border: 1px solid #000000;
+    text-align: center;
+    background: #994d00;
+}
+
+table.table_calendar td.non-transactional {
+    width:34px;
+    border: 1px solid #000000;
+    text-align: center;
+    background: #0066ff;
+}
+
 table.table_calendar td.non-na {
     width:34px;
     border: 1px solid #000000;
@@ -403,6 +432,38 @@ table.table_legend th.day_intensive {
     color: white;
 }
 
+table.table_legend td.medical {
+    width:34px;
+    border: 1px solid #000000;
+    text-align: center;
+    background: #ffff00;
+    color: black;
+}
+
+table.table_legend td.rest {
+    width:34px;
+    border: 1px solid #000000;
+    color: black;
+    text-align: center;
+    background: red;
+    color: white;
+}
+
+table.table_legend td.professional-tasks {
+    width:34px;
+    border: 1px solid #000000;
+    text-align: center;
+    background: #994d00;
+    color: white;
+}
+
+table.table_legend td.non-transactional {
+    width:34px;
+    border: 1px solid #000000;
+    text-align: center;
+    background: #0066ff;
+    color: white;
+}
 
 
 
@@ -509,6 +570,23 @@ table.table_registers a
 }
 
 /*LINK COLORS*/
+
+a.medical_link{
+    color: black;
+    text-decoration: none;
+}
+a.rest_link{
+    color: white;
+    text-decoration: none;
+}
+a.non-transactional_link{
+    color: white;
+    text-decoration: none;
+}
+a.professional-tasks_link{
+    color: white;
+    text-decoration: none;
+}
 a.list_link {
     color: black;
     text-decoration: none;
