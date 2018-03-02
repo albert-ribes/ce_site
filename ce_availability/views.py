@@ -461,7 +461,13 @@ def calendar_filter(request, mode, year, month):
 def calendar(request):
     currentMonth = datetime.now().month
     currentYear = datetime.now().year
-    return HttpResponseRedirect("/ce_availability/calendar/hours/" + str(currentYear) + "/" + str(currentMonth))
+    user=request.user
+    user_type=getUserType(user)
+    if user_type=='CE':
+       mode="hours"
+    if user_type=='SDM':
+       mode="percentage"
+    return HttpResponseRedirect("/ce_availability/calendar/" + mode + "/" + str(currentYear) + "/" + str(currentMonth))
 
 
 @login_required
