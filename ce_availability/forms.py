@@ -40,15 +40,24 @@ class RegisterForm(forms.ModelForm):
         user = User.objects.filter(id=self.user.id).get()
         location_id=Employee.objects.filter(user_id=self.user.id).values_list('location', flat=True).get()
         calendar_events=CalendarEvent.objects.filter(start_date__lte=start_date).filter(end_date__gte=start_date).filter(location=location_id).order_by('start_date')
-        print(calendar_events)
+        #print(calendar_events)
         #print(user)
         #hours = float(hours)
         #hours=float(str(hours).replace(',',''))
+        kindofday=""
         if(start_date and start_date!=None):
             dayofweek=start_date.weekday()
             calendar_events = CalendarEvent.objects.filter(start_date__lte=start_date).filter(end_date__gte=start_date).filter(location=user.employee.location).order_by('start_date')
             for event in calendar_events:
-                 print(event)
+                 #print(event)
+                 delta = event.end_date - event.start_date
+                 for i in range(delta.days +1):
+                    day_event=event.start_date + timedelta(days=i)
+                    #print(str(day.year) + "-"+ str(day.month) + "-" + str(day.day) + ", weekday=" + str(day.weekday()))
+                    if(start_date==day_event):
+                        #print("Day: " + str(day_event) + ", " + str(event.kindofday))
+                        kindofday=str(event.kindofday)
+                        print("Day: " + str(day_event) + ", " + kindofday)
         else:
             raise forms.ValidationError({'start_date': ["",]})
             print("Invalid Date")
@@ -69,21 +78,21 @@ class RegisterForm(forms.ModelForm):
         if hours==None:
             raise forms.ValidationError({'comments': ["",]})
         if hours!=None:
+            if(kindofday=="Festive"):
+                raise forms.ValidationError({'hours': ["No unavailabilities allowed during festives.",]})
             if (hours<=0.0):
                raise forms.ValidationError({'hours': ["Value must be greater than 0.",]})
-            if (dayofweek>=0 and dayofweek<=3):
-                if (sum_hours + hours > 8.5):
-                    raise forms.ValidationError({'hours': ["The total amount of unavailable hours cannot be greather than 8,5 in that day.",]})
             if (dayofweek==4):
                 if (sum_hours + hours > 7):
                     raise forms.ValidationError({'hours': ["The total amount of unavailable hours cannot be greather than 7 in that day.",]})
             if (dayofweek==5 or dayofweek==6.0):
                 raise forms.ValidationError({'start_date': ["No unavailabilities allowed during the weekend.",]})
-        """
-        else:
-               #raise forms.ValidationError({'hours': ["Comma-separated",]})
-               print("ELSE")
-        """ 
+            if(kindofday=="Intensive"):
+                if (sum_hours + hours > 7):
+                    raise forms.ValidationError({'hours': ["The total amount of unavailable hours cannot be greather than 7 in that day.",]})
+            if (dayofweek>=0 and dayofweek<=3):
+                if (sum_hours + hours > 8.5):
+                    raise forms.ValidationError({'hours': ["The total amount of unavailable hours cannot be greather than 8,5 in that day.",]})
 
 class ListFilterForm(forms.Form):
     currentMonth = datetime.now().month
