@@ -2,8 +2,9 @@ from django import forms
 from django.forms import ModelForm, DateTimeInput, DateInput
 from .models import Register, Employee, Unavailability, CalendarEvent, Category
 from django.contrib.auth.models import User
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, date
 from django.contrib.admin.widgets import AdminDateWidget
+from django.utils import timezone
 
 from django.contrib.admin import widgets
 
@@ -11,17 +12,17 @@ class RegisterForm(forms.ModelForm):
     unavailability = forms.ModelChoiceField(queryset=Unavailability.objects.order_by('unavailability'))
     register_id=0
     user=0
-    
+    hidden_type_date_input = forms.CharField()
+    start_date = forms.DateField(initial=date.today, widget=DateInput(attrs={'type': 'date'}))
+    end_date = forms.DateField(initial=date.today, widget=DateInput(attrs={'type': 'date'}))
+
     class Meta:
         currentYear = datetime.now().year
         YEAR_CHOICES =  (str(currentYear+1),str(currentYear),str(currentYear-1),str(currentYear-2))
         model = Register
-        fields = ('user', 'unavailability', 'hours', 'start_date','comments',)
+        fields = ('user', 'unavailability', 'hours', 'date','comments',)
         widgets = {
-            #'start_date': forms.DateField(widget=AdminDateWidget()),
-            #'start_date': forms.SelectDateWidget(years=YEAR_CHOICES),
-            'start_date': DateInput(attrs={'type': 'date'}),
-            #'end_date': forms.SelectDateWidget(years=YEAR_CHOICES),
+            'date': DateInput(attrs={'type': 'date'}),
         }
 
     def __init__(self, user, register_id, ce_choices, *args, **kwargs):
@@ -29,70 +30,110 @@ class RegisterForm(forms.ModelForm):
        self.fields['user'].choices = ce_choices
        self.register_id=register_id
        self.user=user
+       self.fields['date'].required = False
+       self.fields['start_date'].required = False
+       self.fields['end_date'].required = False
        #print ("INFO: FORMS.RegisterForm.__init__, register_id=" + str(register_id))
 
     def clean(self):
         try:
-           start_date=self.cleaned_data.get('start_date')
+           date=self.cleaned_data.get('date')
         except:
-           print("Oops!  That was no valid number.  Try again...")
+           print("Oops!  That was no valid date.  Try again...")
         hours=self.cleaned_data.get('hours')
+        type_date_input = self.cleaned_data.get('hidden_type_date_input')
+        ce=self.cleaned_data.get('user') 
         user = User.objects.filter(id=self.user.id).get()
-        location_id=Employee.objects.filter(user_id=self.user.id).values_list('location', flat=True).get()
-        calendar_events=CalendarEvent.objects.filter(start_date__lte=start_date).filter(end_date__gte=start_date).filter(location=location_id).order_by('start_date')
-        #print(calendar_events)
-        #print(user)
-        #hours = float(hours)
-        #hours=float(str(hours).replace(',',''))
-        kindofday=""
-        if(start_date and start_date!=None):
-            dayofweek=start_date.weekday()
-            calendar_events = CalendarEvent.objects.filter(start_date__lte=start_date).filter(end_date__gte=start_date).filter(location=user.employee.location).order_by('start_date')
-            for event in calendar_events:
-                 #print(event)
-                 delta = event.end_date - event.start_date
-                 for i in range(delta.days +1):
-                    day_event=event.start_date + timedelta(days=i)
-                    #print(str(day.year) + "-"+ str(day.month) + "-" + str(day.day) + ", weekday=" + str(day.weekday()))
-                    if(start_date==day_event):
-                        #print("Day: " + str(day_event) + ", " + str(event.kindofday))
-                        kindofday=str(event.kindofday)
-                        print("Day: " + str(day_event) + ", " + kindofday)
-        else:
-            raise forms.ValidationError({'start_date': ["",]})
-            print("Invalid Date")
-        ce=self.cleaned_data.get('user')
-        register_id=self.register_id
-        """
-        if hours:
-            print("INFO: FORMS.RegisterForm.clean, start_date:" + str(start_date) + ", hours=" + str(hours) + ", ce=" + str(ce) + ", register_id=" + str(register_id))
-        """
-        registers = Register.objects.filter(start_date=start_date).filter(user__username=ce)
-        sum_hours=0
-        for register in registers:
-            sum_hours=sum_hours+register.hours
-        if (register_id!=0):
-            sum_hours=sum_hours - Register.objects.filter(id=register_id).values_list('hours', flat=True).get()
-        
-        #print ("INFO: FORMS.RegisterForm.clean, user= " + str(ce) + ", dayofweek=" + str(dayofweek) + ", inserted_hours=" + str(hours) + ", sum_hours=" + str(sum_hours))
-        if hours==None:
-            raise forms.ValidationError({'comments': ["",]})
-        if hours!=None:
-            if(kindofday=="Festive"):
-                raise forms.ValidationError({'hours': ["No unavailabilities allowed during festives.",]})
-            if (hours<=0.0):
-               raise forms.ValidationError({'hours': ["Value must be greater than 0.",]})
-            if (dayofweek==4):
-                if (sum_hours + hours > 7):
-                    raise forms.ValidationError({'hours': ["The total amount of unavailable hours cannot be greather than 7 in that day.",]})
-            if (dayofweek==5 or dayofweek==6.0):
-                raise forms.ValidationError({'start_date': ["No unavailabilities allowed during the weekend.",]})
-            if(kindofday=="Intensive"):
-                if (sum_hours + hours > 7):
-                    raise forms.ValidationError({'hours': ["The total amount of unavailable hours cannot be greather than 7 in that day.",]})
-            if (dayofweek>=0 and dayofweek<=3):
-                if (sum_hours + hours > 8.5):
-                    raise forms.ValidationError({'hours': ["The total amount of unavailable hours cannot be greather than 8,5 in that day.",]})
+        #print(type_date_input)
+        if(type_date_input=="single_date"):
+            
+            location_id=Employee.objects.filter(user_id=self.user.id).values_list('location', flat=True).get()
+            calendar_events=CalendarEvent.objects.filter(start_date__lte=date).filter(end_date__gte=date).filter(location=location_id).order_by('start_date')
+            #print(calendar_events)
+            #print(user)
+            #hours = float(hours)
+            #hours=float(str(hours).replace(',',''))
+            kindofday=""
+            if(date and date!=None):
+                dayofweek=date.weekday()
+                calendar_events = CalendarEvent.objects.filter(start_date__lte=date).filter(end_date__gte=date).filter(location=user.employee.location).order_by('start_date')
+                for event in calendar_events:
+                     #print(event)
+                     delta = event.end_date - event.start_date
+                     for i in range(delta.days +1):
+                        day_event=event.start_date + timedelta(days=i)
+                        #print(str(day.year) + "-"+ str(day.month) + "-" + str(day.day) + ", weekday=" + str(day.weekday()))
+                        if(date==day_event):
+                            #print("Day: " + str(day_event) + ", " + str(event.kindofday))
+                            kindofday=str(event.kindofday)
+                            print("Day: " + str(day_event) + ", " + kindofday)
+            
+                ce=self.cleaned_data.get('user')
+                register_id=self.register_id
+                """
+                if hours:
+                    print("INFO: FORMS.RegisterForm.clean, start_date:" + str(start_date) + ", hours=" + str(hours) + ", ce=" + str(ce) + ", register_id=" + str(register_id))
+                """
+                registers = Register.objects.filter(date=date).filter(user__username=ce)
+                sum_hours=0
+                for register in registers:
+                    sum_hours=sum_hours+register.hours
+                if (register_id!=0):
+                    sum_hours=sum_hours - Register.objects.filter(id=register_id).values_list('hours', flat=True).get()
+                
+                #print ("INFO: FORMS.RegisterForm.clean, user= " + str(ce) + ", dayofweek=" + str(dayofweek) + ", inserted_hours=" + str(hours) + ", sum_hours=" + str(sum_hours))
+                if hours==None:
+                    raise forms.ValidationError({'hours': ["This field is required.",]})
+                if hours!=None:
+                    if(kindofday=="Festive"):
+                        raise forms.ValidationError({'hours': ["No unavailabilities allowed during festives.",]})
+                    if (hours<=0.0):
+                       raise forms.ValidationError({'hours': ["Value must be greater than 0.",]})
+                    if (dayofweek==4):
+                        if (sum_hours + hours > 7):
+                            raise forms.ValidationError({'hours': ["The total amount of unavailable hours cannot be greather than 7 in that day.",]})
+                    if (dayofweek==5 or dayofweek==6.0):
+                        raise forms.ValidationError({'date': ["No unavailabilities allowed during the weekend.",]})
+                    if(kindofday=="Intensive"):
+                        if (sum_hours + hours > 7):
+                            raise forms.ValidationError({'hours': ["The total amount of unavailable hours cannot be greather than 7 in that day.",]})
+                    if (dayofweek>=0 and dayofweek<=3):
+                        if (sum_hours + hours > 8.5):
+                            raise forms.ValidationError({'hours': ["The total amount of unavailable hours cannot be greather than 8,5 in that day.",]})
+            else:
+                raise forms.ValidationError({'date': ["",]})
+                print("Invalid Date")
+        elif(type_date_input=="range_date"):
+            #convertir les dates en rang
+            #comprovar que no hi ha esdeveniments
+            #comprovar tipus de dia (de la setmana/jornada intensiva)
+            #introduir el registre que toqui per cada dia
+            start_date = self.cleaned_data.get('start_date')
+            end_date = self.cleaned_data.get('end_date')
+            if(start_date>=end_date):
+                raise forms.ValidationError({'start_date': ["The Start Date cannot be the same or older than the End Date.",]})
+            delta_range = end_date - start_date
+            registers = Register.objects.filter(date__gte=start_date).filter(date__lte=end_date).filter(user__username=ce)
+            if registers:
+                raise forms.ValidationError({'start_date': ["There are already unavailabilities during this range of dates.",]})
+            """
+            else:
+                calendar_events = CalendarEvent.objects.filter(start_date__lte=end_date).filter(end_date__gte=start_date).filter(location=user.employee.location).order_by('start_date')
+                for event in calendar_events:
+                     #print(event)
+                     delta_events = event.end_date - event.start_date
+                     for i in range(delta_range.days + 1):
+                         day_range = start_date + timedelta(days=i)
+                         dayofweek=day_range.weekday()
+                         print("day_range=" + str(day_range) + ", dayofweek: " + str(dayofweek))
+                         for j in range(delta_events.days + 1):
+                             day_event = event.start_date + timedelta(days=j)
+                             if (day_range==day_event):
+                                 print("-kindofday=" + str(event.kindofday))
+                                 if(event.kindofday=="Intensive"):
+                                     
+                                 elif(event.kindofday=="WorkingDay"):
+            """
 
 class ListFilterForm(forms.Form):
     currentMonth = datetime.now().month

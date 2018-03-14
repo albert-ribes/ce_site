@@ -55,9 +55,11 @@ h2{
     /*float: left;*/
 }
 
+/*
 .post-form textarea, .post-form input {
     width: 100%;
 }
+*/
 
 .top-menu, .top-menu:hover, .top-menu:visited {
     color: #444444;
@@ -651,13 +653,19 @@ a.list_link:active {
 #id_hours {
     width: 50px;
 }
+#id_date {
+    width: 130px;
+    height: 26px;
+}
 #id_start_date {
     width: 130px;
     height: 26px;
 }
 #id_end_date {
-    width: 80px;
+    width: 130px;
+    height: 26px;
 }
+
 #id_comments {
     width: 200px;
 }
@@ -853,10 +861,19 @@ a.list_link:active {
     margin-left: -40px;
     /*border: 1px solid #ececec;*/
     /*background-color: #eeeeee;*/
-    height: 220px;
+    height: 320px;
     width: 800px;
 }
 
+.radio_field {
+    height: 20px;
+    width: 340px;
+    /*Comment*/
+    margin-top: 10px;
+    margin-right: 10px;
+	margin-left: 0px;
+    float: left;
+}
 .input_field_insert {
     height: 20px;
     width: 340px;
@@ -872,8 +889,6 @@ a.list_link:active {
     width: 400px;
     /*padding: 10px;*/
 }
-
-
 
 label {
     color: #333;

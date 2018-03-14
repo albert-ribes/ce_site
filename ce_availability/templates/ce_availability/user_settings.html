@@ -27,7 +27,7 @@
 
 		<div class="fieldWrapper_user">
                 <label for="{{ employee_form.location.id_for_label }}">Location (*):</label>
-                <div class="input_field_user"> {{ user.employee.location }} </div>
+                <div class="input_field_user"> {{ user.employee.location.location }} </div>
                 </div>
 
 
@@ -45,12 +45,12 @@
                 <label for="{{ user_form.last_name.id_for_label }}">Last Name:</label>
                 <div class="input_field_user"> {{ user_form.last_name }} </div>
                 </div>
-		{% comment %}
+
 		<div class="fieldWrapper_user">
                 <label for="{{ user_form.last_email.id_for_label }}">E-mail:</label>
                 <div class="input_field_user"> {{ user_form.email }} </div>
                 </div>
-
+		{% comment %}
 		<div class="fieldWrapper_user">
                 <label for="{{ employee_form.phone.id_for_label }}">Phone:</label>
                 <div class="input_field_user"> {{ employee_form.phone }} </div>
@@ -58,6 +58,7 @@
 		{% endcomment %}
 
         </div>
+		<br>
 	<p><a href="{% url 'change_password' %}">Change Password</a></p>
                 <button type="submit">Update changes</button>
                 <p> </p>

@@ -16,7 +16,7 @@ from django.dispatch import receiver
 class Location(models.Model):
     location = models.CharField(max_length=200)
     def __str__(self):
-        string=self.location + ", ID=" + str(self.id)
+        string=self.location# + ", ID=" + str(self.id)
         return string
 
 class KindOfDay(models.Model):
@@ -75,17 +75,17 @@ class Unavailability(models.Model):
 class Register(models.Model):
     user = models.ForeignKey(User, related_name='User')
     unavailability = models.ForeignKey(Unavailability, related_name='Unavailability')
-    hours = models.FloatField()
+    hours = models.FloatField(blank=True)
     comments = models.CharField(max_length=41, blank=True)
-    start_date = models.DateField(default=timezone.now)
+    date = models.DateField(default=timezone.now)
     #end_date = models.DateField(default=timezone.now)
     created_date = models.DateTimeField(default=timezone.now)
     createdby = models.ForeignKey(User, related_name='CreatedByUser')
 
     def get_start_year(self):
-        return self.start_date.year
+        return self.date.year
 
     def __str__(self):
-        string = "ID=" + str(self.id) + ", " + self.user.last_name + ", " + self.user.first_name + ": " + self.start_date.strftime("%Y-%m-%d, %I:%M ")
+        string = "ID=" + str(self.id) + ", " + self.user.last_name + ", " + self.user.first_name + ": " + self.date.strftime("%Y-%m-%d, %I:%M ")
         return string
 
