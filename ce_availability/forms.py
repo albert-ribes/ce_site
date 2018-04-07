@@ -12,7 +12,7 @@ class RegisterForm(forms.ModelForm):
     unavailability = forms.ModelChoiceField(queryset=Unavailability.objects.order_by('unavailability'))
     register_id=0
     user=0
-    hidden_type_date_input = forms.CharField()
+    hidden_type_date_input = forms.CharField(initial= "single_date")
     start_date = forms.DateField(initial=date.today, widget=DateInput(attrs={'type': 'date'}))
     end_date = forms.DateField(initial=date.today, widget=DateInput(attrs={'type': 'date'}))
 
@@ -33,15 +33,19 @@ class RegisterForm(forms.ModelForm):
        self.fields['date'].required = False
        self.fields['start_date'].required = False
        self.fields['end_date'].required = False
+       self.fields['hidden_type_date_input'].required = False
        #print ("INFO: FORMS.RegisterForm.__init__, register_id=" + str(register_id))
 
     def clean(self):
+        #print("RegisterForm: CLEAN")
         try:
            date=self.cleaned_data.get('date')
         except:
            print("Oops!  That was no valid date.  Try again...")
         hours=self.cleaned_data.get('hours')
         type_date_input = self.cleaned_data.get('hidden_type_date_input')
+        if(type_date_input==""):
+            type_date_input = "single_date"
         ce=self.cleaned_data.get('user') 
         user = User.objects.filter(id=self.user.id).get()
         #print(type_date_input)
@@ -64,7 +68,7 @@ class RegisterForm(forms.ModelForm):
                         day_event=event.start_date + timedelta(days=i)
                         #print(str(day.year) + "-"+ str(day.month) + "-" + str(day.day) + ", weekday=" + str(day.weekday()))
                         if(date==day_event):
-                            #print("Day: " + str(day_event) + ", " + str(event.kindofday))
+                            print("Day: " + str(day_event) + ", " + str(event.kindofday))
                             kindofday=str(event.kindofday)
                             print("Day: " + str(day_event) + ", " + kindofday)
             
@@ -81,7 +85,8 @@ class RegisterForm(forms.ModelForm):
                 if (register_id!=0):
                     sum_hours=sum_hours - Register.objects.filter(id=register_id).values_list('hours', flat=True).get()
                 
-                #print ("INFO: FORMS.RegisterForm.clean, user= " + str(ce) + ", dayofweek=" + str(dayofweek) + ", inserted_hours=" + str(hours) + ", sum_hours=" + str(sum_hours))
+                print ("INFO: FORMS.RegisterForm.clean, user= " + str(ce) + ", dayofweek=" + str(dayofweek) + ", inserted_hours=" + str(hours) + ", sum_hours=" + str(sum_hours))
+
                 if hours==None:
                     raise forms.ValidationError({'hours': ["This field is required.",]})
                 if hours!=None:

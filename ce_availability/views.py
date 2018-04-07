@@ -512,7 +512,7 @@ def insert(request):
         ce = form['user'].value()
         print("INFO: VIEWS.list_filter: ce=" + str(ce))
         if form.is_valid():
-            print("VIEWS: insert, form_is_valid, type_date_input: " + str(form.cleaned_data.get('hidden_type_date_input', None)))
+            #print("VIEWS: insert, form_is_valid, type_date_input: " + str(form.cleaned_data.get('hidden_type_date_input', None)))
             if (str(form.cleaned_data.get('hidden_type_date_input', None))=="single_date"):
                 register = form.save(commit=False)
                 register.createdby_id = user.id
@@ -534,13 +534,15 @@ def insert(request):
                 for i in range(delta_range.days + 1):
                     day_range = start_date + timedelta(days=i)
                     dayofweek=day_range.weekday()
-                    print("############ DAY=" + str(day_range) + ", dayofweek: " + str(dayofweek))
+                    #print("############ DAY=" + str(day_range) + ", dayofweek: " + str(dayofweek))
+                    """
                     if(dayofweek==4):
                         print("Friday")
                     elif(5<=dayofweek<=6):
                         print("Weekend")
                     else:
                         print("WorkingDay")
+                    """
                     day_with_event = "None"
                     if calendar_events:
                         for event in calendar_events:
@@ -568,7 +570,7 @@ def insert(request):
                         register.save()
                         result=True
                         id = id + ", " + str(register.id)
-                        print(">New insert: ID=" + str(register.id) +",Unavailability="+ str(register.unavailability_id) +",hours="+ str(register.hours) +",comments"+ str(register.comments) +",date="+ str(register.date) +",created_date="+ str(register.created_date) +",user_id="+ str(register.user_id))
+                        #print(">New insert: ID=" + str(register.id) +",Unavailability="+ str(register.unavailability_id) +",hours="+ str(register.hours) +",comments"+ str(register.comments) +",date="+ str(register.date) +",created_date="+ str(register.created_date) +",user_id="+ str(register.user_id))
                     elif(day_with_event!="Festive"):
                         if(0<=dayofweek<=3):
                             register = Register()
@@ -582,7 +584,7 @@ def insert(request):
                             register.save()
                             result=True
                             id = id + ", " + str(register.id)
-                            print(">New insert: ID=" + str(register.id) +",Unavailability="+ str(register.unavailability_id) +",hours="+ str(register.hours) +",comments"+ str(register.comments) +",date="+ str(register.date) +",created_date="+ str(register.created_date) +",user_id="+ str(register.user_id))
+                            #print(">New insert: ID=" + str(register.id) +",Unavailability="+ str(register.unavailability_id) +",hours="+ str(register.hours) +",comments"+ str(register.comments) +",date="+ str(register.date) +",created_date="+ str(register.created_date) +",user_id="+ str(register.user_id))
                         elif(dayofweek==4):
                             register = Register()
                             register.unavailability_id = form.cleaned_data.get('unavailability', None).id
@@ -595,7 +597,7 @@ def insert(request):
                             register.save()
                             result=True
                             id = id + ", " + str(register.id)
-                            print(">New insert: ID=" + str(register.id) +",Unavailability="+ str(register.unavailability_id) +",hours="+ str(register.hours) +",comments"+ str(register.comments) +",date="+ str(register.date) +",created_date="+ str(register.created_date) +",user_id="+ str(register.user_id))
+                            #print(">New insert: ID=" + str(register.id) +",Unavailability="+ str(register.unavailability_id) +",hours="+ str(register.hours) +",comments"+ str(register.comments) +",date="+ str(register.date) +",created_date="+ str(register.created_date) +",user_id="+ str(register.user_id))
                 id=id[2:]
                 data = {
                     'result':result,
@@ -663,7 +665,10 @@ def register_details(request, pk):
             register.save()
             result=True
             return render(request, 'ce_availability/update_post.html', {'result':result, 'id': register.id})
-            
+        """
+        else:
+            print("INFO: VIEWS.register_details: FORM_IS_NOT_VALID")
+        """
     else:
         form = RegisterForm(user, register_id, ce_choices, instance=register)
     return render(request, 'ce_availability/register_details.html', {'form': form, 'register': register})
@@ -691,11 +696,25 @@ def register_details_popup(request, pk):
         #print("INFO: VIEWS.register_details: form=" +str(form))
         if form.is_valid():
             #print("INFO: VIEWS.register_details: FORM_IS_VALID")
+
+            register = form.save(commit=False)
+            #register.createdby_id = user.id
+            #register.user_id = int(ce)
+            register.save()
+            result=True
+            data = {
+                'result':result,
+                'id': register.id
+            }
+            #print(data)
+            return render(request, 'ce_availability/update_post_popup.html', data)
+            """
             register = form.save(commit=False)
             register.save()
             result=True
-            return render(request, 'ce_availability/update_post_popup.html', {'result':result, 'id': register.id})
-            
+            return render(request, 'ce_availability/update_post_popup.html', {'result':result, 'id': register.id})"""
+        else:
+             print("INFO: VIEWS.register_details: FORM_IS_NOT_VALID")
     else:
         form = RegisterForm(user, register_id, ce_choices, instance=register)
     return render(request, 'ce_availability/register_details_popup.html', {'form': form, 'register': register})
