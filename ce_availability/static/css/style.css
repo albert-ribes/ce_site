@@ -345,11 +345,20 @@ table.table_calendar td.rest {
     background: red;
 }
 
-table.table_calendar td.professional-tasks {
+table.table_calendar td.training {
     width:34px;
     border: 1px solid #000000;
     text-align: center;
     background: #994d00;
+
+}
+
+table.table_calendar td.professional-tasks {
+    width:34px;
+    border: 1px solid #000000;
+    text-align: center;
+    /*background: #994d00;*/
+	background: #0066ff;
 }
 
 table.table_calendar td.non-transactional {
@@ -451,11 +460,20 @@ table.table_legend td.rest {
     color: white;
 }
 
-table.table_legend td.professional-tasks {
+table.table_legend td.training {
     width:34px;
     border: 1px solid #000000;
     text-align: center;
     background: #994d00;
+    color: white;
+}
+
+table.table_legend td.professional-tasks {
+    width:34px;
+    border: 1px solid #000000;
+    text-align: center;
+    /*background: #994d00;*/
+	background: #0066ff;
     color: white;
 }
 
@@ -581,6 +599,12 @@ a.rest_link{
     color: white;
     text-decoration: none;
 }
+
+a.training_link{
+    color: white;
+    text-decoration: none;
+}
+
 a.non-transactional_link{
     color: white;
     text-decoration: none;
