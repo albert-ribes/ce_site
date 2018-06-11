@@ -151,11 +151,16 @@ function resizeWin() {
 		</tr>
             	{% endfor %}
 	</table>
-	
-	
-	
-	
-	{%endifequal%}	
+
+	{%endifequal%}
+
+	{% ifequal user_type "SDM"%}
+		<div class=edit_calendar>
+		<a href="/ce_availability/calendar_edit">
+			Edit Calendar
+		</a>
+		</div>	
+	{%endifequal%}
 
 	{%comment%}
 	<script>

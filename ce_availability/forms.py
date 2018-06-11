@@ -1,6 +1,6 @@
 from django import forms
 from django.forms import ModelForm, DateTimeInput, DateInput
-from .models import Register, Employee, Unavailability, CalendarEvent, Category
+from .models import Register, Employee, Unavailability, CalendarEvent, Category, Location, KindOfDay
 from django.contrib.auth.models import User
 from datetime import datetime, timedelta, date
 from django.contrib.admin.widgets import AdminDateWidget
@@ -210,6 +210,40 @@ class CalendarFilterForm(forms.Form):
         mode = self.cleaned_data.get('mode_selector', None)
         #print("INFO: FORMS.ListFilterForm.save " + mode + ", " + year + ", " + month)
         return(mode, year, month)
+
+class CalendarEventFilterForm(forms.Form):
+
+    location_selector = forms.ChoiceField(label='Location', choices=[(choice.pk, choice) for choice in Location.objects.all().order_by('location')])
+    kindofday_selector = forms.ChoiceField(label='KindOfDay', choices=[(choice.pk, choice) for choice in KindOfDay.objects.all().order_by('kindofday')])
+
+    currentMonth = datetime.now().month
+    currentYear = datetime.now().year
+    YEAR_CHOICES =  ((str(currentYear+1),str(currentYear+1)), (str(currentYear),str(currentYear)),(str(currentYear-1),str(currentYear-1)),(str(currentYear-2),str(currentYear-2)))
+    MONTH_CHOICES = (('All', 'All'), ('1','January'), ('2','February'),('3','March'),('4','April'),('5','May'),('6','June'),('7','July'),('8','August'),('9','September'),('10','October'),('11','November'),('12','Desember'))
+    year_selector = forms.ChoiceField(label='Year',choices=YEAR_CHOICES)
+    month_selector = forms.ChoiceField(label='Month',choices=MONTH_CHOICES)
+
+    def __init__(self, user, location_choices, *args, **kwargs):
+       super(CalendarEventFilterForm, self).__init__(*args, **kwargs)
+       self.fields['location_selector'].choices = location_choices
+       self.fields['kindofday_selector'].choices = [('All', 'All')] + list(self.fields['kindofday_selector'].choices)
+
+    class Meta:
+        model = CalendarEvent
+
+    def save(self, commit=True):
+        #print("> INFO, forms.py: save() method")
+        year = self.cleaned_data.get('year_selector', None)
+        month = self.cleaned_data.get('month_selector', None)
+        location = self.cleaned_data.get('location_selector', None)
+        kindofday = self.cleaned_data.get('kindofday_selector', None)
+        #print("INFO: FORMS.CalendarEventFilterForm.save " + location + ", " + ", " + kindofday + ", " + year + ", " + month)
+        return(location, kindofday, year, month)
+
+
+class CalendarEventForm(forms.Form):
+    class Meta:
+        model = CalendarEvent
 
 class UserForm(forms.ModelForm):
     class Meta:

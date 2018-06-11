@@ -5,7 +5,7 @@ from .models import Register, Unavailability, Category, CalendarEvent, KindOfDay
 from django.contrib.auth.decorators import login_required
 from django.utils import timezone
 from django import forms
-from .forms import RegisterForm, ListFilterForm, UserForm, EmployeeForm, CalendarFilterForm
+from .forms import RegisterForm, ListFilterForm, UserForm, EmployeeForm, CalendarFilterForm, CalendarEventFilterForm
 from django.contrib.auth.forms import PasswordChangeForm
 from django.contrib.auth import update_session_auth_hash
 from django.shortcuts import redirect
@@ -17,6 +17,8 @@ from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponseRedirect, HttpResponse
 from calendar import monthrange, month_name
 from operator import itemgetter
+from django.shortcuts import render_to_response
+from django.template import RequestContext
 
 def home(request):
     return render(request, 'ce_availability/home.html')
@@ -421,8 +423,7 @@ def calendar_filter(request, mode, year, month):
             print("INFO: VIEWS.list: form.is_valid()")
             # process the data in form
             mode, year, month = form.save(commit=False)
-            form_url="/ce_availability/calendar/"+mode+"/"+year+"/"+month+"/"            
-
+            form_url="/ce_availability/calendar/"+mode+"/"+year+"/"+month+"/"
             #return render(request, 'ce_availability/calendar.html', {'registers': registers, 'form': form, 'hours': hours})
             return HttpResponseRedirect(form_url)
     #If this is a GET (or any other method) create the default form.
@@ -453,7 +454,8 @@ def calendar_filter(request, mode, year, month):
         'hours_month': hours_month,
         'percentage':percentage,
         'form': form,
-        'mode': mode
+        'mode': mode,
+        'user_type': user_type
     }
     return render(request, 'ce_availability/calendar.html', data)
 
@@ -468,6 +470,72 @@ def calendar(request):
     if user_type=='SDM':
        mode="percentage"
     return HttpResponseRedirect("/ce_availability/calendar/" + mode + "/" + str(currentYear) + "/" + str(currentMonth))
+
+
+@login_required
+def calendar_edit(request):
+    user=request.user
+    user_type=getUserType(user)
+    if user_type!='SDM':
+       return HttpResponseRedirect("/ce_availability/calendar/")
+    currentMonth = datetime.now().month
+    currentYear = datetime.now().year
+    currentWeek = datetime.now().isocalendar()[1]
+
+    #print("INFO: VIEWS.list: usertype=" + user_type)
+
+    if user_type=='CE':
+       manager_id=user.employee.manager.id
+       ce=user.id
+    if user_type=='SDM':
+       manager_id=user.id
+       ce='All'
+    location='All'
+    kindofday='All'
+    return HttpResponseRedirect("/ce_availability/calendar_edit/" + str(location) + "/" + str(kindofday) + "/" + str(currentYear) + "/" + str(currentMonth))
+
+@login_required
+def calendar_edit_filter(request, location, kindofday, year, month):
+    initial = {
+        'location_selector': location,
+        'kindofday_selector': kindofday,
+        'year_selector': year,
+        'month_selector': month,
+    }
+    queryset = CalendarEvent.objects.filter(start_date__year=year).order_by('-start_date')
+    if (month !="All"):
+        queryset = queryset.filter(start_date__month=month)
+    if (location !="All"):
+        queryset = queryset.filter(location=location)
+    if (kindofday != "All"):
+        queryset = queryset.filter(kindofday=kindofday)
+    calendar_events = queryset
+
+    user = request.user
+    manager_id=user.id
+    location_choices=[(choice.pk, choice.location) for choice in Location.objects.filter(manager_id=manager_id).order_by('location')]
+    location_choices= [('All', 'All')] + location_choices
+
+    if request.method == "POST":
+        #print("request.method == POST")
+        form = CalendarEventFilterForm(request.user, location_choices, request.POST)
+        if form.is_valid():
+            # print("INFO: VIEWS.list: calendar_edit_filter.is_valid()")
+            # process the data in form
+            location, kindofday, year, month = form.save(commit=False)
+            return HttpResponseRedirect("/ce_availability/calendar_edit/" + str(location) + "/" + str(kindofday) + "/" + str(year) + "/" + str(month))
+    else:
+        form = CalendarEventFilterForm(request.user, location_choices, initial)
+
+
+
+    #print(employee_day_category)
+    data = {
+        'calendar_events':calendar_events,
+        'form': form,
+    }
+
+    return render(request, 'ce_availability/calendar_edit.html', data)
 
 
 @login_required
@@ -761,3 +829,9 @@ def change_password(request):
     return render(request, 'ce_availability/change_password.html', {
         'form': form
     })
+
+def handler404(request):
+    response = render_to_response('404.html', {},
+                              context_instance=RequestContext(request))
+    response.status_code = 404
+    return response

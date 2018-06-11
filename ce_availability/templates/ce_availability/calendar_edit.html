@@ -1,0 +1,87 @@
+{% extends 'ce_availability/base.html' %}
+
+<script>
+$("tr").click(function(){
+    $(this).addClass("selected").siblings().removeClass("selected");
+});
+</script>
+
+{% block content %}
+	{% comment %}
+	<h3>Unavailabilities</h3><br>
+	{% endcomment %}
+        <p>You can filter the calendar events by location, kind of day, year and month:</p>
+	{% comment %}
+        {% endcomment %}
+
+	<div class="calendar_edit_form">
+		<form method="POST" class="CalendarEventFilterForm" novalidate>{% csrf_token %}
+
+			<div class="fieldWrapper_filter">
+			<label for="{{ form.location_selector.id_for_label }}">Location:</label>
+			<div class="input_field_filter"> {{ form.location_selector }} </div>
+			</div>
+		
+
+			<div class="fieldWrapper_filter">	
+			<label for="{{ form.kindofday_selector.id_for_label }}">Kind of Day:</label>
+			<div class="input_field_filter"> {{ form.kindofday_selector }} </div>
+			</div>
+
+			<div class="fieldWrapper_filter">
+			<label for="{{ form.year_selector.id_for_label }}">Year:</label>
+			<div class="input_field_filter"> {{ form.year_selector }} </div>
+			</div>
+
+			<div class="fieldWrapper_filter">
+			<label for="{{ form.month_selector.id_for_label }}">Month:</label>
+			<div class="input_field_filter"> {{ form.month_selector }} </div>
+			</div>	
+
+		
+		<input class=button_filter type="submit" value="Filter"></input>
+	</form>
+	</div>
+
+	{% if calendar_events %}
+		<table class="table_calendar_events">
+			<tr>
+				<th class="ID">
+					ID
+				</th>
+				
+				<th class="location">
+					Location
+				</th>
+				<th class="kindofevent">
+					Kind of Event
+				</th>
+				<th class="start">
+					Start Date
+				</th>
+
+				<th class="finish">
+					Finish Date
+				</th>
+
+				<th class="comments" >
+					Comments
+				</th>
+			</tr>
+		{% for event in calendar_events %}
+			<tr>
+				<td><a  class="list_link" href='/ce_availability/details/{{ register.id }}'>{{ event.id }}</a></td>
+				<td><a  class="list_link" href='/ce_availability/details/{{ register.id }}'>{{ event.location }}</a></td>
+				<td><a class="list_link" href='/ce_availability/details/{{ register.id }}'>{{ event.kindofday }}</a></td>
+				<td><a class="list_link" href='/ce_availability/details/{{ register.id }}'>{{ event.start_date }}</a></td>
+				<td><a class="list_link" href='/ce_availability/details/{{ register.id }}'>{{ event.end_date }}</a></td>
+				<td><a class="list_link" href='/ce_availability/details/{{ register.id }}'>{{ event.comment }}</a></td>
+			</tr>
+		{% endfor %}
+		</table>
+	{% else %}
+		<hr>
+		<p>No records found </p>
+	{% endif %}
+{% endblock %}
+

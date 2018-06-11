@@ -150,14 +150,26 @@ button.submit-button{
     /*background-color: #ececec;*/
     height: 160px;
     width: 440px;
-    /*display: block;*/
+    display: block;
     float: left;
 }
+
+.edit_calendar{
+    /*margin:10px;*/
+    width: 100px;
+	margin-top: 10px;
+	margin-bottom: 10px;
+    display: block;
+
+}
+
 .calendar_info{
     /*margin:10px;*/
     width: 400px;
     display: block;
 }
+
+
 table.table_calendar {
     font-weight: normal;
     border-collapse: collapse;
@@ -785,6 +797,109 @@ a.list_link:active {
 .login_tip{
    margin-top: 20px;
    margin-bottom: 20px;
+}
+/* CALENDAR EVENTS*/
+
+.calendar_edit_form{
+    margin-top: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ececec;
+    /*background-color: #ececec;*/
+    height: 210px;
+    width: 440px;*/
+    display: block;
+}
+
+table.table_calendar_events {
+    font-weight: normal;
+    border-collapse: collapse;
+    width: 1000px;
+    font-size: 13px;
+    border: 1px solid #000000;
+}
+
+/*
+table.table_calendar_events tr:first-child td, table.table_calendar_events td:first-child tr { 
+    font-weight: bold;
+    background-color: #cccccc;
+    text-align: center;
+}
+*/
+
+table.table_calendar_events tr:nth-child(1){
+    font-weight: bold;
+    background-color: #cccccc;
+    text-align: center;
+}
+
+table.table_calendar_events td, table.table_calendar_events th {
+
+    font-weight: normal;
+    border: 1px solid #aaaaaa;
+    text-align: left;
+    padding: 8px;
+}
+
+table.table_calendar_events th.ce {
+    width:140px;
+}
+
+table.table_calendar_events th.id {
+    width:80px;
+}
+
+table.table_calendar_events th.start {
+    width:120px;
+}
+
+table.table_calendar_events th.finish {
+    width:140px;
+}
+
+table.table_calendar_events th.hours {
+    width:40px;
+}
+
+table.table_calendar_events th.unavailability {
+    width:100px;
+}
+
+table.table_calendar_events th.published {
+    width:220px;
+}
+table.table_calendar_events th.category {
+    width:140px;
+}
+table.table_calendar_events th.comments {
+    width:200px;
+}
+
+table.table_calendar_events tr:nth-child(odd) {
+    font-weight: normal;
+    background-color: #eeeeee;
+}
+table.table_calendar_events tr:nth-child(odd):hover,  tr:nth-child(odd).selected {
+    font-weight: normal;
+    background-color: #fffeb3;
+}
+
+table.table_calendar_events tr:first-child th{
+    font-weight: bold;
+    background-color: #999999;
+    color: white;
+}
+
+/*TABLE SELECT COLOR*/
+
+tr:hover, tr.selected {
+    background-color: #fffeb3;
+}
+td {padding: 5px;}
+
+table.table_calendar_events a
+{
+    display:block;
+    text-decoration:none;
 }
 
 /*LIST REGISTERS*/
