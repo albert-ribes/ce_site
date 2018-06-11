@@ -70,7 +70,8 @@ class Unavailability(models.Model):
     category = models.ForeignKey(Category, related_name='Category')
 
     def __str__(self):
-        return self.unavailability
+        string = self.unavailability + " (" + str(self.category) + ")"
+        return string
 
 class Register(models.Model):
     user = models.ForeignKey(User, related_name='User')
