@@ -1,0 +1,15 @@
+{% extends "ce_availability/base.html" %}
+
+{% block content %}
+    {% if user.is_authenticated %}
+	{% if result %}
+		<p>Unavailability(ies) sucessfully registered with ID(s) = {{ id }}.<p>
+		<!--<p>Unavailability sucessfully registered with ID = <a href='/ce_availability/details/{{ id }}'>{{ id }}</a>.<p>-->
+	{% else %}
+		<p>No Unavailabilities were registered. Please review the introduced data.<p>
+	{% endif %}
+    {% else %}
+        <p>Please <a href="login">login</a> to add, view, edit and delete unavailabilities.</p>
+    {% endif %}
+{% endblock %}
+

@@ -560,8 +560,33 @@ def list(request):
 
 @login_required
 def insert_event(request):
-    user_type=getUserType(request.user)
-    return render(request, 'ce_availability/user_details.html', {'user_type':user_type})
+
+    user = request.user
+    manager_id=user.id
+
+    #print ("INFO: VIEWS.event_details: event_id=" + str(pk) + ", event details: " + str(event))     
+    user = request.user
+    manager_id=user.id
+    location_choices=[(choice.pk, choice.location) for choice in Location.objects.filter(manager_id=manager_id).order_by('location')]
+    print(location_choices)
+    if request.method == "POST":
+        #print("INFO: VIEWS.register_details: POST")
+        form = CalendarEventForm(user, location_choices, request.POST)
+        #print("INFO: VIEWS.register_details: form=" +str(form))
+        if form.is_valid():
+            #print("INFO: VIEWS.register_details: FORM_IS_VALID")
+            event = form.save(commit=False)
+            event.save()
+            result=True
+            return render(request, 'ce_availability/insert_event_post.html', {'result':result, 'id': event.id})
+        """
+        else:
+            print("INFO: VIEWS.register_details: FORM_IS_NOT_VALID")
+        """
+    else:
+        form = CalendarEventForm(user, location_choices)
+    return render(request, 'ce_availability/event_details.html', {'form': form})
+
 
 @login_required
 def insert_register(request):
