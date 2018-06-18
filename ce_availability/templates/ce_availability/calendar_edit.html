@@ -11,8 +11,7 @@ $("tr").click(function(){
 	<h3>Unavailabilities</h3><br>
 	{% endcomment %}
         <p>You can filter the calendar events by location, kind of day, year and month:</p>
-	{% comment %}
-        {% endcomment %}
+
 
 	<div class="calendar_edit_form">
 		<form method="POST" class="CalendarEventFilterForm" novalidate>{% csrf_token %}
@@ -42,6 +41,9 @@ $("tr").click(function(){
 		<input class=button_filter type="submit" value="Filter"></input>
 	</form>
 	</div>
+
+	<a href="{% url 'insert_event' %}" title="Insert a Calendar Event" class="top-menu-icon"><span class="glyphicon glyphicon-plus"></span></a>
+Insert a new Calendar Event
 
 	{% if calendar_events %}
 		<table class="table_calendar_events">

@@ -559,7 +559,12 @@ def list(request):
     return HttpResponseRedirect("/ce_availability/list/" + str(ce) + "/" + str(unavailability) + "/" + str(category) + "/" + str(currentYear) + "/" + str(currentMonth) + "/" + str(currentWeek))
 
 @login_required
-def insert(request):
+def insert_event(request):
+    user_type=getUserType(request.user)
+    return render(request, 'ce_availability/user_details.html', {'user_type':user_type})
+
+@login_required
+def insert_register(request):
 
     user=request.user
     user_type=getUserType(user)
@@ -676,7 +681,7 @@ def insert(request):
     else:
         #form = RegisterForm(ce_choices, request.POST)
         form = RegisterForm(user, register_id, ce_choices)
-    return render(request, 'ce_availability/insert.html', {'form': form})
+    return render(request, 'ce_availability/insert_register.html', {'form': form})
 
 @login_required
 def user_details(request):
@@ -718,9 +723,13 @@ def event_details(request, pk):
     manager_id=user.id
     event = get_object_or_404(CalendarEvent, pk=pk)
     #print ("INFO: VIEWS.event_details: event_id=" + str(pk) + ", event details: " + str(event))     
+    user = request.user
+    manager_id=user.id
+    location_choices=[(choice.pk, choice.location) for choice in Location.objects.filter(manager_id=manager_id).order_by('location')]
+    print(location_choices)
     if request.method == "POST":
         #print("INFO: VIEWS.register_details: POST")
-        form = CalendarEventForm(request.POST, instance=event)
+        form = CalendarEventForm(user, location_choices, request.POST, instance=event)
         #print("INFO: VIEWS.register_details: form=" +str(form))
         if form.is_valid():
             #print("INFO: VIEWS.register_details: FORM_IS_VALID")
@@ -733,7 +742,7 @@ def event_details(request, pk):
             print("INFO: VIEWS.register_details: FORM_IS_NOT_VALID")
         """
     else:
-        form = CalendarEventForm(instance=event)
+        form = CalendarEventForm(user, location_choices, instance=event)
     return render(request, 'ce_availability/event_details.html', {'form': form, 'event': event})
 
 

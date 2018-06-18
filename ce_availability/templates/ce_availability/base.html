@@ -24,7 +24,7 @@
         {% if user.is_authenticated  and user.first_name != 'admin' %}
             <p class="top-menu">Welcome {{ user.first_name }}!</p>
             <a href="{% url 'home' %}" title="Home" class="top-menu-icon"><span class="glyphicon glyphicon-home"></span></a>
-            <a href="{% url 'insert' %}" title="Insert a Unavailability" class="top-menu-icon"><span class="glyphicon glyphicon-plus"></span></a>
+            <a href="{% url 'insert_register' %}" title="Insert a Unavailability" class="top-menu-icon"><span class="glyphicon glyphicon-plus"></span></a>
             <a href="{% url 'list' %}" title="List, edit and delete Unavailabilities" class="top-menu-icon"><span class="glyphicon glyphicon-search"></span></a>
             <a href="{% url 'calendar' %}" title="Calendar" class="top-menu-icon"><span class="glyphicon glyphicon-calendar"></span></a>
             <a href="{% url 'user_settings' %}" title="Edit User Settings" class="top-menu-icon"><span class="glyphicon glyphicon-user"></span></a>

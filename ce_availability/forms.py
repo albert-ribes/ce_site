@@ -224,6 +224,7 @@ class CalendarEventFilterForm(forms.Form):
 
 
 class CalendarEventForm(forms.ModelForm):
+    #location_selector = forms.ChoiceField(label='Location', choices=[(choice.pk, choice) for choice in Location.objects.all().order_by('location')])
 
     class Meta:
         model = CalendarEvent
@@ -231,17 +232,15 @@ class CalendarEventForm(forms.ModelForm):
 
         widgets = {
             'start_date': DateInput(attrs={'type': 'date'}),
-			'end_date': DateInput(attrs={'type': 'date'}),
+            'end_date': DateInput(attrs={'type': 'date'}),
         }
 
-"""
-    def __init__(self, event_id, *args, **kwargs):
-       print ("INFO: FORMS.CalendarEventForm.__init__, event_id=" + str(event_id))
+    def __init__(self, user, location_choices, *args, **kwargs):
        super(CalendarEventForm, self).__init__(*args, **kwargs)
-       self.event_id=event_id
+       self.fields['location'].choices = location_choices
        self.user=user
-       print ("INFO: FORMS.CalendarEventForm.__init__, event_id=" + str(event_id))
-"""    
+       #print ("INFO: FORMS.CalendarEventForm.__init__, event_id=" + str(event_id))
+
 
 class UserForm(forms.ModelForm):
     class Meta:
