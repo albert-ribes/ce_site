@@ -1,189 +1,77 @@
-{% extends "ce_availability/base.html" %}
+{% extends 'ce_availability/base.html' %}
 
 {% block content %}
-    {% if user.is_authenticated %}
-	{% comment %}
-        <h3>New Unavailability</h3>
-	{% endcomment%}
-        <p>Please introduce the details of your new unavailability:</p>
-	<div class=unavailability_form>	
-		<form id="unavailability_form" method="POST" class="post-form" novalidate>{% csrf_token %}
-		{% comment %}
-		<script type="text/javascript" src="/admin/jsi18n/"></script>
-		<script type="text/javascript" src="/static/admin/js/core.js"></script>
-		<script type="text/javascript" src="/static/admin/js/admin/RelatedObjectLookups.js">        </script>
-		<script type="text/javascript" src="/static/admin/js/jquery.min.js"></script>
-		<script type="text/javascript" src="/static/admin/js/jquery.init.js"></script>
-		<script type="text/javascript" src="/static/admin/js/actions.min.js"></script>
-		<script type="text/javascript" src="/static/admin/js/calendar.js"></script>
-		<script type="text/javascript" src="/static/admin/js/admin/DateTimeShortcuts.js"></script>
+	<h2>New Calendar Event</h2>
 
+	<div class="event_details">
+	<form method="POST" class="post-form" novalidate>{% csrf_token %}
 
-                {{ form.media }}
-      		{% endcomment%}
+	<div class="modify_register">	
 
 		<div class="fieldForm">
-                        <label for="{{ form.unavailability.id_for_label }}">CE:</label>
-                        <div class="input_field_insert"> {{ form.user }} </div>
+                <label for="{{ form.location.id_for_label }}">Location:</label>
+                <div class="input_field_insert"> {{ form.location }} </div>
                         <div class="error_field">
-                                {% if form.user.errors %}
-                                        {% for error in form.user.errors %}
+                                {% if form.location.errors %}
+                                        {% for error in form.location.errors %}
                                         <div class="form_error"> {{ error|escape }}</div>
                                         {% endfor %}
                                 {% endif %}
                         </div>
                 </div>
 
-		<div class="fieldForm">
-	    		<label for="{{ form.unavailability.id_for_label }}">Unavailability:</label>
-		    	<div class="input_field_insert"> {{ form.unavailability }} </div>
-			<div class="error_field">
-	                        {% if form.unavailability.errors %}
-					{% for error in form.unavailability.errors %}
-			            	<div class="form_error"> {{ error|escape }}</div>
-					{% endfor %}
-				{% endif %}
-			</div>
-		</div>
-
-		{{ form.hidden_type_date_input.as_hidden }}
-		<div class="fieldForm">
-			<div class="radio_field">
-			<input type="radio" id="type_date_input" name="type_date_input" value="single_date" checked="checked" onclick="check(this.value)"> Single Date<br>
-			</div>
-		</div>
-		
-				<div class="fieldForm">
-			<label for="{{ form.hours.id_for_label }}">Hours:</label>
-		        <div class="input_field_insert"> {{ form.hours }} </div>
-			<div class="error_field">
-	                     	{% if form.hours.errors  %}
-					{% for error in  form.hours.errors %}
-					<div class="form_error"> {{ error|escape }}</div>
-					{% endfor %}
-				{% endif %}
-			</div>
-		</div>
-		
-		<div class="fieldForm">
-		    	<label for="{{ form.date.id_for_label }}">Date:</label>
-		     	<div class="input_field_insert"> {{ form.date }} </div>
-			<div class="error_field">
-				{% if form.date.errors  %}
-					{% for error in form.date.errors  %}
-					<div class="form_error"> {{ error|escape }}</div>
-					{% endfor %}
-				{% endif %}
-			</div>
-		</div>
-		
-
-		
-		<div class="fieldForm">
-			<div class="radio_field">
-			<input width=20px type="radio" id="type_date_input" name="type_date_input" value="range_date" onclick="check(this.value)"> Date Range <b>(*)</b><br>
-			</div>
-		</div>
-		
-		<div class="fieldForm">
-		    	<label for="{{ form.start_date.id_for_label }}">Start Date:</label>
-		     	<div class="input_field_insert"> {{ form.start_date }} </div>
-			<div class="error_field">
-				{% if form.start_date.errors  %}
-					{% for error in form.start_date.errors  %}
-					<div class="form_error"> {{ error|escape }}</div>
-					{% endfor %}
-				{% endif %}
-			</div>
-		</div>
-		
-				<div class="fieldForm">
-		    	<label for="{{ form.end_date.id_for_label }}">End Date:</label>
-		     	<div class="input_field_insert"> {{ form.end_date }} </div>
-			<div class="error_field">
-				{% if form.end_date.errors  %}
-					{% for error in form.end_date.errors  %}
-					<div class="form_error"> {{ error|escape }}</div>
-					{% endfor %}
-				{% endif %}
-			</div>
-		</div>
-		
-		
-<p id="radio_value"></p>
-<script>
-
-var type_date_input = document.getElementById('type_date_input').value;
-//document.getElementById("radio_value").innerHTML=type_date_input;
-
-date_input_mode(type_date_input);
-
-function date_input_mode(type_date_input){
-	//{{form.type_date_input}}=type_date_input
-	document.getElementById('id_hidden_type_date_input').value=type_date_input;
-	if (type_date_input=="single_date"){
-		document.getElementById("id_start_date").disabled = true;
-		document.getElementById("id_end_date").disabled = true;
-		document.getElementById("id_date").disabled = false;
-		document.getElementById("id_hours").disabled = false;
-	}
-	else if (type_date_input=="range_date"){
-		document.getElementById("id_start_date").disabled = false;
-		document.getElementById("id_end_date").disabled = false;
-		document.getElementById("id_date").disabled = true;
-		document.getElementById("id_hours").disabled = true;
-	}
-}
-function check(type_date_input) {
-	//document.getElementById("radio_value").innerHTML=type_date_input;
-	date_input_mode(type_date_input);
-}
-
-</script>
-		<div class="fieldForm">
-                    	<label for="{{ form.comments.id_for_label }}">Comments:</label>
-                    	<div class="input_field_insert"> {{ form.comments }} </div>
-			<div class="error_field">
-				{% if form.comments.errors  %}
-					{% for error in form.comments.errors  %}
-					<div class="form_error"> {{ error|escape }}</div>
-					{% endfor %}
-				{% endif %}
-			</div>
+                <div class="fieldForm">
+                <label for="{{ form.kindofday.id_for_label }}">Kind of Day:</label>
+                <div class="input_field_insert"> {{ form.kindofday }} </div>
+                        <div class="error_field">
+                                {% if form.kindofday.errors %}
+                                        {% for error in form.kindofday.errors %}
+                                        <div class="form_error"> {{ error|escape }}</div>
+                                        {% endfor %}
+                                {% endif %}
+                        </div>
                 </div>
-		<div class="form_error"> {{ form.non_field_errors }} </div>
 
+                <div class="fieldForm">
+                <label for="{{ form.start_date.id_for_label }}">Start date:</label>
+                <div class="input_field_insert"> {{ form.start_date }} </div>
+                        <div class="error_field">
+                                {% if form.start_date %}
+                                        {% for error in form.start_date.errors %}
+                                        <div class="form_error"> {{ error|escape }}</div>
+                                        {% endfor %}
+                                {% endif %}
+                        </div>
+                </div>
 
+                <div class="fieldForm">
+                <label for="{{ form.end_date.id_for_label }}">Finish date:</label>
+                <div class="input_field"> {{ form.end_date }} </div>
+                        <div class="error_field">
+                                {% if form.end_date.errors %}
+                                        {% for error in form.end_date.errors %}
+                                        <div class="form_error"> {{ error|escape }}</div>
+                                        {% endfor %}
+                                {% endif %}
+                        </div>
+                </div>
+
+                <div class="fieldForm">
+                <label for="{{ form.comment.id_for_label }}">Comments:</label>
+                <div class="input_field_insert"> {{ form.comment }} </div>
+                        <div class="error_field">
+                                {% if form.comment.errors %}
+                                        {% for error in form.comment.errors %}
+                                        <div class="form_error"> {{ error|escape }}</div>
+                                        {% endfor %}
+                                {% endif %}
+                        </div>
+                </div>
 	</div>
-                 <button type="submit" class="save btn btn-default">Save</button>
-<br>
-<p>
-	<b>(*)</b> Inserts a new NA register for the whole day for every working day of the defined range. No other unavailabilities should be registered in that range.
-</p>
-<!--
-<hr>
-The kind of unavailabilities are the following:
-<br><br>
-<ul>
-	<li>Administrative:</li>
-	<li>Medical:</li>
-	<li>Meeting:</li>
-	<li>NonStop:</li>
-	<li>Other:</li>
-	<li>Preparation:</li>
-	<li>Rest Time:</li>
-	<li>Training:</li>
-	<li>Vacation:</li>
-</ul>
--->
+		
+    <hr>
 
-        </form>
-
-    {% else %}
-        <p>Welcome to the <b>CE Availability tool</b>. Please <a href="login">login</a> to add, view and edit yout unavailabilities.</p>
-    {% endif %}
-    <div id="content">
-    </div>
-	<span id="result"></span>
+                <button type="submit" class="update-button">Save</button>
+		</form>
+		
 {% endblock %}
-

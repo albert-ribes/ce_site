@@ -585,7 +585,7 @@ def insert_event(request):
         """
     else:
         form = CalendarEventForm(user, location_choices)
-    return render(request, 'ce_availability/event_details.html', {'form': form})
+    return render(request, 'ce_availability/insert_event.html', {'form': form})
 
 
 @login_required
