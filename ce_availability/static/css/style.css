@@ -107,7 +107,6 @@ h2{
     margin-right: 10px;
 }
 
-
 #id_year_selector{
     margin-left: 4px;
     margin-right: 10px;
@@ -142,6 +141,12 @@ button.submit-button{
 
 /* CALENDAR */
 
+#id_mode_selector{
+    margin-left: 4px;
+    margin-right: 10px;
+}
+
+
 .calendar_filter_form{
     margin-top: 10px;
     margin-bottom: 20px;
@@ -156,11 +161,10 @@ button.submit-button{
 
 .edit_calendar{
     /*margin:10px;*/
-    width: 100px;
+    width: 180px;
 	margin-top: 10px;
 	margin-bottom: 10px;
     display: block;
-
 }
 
 .calendar_info{
@@ -177,7 +181,7 @@ table.table_calendar {
     border: 1px solid #000000;
     width: 1000px;
     table-layout:fixed;
-    	margin-top: 60px;
+    	margin-top: 10px;
 }
 /*
 table.table_calendar tr:nth-child(odd) {
@@ -799,6 +803,17 @@ a.list_link:active {
    margin-bottom: 20px;
 }
 /* CALENDAR EVENTS*/
+
+#id_location_selector{
+    margin-left: 4px;
+    margin-right: 10px;
+}
+
+#id_kindofday_selector{
+    margin-left: 4px;
+    margin-right: 10px;
+}
+
 
 .calendar_edit_form{
     margin-top: 10px;

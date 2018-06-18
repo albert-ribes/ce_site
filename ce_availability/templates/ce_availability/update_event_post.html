@@ -1,0 +1,17 @@
+{% extends "ce_availability/base.html" %}
+
+{% block content %}
+    {% if user.is_authenticated %}
+	{% if result %}
+		<p>Calendar event with ID = {{ id }} sucessfully updated.<p>
+		{% if request.session.url %}
+			<p><a href={{ request.session.url }}>Back</a></p>
+		{% endif %}
+	{% else %}
+		<p>Ups! Something went wrong<p>
+	{% endif %}
+    {% else %}
+        <p>Please <a href="login">login</a> to add, view, edit and delete unavailabilities.</p>
+    {% endif %}
+{% endblock %}
+

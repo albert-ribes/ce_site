@@ -17,7 +17,7 @@ class Location(models.Model):
     location = models.CharField(max_length=200)
     manager = models.ForeignKey(User, related_name='LocManager', blank=True, default=6)
     def __str__(self):
-        string=self.location + ", manager=" + str(self.manager.first_name) + " " + str(self.manager.last_name)
+        string=self.location# + ", manager=" + str(self.manager.first_name) + " " + str(self.manager.last_name)
         return string
 
 class KindOfDay(models.Model):

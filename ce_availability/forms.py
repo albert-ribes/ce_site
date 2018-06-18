@@ -121,24 +121,6 @@ class RegisterForm(forms.ModelForm):
             registers = Register.objects.filter(date__gte=start_date).filter(date__lte=end_date).filter(user__username=ce)
             if registers:
                 raise forms.ValidationError({'start_date': ["There are already unavailabilities during this range of dates.",]})
-            """
-            else:
-                calendar_events = CalendarEvent.objects.filter(start_date__lte=end_date).filter(end_date__gte=start_date).filter(location=user.employee.location).order_by('start_date')
-                for event in calendar_events:
-                     #print(event)
-                     delta_events = event.end_date - event.start_date
-                     for i in range(delta_range.days + 1):
-                         day_range = start_date + timedelta(days=i)
-                         dayofweek=day_range.weekday()
-                         print("day_range=" + str(day_range) + ", dayofweek: " + str(dayofweek))
-                         for j in range(delta_events.days + 1):
-                             day_event = event.start_date + timedelta(days=j)
-                             if (day_range==day_event):
-                                 print("-kindofday=" + str(event.kindofday))
-                                 if(event.kindofday=="Intensive"):
-                                     
-                                 elif(event.kindofday=="WorkingDay"):
-            """
 
 class ListFilterForm(forms.Form):
     currentMonth = datetime.now().month
@@ -241,9 +223,25 @@ class CalendarEventFilterForm(forms.Form):
         return(location, kindofday, year, month)
 
 
-class CalendarEventForm(forms.Form):
+class CalendarEventForm(forms.ModelForm):
+
     class Meta:
         model = CalendarEvent
+        fields = ('location', 'kindofday', 'start_date', 'end_date','comment')
+
+        widgets = {
+            'start_date': DateInput(attrs={'type': 'date'}),
+			'end_date': DateInput(attrs={'type': 'date'}),
+        }
+
+"""
+    def __init__(self, event_id, *args, **kwargs):
+       print ("INFO: FORMS.CalendarEventForm.__init__, event_id=" + str(event_id))
+       super(CalendarEventForm, self).__init__(*args, **kwargs)
+       self.event_id=event_id
+       self.user=user
+       print ("INFO: FORMS.CalendarEventForm.__init__, event_id=" + str(event_id))
+"""    
 
 class UserForm(forms.ModelForm):
     class Meta:

@@ -1,4 +1,5 @@
 {% load staticfiles %}
+{% load auth_extras %}
 <html>
     <head>
         <title>CE Availability</title>
@@ -27,12 +28,15 @@
             <a href="{% url 'list' %}" title="List, edit and delete Unavailabilities" class="top-menu-icon"><span class="glyphicon glyphicon-search"></span></a>
             <a href="{% url 'calendar' %}" title="Calendar" class="top-menu-icon"><span class="glyphicon glyphicon-calendar"></span></a>
             <a href="{% url 'user_settings' %}" title="Edit User Settings" class="top-menu-icon"><span class="glyphicon glyphicon-user"></span></a>
-            <a href="{% url 'about' %}" title="About" class="top-menu-icon"><span class="glyphicon glyphicon-info-sign"></span></a>
+			{% if request.user|has_group:"SDM" %}
+			<a href="{% url 'settings' %}" title="Edit Settings" class="top-menu-icon"><span class="glyphicon glyphicon-wrench"></span></a>
+			{% endif %}
+			<a href="{% url 'about' %}" title="About" class="top-menu-icon"><span class="glyphicon glyphicon-info-sign"></span></a>
             <a href="{% url 'logout' %}" title="Logout" class="top-menu-icon"><span class="glyphicon glyphicon-log-out"></span></a>
         {% elif user.is_authenticated  and user.first_name == 'admin' %}
 	    <p class="top-menu">Welcome {{ user.first_name }}!</p>
 	    <a href="{% url 'logout' %}" title="Logout" class="top-menu-icon"><span class="glyphicon glyphicon-log-out"></span></a>
-	{% else %}
+		{% else %}
             <p class="top-menu">User not logged in.</p>
 	    <a href="{% url 'login' %}" title="Login" class="top-menu-icon"><span class="glyphicon glyphicon-log-in"></span></a> [Login]
         {% endif %}

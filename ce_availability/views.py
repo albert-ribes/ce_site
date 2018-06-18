@@ -5,7 +5,7 @@ from .models import Register, Unavailability, Category, CalendarEvent, KindOfDay
 from django.contrib.auth.decorators import login_required
 from django.utils import timezone
 from django import forms
-from .forms import RegisterForm, ListFilterForm, UserForm, EmployeeForm, CalendarFilterForm, CalendarEventFilterForm
+from .forms import RegisterForm, ListFilterForm, UserForm, EmployeeForm, CalendarFilterForm, CalendarEventForm, CalendarEventFilterForm
 from django.contrib.auth.forms import PasswordChangeForm
 from django.contrib.auth import update_session_auth_hash
 from django.shortcuts import redirect
@@ -17,7 +17,6 @@ from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponseRedirect, HttpResponse
 from calendar import monthrange, month_name
 from operator import itemgetter
-from django.shortcuts import render_to_response
 from django.template import RequestContext
 
 def home(request):
@@ -201,8 +200,7 @@ def calendar_filter(request, mode, year, month):
     user=request.user
     #print(user.employee.location)
     
-    """ -------- GESTIÓ DE DATES/URLs -------- """
-    request.session['url'] = "/ce_availability/calendar/" + str(year) + "/" + str(month)
+
     if (int(month)>12):
         return HttpResponseRedirect("/ce_availability/calendar/")
     hours=0,5
@@ -496,6 +494,8 @@ def calendar_edit(request):
 
 @login_required
 def calendar_edit_filter(request, location, kindofday, year, month):
+    request.session['url'] = "/ce_availability/calendar_edit/" + str(location) + "/" + str(kindofday) + "/" + str(year) + "/" + str(month)
+    #print (request.session['url'])
     initial = {
         'location_selector': location,
         'kindofday_selector': kindofday,
@@ -626,7 +626,7 @@ def insert(request):
                                     elif(str(event.kindofday)=="Festive"):
                                         #print("Festive")
                                         day_with_event = "Festive"
-                    if(day_with_event == "Intensive"):
+                    if(day_with_event == "Intensive" and 0<=dayofweek<=3):
                         register = Register()
                         register.unavailability_id = form.cleaned_data.get('unavailability', None).id
                         register.hours = KindOfDay.objects.filter(kindofday="Intensive").values_list('laborablehours', flat=True).get()
@@ -707,6 +707,37 @@ def user_settings(request):
     })
 
 @login_required
+def settings(request):
+    return render(request, 'ce_availability/settings.html')
+
+
+@login_required
+def event_details(request, pk):
+
+    user = request.user
+    manager_id=user.id
+    event = get_object_or_404(CalendarEvent, pk=pk)
+    #print ("INFO: VIEWS.event_details: event_id=" + str(pk) + ", event details: " + str(event))     
+    if request.method == "POST":
+        #print("INFO: VIEWS.register_details: POST")
+        form = CalendarEventForm(request.POST, instance=event)
+        #print("INFO: VIEWS.register_details: form=" +str(form))
+        if form.is_valid():
+            #print("INFO: VIEWS.register_details: FORM_IS_VALID")
+            event = form.save(commit=False)
+            event.save()
+            result=True
+            return render(request, 'ce_availability/update_event_post.html', {'result':result, 'id': event.id})
+        """
+        else:
+            print("INFO: VIEWS.register_details: FORM_IS_NOT_VALID")
+        """
+    else:
+        form = CalendarEventForm(instance=event)
+    return render(request, 'ce_availability/event_details.html', {'form': form, 'event': event})
+
+
+@login_required
 def register_details(request, pk):
     user=request.user
     user_type=getUserType(user)
@@ -732,7 +763,7 @@ def register_details(request, pk):
             register = form.save(commit=False)
             register.save()
             result=True
-            return render(request, 'ce_availability/update_post.html', {'result':result, 'id': register.id})
+            return render(request, 'ce_availability/update_register_post.html', {'result':result, 'id': register.id})
         """
         else:
             print("INFO: VIEWS.register_details: FORM_IS_NOT_VALID")
@@ -775,12 +806,12 @@ def register_details_popup(request, pk):
                 'id': register.id
             }
             #print(data)
-            return render(request, 'ce_availability/update_post_popup.html', data)
+            return render(request, 'ce_availability/update_register_post_popup.html', data)
             """
             register = form.save(commit=False)
             register.save()
             result=True
-            return render(request, 'ce_availability/update_post_popup.html', {'result':result, 'id': register.id})"""
+            return render(request, 'ce_availability/update_register_post_popup.html', {'result':result, 'id': register.id})"""
         else:
              print("INFO: VIEWS.register_details: FORM_IS_NOT_VALID")
     else:
@@ -797,7 +828,19 @@ def register_delete(request, pk):
         'result':result,
         'id': id
     }
-    return render(request, 'ce_availability/delete_post.html', data)
+    return render(request, 'ce_availability/delete_register_post.html', data)
+
+@login_required
+def event_delete(request, pk):
+    event = get_object_or_404(CalendarEvent, pk=pk)
+    id = event.id
+    event.delete()
+    result=True
+    data = {
+        'result':result,
+        'id': id
+    }
+    return render(request, 'ce_availability/delete_event_post.html', data)
 
 
 @login_required

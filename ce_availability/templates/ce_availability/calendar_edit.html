@@ -70,12 +70,12 @@ $("tr").click(function(){
 			</tr>
 		{% for event in calendar_events %}
 			<tr>
-				<td><a  class="list_link" href='/ce_availability/details/{{ register.id }}'>{{ event.id }}</a></td>
-				<td><a  class="list_link" href='/ce_availability/details/{{ register.id }}'>{{ event.location }}</a></td>
-				<td><a class="list_link" href='/ce_availability/details/{{ register.id }}'>{{ event.kindofday }}</a></td>
-				<td><a class="list_link" href='/ce_availability/details/{{ register.id }}'>{{ event.start_date }}</a></td>
-				<td><a class="list_link" href='/ce_availability/details/{{ register.id }}'>{{ event.end_date }}</a></td>
-				<td><a class="list_link" href='/ce_availability/details/{{ register.id }}'>{{ event.comment }}</a></td>
+				<td><a  class="list_link" href='/ce_availability/event_details/{{ event.id }}'>{{ event.id }}</a></td>
+				<td><a  class="list_link" href='/ce_availability/event_details/{{ event.id }}'>{{ event.location }}</a></td>
+				<td><a class="list_link" href='/ce_availability/event_details/{{ event.id }}'>{{ event.kindofday }}</a></td>
+				<td><a class="list_link" href='/ce_availability/event_details/{{ event.id }}'>{{ event.start_date }}</a></td>
+				<td><a class="list_link" href='/ce_availability/event_details/{{ event.id }}'>{{ event.end_date }}</a></td>
+				<td><a class="list_link" href='/ce_availability/event_details/{{ event.id }}'>{{ event.comment }}</a></td>
 			</tr>
 		{% endfor %}
 		</table>
