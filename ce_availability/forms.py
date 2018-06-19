@@ -205,10 +205,10 @@ class CalendarEventFilterForm(forms.Form):
     year_selector = forms.ChoiceField(label='Year',choices=YEAR_CHOICES)
     month_selector = forms.ChoiceField(label='Month',choices=MONTH_CHOICES)
 
-    def __init__(self, user, location_choices, *args, **kwargs):
+    def __init__(self, user, location_choices, kindofday_choices, *args, **kwargs):
        super(CalendarEventFilterForm, self).__init__(*args, **kwargs)
        self.fields['location_selector'].choices = location_choices
-       self.fields['kindofday_selector'].choices = [('All', 'All')] + list(self.fields['kindofday_selector'].choices)
+       self.fields['kindofday_selector'].choices = kindofday_choices
 
     class Meta:
         model = CalendarEvent
@@ -235,10 +235,11 @@ class CalendarEventForm(forms.ModelForm):
             'end_date': DateInput(attrs={'type': 'date'}),
         }
 
-    def __init__(self, user, location_choices, *args, **kwargs):
+    def __init__(self, user, location_choices, kindofday_choices, *args, **kwargs):
        super(CalendarEventForm, self).__init__(*args, **kwargs)
        self.fields['location'].choices = location_choices
        self.user=user
+       self.fields['kindofday'].choices = kindofday_choices
        #print ("INFO: FORMS.CalendarEventForm.__init__, event_id=" + str(event_id))
 
 

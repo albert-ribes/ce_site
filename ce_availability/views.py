@@ -515,17 +515,20 @@ def calendar_edit_filter(request, location, kindofday, year, month):
     manager_id=user.id
     location_choices=[(choice.pk, choice.location) for choice in Location.objects.filter(manager_id=manager_id).order_by('location')]
     location_choices= [('All', 'All')] + location_choices
+    kindofday_choices=[(choice.pk, choice.kindofday) for choice in KindOfDay.objects.filter(kindofday="Intensive").order_by('kindofday')]
+    kindofday_choices = [(choice.pk, choice.kindofday) for choice in KindOfDay.objects.filter(kindofday="Festive").order_by('kindofday')] + kindofday_choices
+    kindofday_choices = [('All', 'All')] + kindofday_choices
 
     if request.method == "POST":
         #print("request.method == POST")
-        form = CalendarEventFilterForm(request.user, location_choices, request.POST)
+        form = CalendarEventFilterForm(request.user, location_choices, kindofday_choices, request.POST)
         if form.is_valid():
             # print("INFO: VIEWS.list: calendar_edit_filter.is_valid()")
             # process the data in form
             location, kindofday, year, month = form.save(commit=False)
             return HttpResponseRedirect("/ce_availability/calendar_edit/" + str(location) + "/" + str(kindofday) + "/" + str(year) + "/" + str(month))
     else:
-        form = CalendarEventFilterForm(request.user, location_choices, initial)
+        form = CalendarEventFilterForm(request.user, location_choices, kindofday_choices, initial)
 
 
 
@@ -568,10 +571,14 @@ def insert_event(request):
     user = request.user
     manager_id=user.id
     location_choices=[(choice.pk, choice.location) for choice in Location.objects.filter(manager_id=manager_id).order_by('location')]
+    kindofday_choices=[(choice.pk, choice.kindofday) for choice in KindOfDay.objects.filter(kindofday="Intensive").order_by('kindofday')]
+    kindofday_choices = [(choice.pk, choice.kindofday) for choice in KindOfDay.objects.filter(kindofday="Festive").order_by('kindofday')] + kindofday_choices
+    kindofday_choices = [('------', '------')] + kindofday_choices
+
     print(location_choices)
     if request.method == "POST":
         #print("INFO: VIEWS.register_details: POST")
-        form = CalendarEventForm(user, location_choices, request.POST)
+        form = CalendarEventForm(user, location_choices, kindofday_choices, request.POST)
         #print("INFO: VIEWS.register_details: form=" +str(form))
         if form.is_valid():
             #print("INFO: VIEWS.register_details: FORM_IS_VALID")
@@ -584,7 +591,7 @@ def insert_event(request):
             print("INFO: VIEWS.register_details: FORM_IS_NOT_VALID")
         """
     else:
-        form = CalendarEventForm(user, location_choices)
+        form = CalendarEventForm(user, location_choices, kindofday_choices)
     return render(request, 'ce_availability/insert_event.html', {'form': form})
 
 
@@ -751,10 +758,14 @@ def event_details(request, pk):
     user = request.user
     manager_id=user.id
     location_choices=[(choice.pk, choice.location) for choice in Location.objects.filter(manager_id=manager_id).order_by('location')]
+    kindofday_choices=[(choice.pk, choice.kindofday) for choice in KindOfDay.objects.filter(kindofday="Intensive").order_by('kindofday')]
+    kindofday_choices = [(choice.pk, choice.kindofday) for choice in KindOfDay.objects.filter(kindofday="Festive").order_by('kindofday')] + kindofday_choices
+    kindofday_choices = [('------', '------')] + kindofday_choices
+
     print(location_choices)
     if request.method == "POST":
         #print("INFO: VIEWS.register_details: POST")
-        form = CalendarEventForm(user, location_choices, request.POST, instance=event)
+        form = CalendarEventForm(user, location_choices, kindofday_choices, request.POST, instance=event)
         #print("INFO: VIEWS.register_details: form=" +str(form))
         if form.is_valid():
             #print("INFO: VIEWS.register_details: FORM_IS_VALID")
@@ -767,7 +778,10 @@ def event_details(request, pk):
             print("INFO: VIEWS.register_details: FORM_IS_NOT_VALID")
         """
     else:
-        form = CalendarEventForm(user, location_choices, instance=event)
+        initial = {
+            'kindofday': event.kindofday
+        }
+        form = CalendarEventForm(user, location_choices, kindofday_choices, instance=event)
     return render(request, 'ce_availability/event_details.html', {'form': form, 'event': event})
 
 
