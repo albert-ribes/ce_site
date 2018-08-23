@@ -1,7 +1,25 @@
-{% extends 'ce_availability/base.html' %}
+{% load staticfiles %}
+
+<html>
+    <head>
+        <title>CE Availability</title>
+        <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+        <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
+        <link href='//fonts.googleapis.com/css?family=Lobster&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
+        <link rel="stylesheet" href="{% static 'css/style.css' %}">
+        <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+        {% comment%}
+        <script type="text/javascript" src="/my_admin/jsi18n/"></script>
+        <script type="text/javascript" src="/media/admin/js/core.js"></script>
+        {% endcomment %}
+
+        {% load static %}
+</head>
+<div class="content container">
+<br>
 
 {% block content %}
-	<h2>Event details</h2>
+	<h4>Event details</h4>
 	{% comment %}
 	<p>If you have proper persmissions, you can modify or delete a calendar event<p>
 	{% endcomment %}
@@ -19,7 +37,7 @@
                 <label for="{{ form.location.id_for_label }}">Location:</label>
                 <div class="input_field_insert"> {{ form.location }} </div>
                         <div class="error_field">
-                                {% if form.location.errors %}
+                                {% if form.location_selector.errors %}
                                         {% for error in form.location.errors %}
                                         <div class="form_error"> {{ error|escape }}</div>
                                         {% endfor %}
@@ -82,5 +100,10 @@
                 <a href='/ce_availability/delete_event/{{ event.id }}'><p><span class="glyphicon glyphicon-remove"></span></a> Delete Calendar event
                 <button type="submit" class="update-button">Update</button>
 		</form>
+		<br>
+		{% if request.session.url %}
+			<p><a href={{ request.session.url }}>Back</a></p>
+		{% endif %}
 		
 {% endblock %}
+</div>

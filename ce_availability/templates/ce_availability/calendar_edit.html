@@ -1,15 +1,28 @@
-{% extends 'ce_availability/base.html' %}
+{% load staticfiles %}
+<html>
+    <head>
+        <title>CE Availability</title>
+        <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+        <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
+        <link href='//fonts.googleapis.com/css?family=Lobster&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
+        <link rel="stylesheet" href="{% static 'css/style.css' %}">
+        <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+        {% comment%}
+        <script type="text/javascript" src="/my_admin/jsi18n/"></script>
+        <script type="text/javascript" src="/media/admin/js/core.js"></script>
+        {% endcomment %}
 
+        {% load static %}
+</head>
 <script>
 $("tr").click(function(){
     $(this).addClass("selected").siblings().removeClass("selected");
 });
 </script>
-
+<div class="content container">
+<br>
 {% block content %}
-	{% comment %}
-	<h3>Unavailabilities</h3><br>
-	{% endcomment %}
+	<h4>Calendar Events</h4><br>
         <p>You can filter the calendar events by location, kind of day, year and month:</p>
 
 
@@ -86,4 +99,5 @@ Insert a new Calendar Event
 		<p>No records found </p>
 	{% endif %}
 {% endblock %}
+</div>
 

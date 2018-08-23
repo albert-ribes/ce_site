@@ -1,5 +1,21 @@
-{% extends "ce_availability/base.html" %}
+{% load staticfiles %}
+<html>
+    <head>
+        <title>CE Availability</title>
+        <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+        <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
+        <link href='//fonts.googleapis.com/css?family=Lobster&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
+        <link rel="stylesheet" href="{% static 'css/style.css' %}">
+        <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+        {% comment%}
+        <script type="text/javascript" src="/my_admin/jsi18n/"></script>
+        <script type="text/javascript" src="/media/admin/js/core.js"></script>
+        {% endcomment %}
 
+        {% load static %}
+</head>
+<div class="content container">
+<br>
 {% block content %}
     {% if user.is_authenticated %}
 	{% if result %}
@@ -14,4 +30,4 @@
         <p>Please <a href="login">login</a> to add, view, edit and delete calendar events.</p>
     {% endif %}
 {% endblock %}
-
+</div>

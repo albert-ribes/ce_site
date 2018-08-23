@@ -5,7 +5,7 @@ from .models import Register, Unavailability, Category, CalendarEvent, KindOfDay
 from django.contrib.auth.decorators import login_required
 from django.utils import timezone
 from django import forms
-from .forms import RegisterForm, ListFilterForm, UserForm, EmployeeForm, CalendarFilterForm, CalendarEventForm, CalendarEventFilterForm
+from .forms import RegisterForm, ListFilterForm, UserForm, EmployeeForm, CalendarFilterForm, CalendarEventForm, CalendarEventEditForm, CalendarEventFilterForm
 from django.contrib.auth.forms import PasswordChangeForm
 from django.contrib.auth import update_session_auth_hash
 from django.shortcuts import redirect
@@ -571,27 +571,65 @@ def insert_event(request):
     user = request.user
     manager_id=user.id
     location_choices=[(choice.pk, choice.location) for choice in Location.objects.filter(manager_id=manager_id).order_by('location')]
+    location_choices = [('All', 'All')] + location_choices
+    location_choices = [('', '------')] + location_choices
+
+    #for location in location_choices:
+        #print(location)
+
     kindofday_choices=[(choice.pk, choice.kindofday) for choice in KindOfDay.objects.filter(kindofday="Intensive").order_by('kindofday')]
     kindofday_choices = [(choice.pk, choice.kindofday) for choice in KindOfDay.objects.filter(kindofday="Festive").order_by('kindofday')] + kindofday_choices
-    kindofday_choices = [('------', '------')] + kindofday_choices
-
-    print(location_choices)
+    kindofday_choices = [('', '------')] + kindofday_choices
+    location = ""
+    #print(location_choices)
     if request.method == "POST":
+        locations=Location.objects.filter(manager_id=manager_id).order_by('location')
         #print("INFO: VIEWS.register_details: POST")
-        form = CalendarEventForm(user, location_choices, kindofday_choices, request.POST)
+        form = CalendarEventForm(user, location_choices, kindofday_choices, location, request.POST)
         #print("INFO: VIEWS.register_details: form=" +str(form))
         if form.is_valid():
             #print("INFO: VIEWS.register_details: FORM_IS_VALID")
-            event = form.save(commit=False)
-            event.save()
-            result=True
-            return render(request, 'ce_availability/insert_event_post.html', {'result':result, 'id': event.id})
+            location, kindofday, start_date, end_date, comment = form.save(commit=False)
+            print("location=" + str(location) + ", kindofday=" + str(kindofday) + ", start_date=" + str(start_date) + ", end_date=" + str(end_date) + ", comment=" + str(comment))
+            if (location == 'All'):
+                id=""
+                for loc in locations:
+                    event = CalendarEvent.objects.create(location=loc,
+                                   kindofday=kindofday,
+                                   start_date=start_date,
+                                   end_date=end_date,
+                                   comment=comment
+                                   )
+                    event.save()
+                    id = id + ", " + str(event.id)
+                    #print(">New insert: ID=" + str(register.id) +",Unavailability="+ str(register.unavailability_id) +",hours="+ str(register.hours) +",comments"+ str(register.comments) +",date="+ str(register.date) +",created_date="+ str(register.created_date) +",user_id="+ str(register.user_id))
+                    result=True
+                id=id[2:]
+                data = {
+                    'result':result,
+                    'id': id
+                }
+                result=True
+            else:
+                event = CalendarEvent.objects.create(location=location,
+                               kindofday=kindofday,
+                               start_date=start_date,
+                               end_date=end_date,
+                               comment=comment
+                               )
+                event.save()
+                result=True
+                data = {
+                    'result':result,
+                    'id': event.id
+                }
+            return render(request, 'ce_availability/insert_event_post.html', data)
         """
         else:
             print("INFO: VIEWS.register_details: FORM_IS_NOT_VALID")
         """
     else:
-        form = CalendarEventForm(user, location_choices, kindofday_choices)
+        form = CalendarEventForm(user, location_choices, kindofday_choices, location)
     return render(request, 'ce_availability/insert_event.html', {'form': form})
 
 
@@ -757,15 +795,47 @@ def event_details(request, pk):
     #print ("INFO: VIEWS.event_details: event_id=" + str(pk) + ", event details: " + str(event))     
     user = request.user
     manager_id=user.id
+
     location_choices=[(choice.pk, choice.location) for choice in Location.objects.filter(manager_id=manager_id).order_by('location')]
+    
     kindofday_choices=[(choice.pk, choice.kindofday) for choice in KindOfDay.objects.filter(kindofday="Intensive").order_by('kindofday')]
     kindofday_choices = [(choice.pk, choice.kindofday) for choice in KindOfDay.objects.filter(kindofday="Festive").order_by('kindofday')] + kindofday_choices
-    kindofday_choices = [('------', '------')] + kindofday_choices
 
-    print(location_choices)
+    location = ""
+    #print(location_choices)
+    """
+    if request.method == "POST":
+        #print("INFO: VIEWS.event_details: POST")
+        form = CalendarEventEditForm(user, location_choices, kindofday_choices, request.POST, instance=event)
+        #print("INFO: VIEWS.register_details: form=" +str(form))
+        if form.is_valid():
+            print("INFO: VIEWS.event_details: FORM_IS_VALID")
+            location, kindofday, start_date, end_date, comment = form.save(commit=False)
+            print("location=" + str(location) + ", kindofday=" + str(kindofday) + ", start_date=" + str(start_date) + ", end_date=" + str(end_date) + ", comment=" + str(comment))
+            location=Location.objects.filter(manager_id=manager_id).filter(id=location).order_by('location')
+
+            event = CalendarEvent.objects.create(location=location,
+                                   kindofday=kindofday,
+                                   start_date=start_date,
+                                   end_date=end_date,
+                                   comment=comment
+                                   )
+            event.save()
+            id = str(event.id)
+            result=True
+
+            return render(request, 'ce_availability/update_event_post.html', {'result':result, 'id': event.id})
+        else:
+            print("INFO: VIEWS.event_details: FORM_IS_NOT_VALID")
+
+    else:
+        location =  event.location.id
+        form = CalendarEventEditForm(user, location_choices, kindofday_choices, location, instance=event)
+    return render(request, 'ce_availability/event_details.html', {'form': form, 'event': event})
+    """
     if request.method == "POST":
         #print("INFO: VIEWS.register_details: POST")
-        form = CalendarEventForm(user, location_choices, kindofday_choices, request.POST, instance=event)
+        form = CalendarEventEditForm(user, location_choices, kindofday_choices, request.POST, instance=event)
         #print("INFO: VIEWS.register_details: form=" +str(form))
         if form.is_valid():
             #print("INFO: VIEWS.register_details: FORM_IS_VALID")
@@ -781,7 +851,7 @@ def event_details(request, pk):
         initial = {
             'kindofday': event.kindofday
         }
-        form = CalendarEventForm(user, location_choices, kindofday_choices, instance=event)
+        form = CalendarEventEditForm(user, location_choices, kindofday_choices, instance=event)
     return render(request, 'ce_availability/event_details.html', {'form': form, 'event': event})
 
 

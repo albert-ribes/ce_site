@@ -697,9 +697,11 @@ a.list_link:active {
     width: 130px;
     height: 26px;
 }
+
 #id_start_date {
     width: 130px;
     height: 26px;
+
 }
 #id_end_date {
     width: 130px;
@@ -805,13 +807,62 @@ a.list_link:active {
 /* CALENDAR EVENTS*/
 
 #id_location_selector{
+/*
     margin-left: 4px;
     margin-right: 10px;
+*/
 }
 
 #id_kindofday_selector{
+/*
     margin-left: 4px;
     margin-right: 10px;
+*/
+}
+
+#id_location{
+/*
+    margin-left: 4px;
+    margin-right: 10px;
+*/
+}
+
+#id_kindofday{
+/*
+    margin-left: 4px;
+    margin-right: 10px;
+*/
+}
+
+#id_comment{
+/*
+    margin-left: 4px;
+    margin-right: 10px;
+*/
+}
+#id_date_selector {
+    width: 130px;
+    height: 26px;
+/*
+    margin-left: 4px;
+    margin-right: 10px;
+*/
+}
+#id_start_date_event {
+    width: 130px;
+    height: 26px;
+/*
+    margin-left: 4px;
+    margin-right: 10px;
+*/
+}
+#id_end_date_event {
+    width: 130px;
+    height: 26px;
+/*
+    margin-left: 4px;
+    margin-right: 10px;
+*/
 }
 
 
@@ -1000,6 +1051,16 @@ table.table_calendar_events a
     /*border: 1px solid #ececec;*/
     /*background-color: #ececec;*/
     height: 220px;
+    width: 760px;
+    display: block;
+}
+
+.insert_event{
+    margin-top: 20px;
+    margin-bottom: 10px;
+    /*border: 1px solid #ececec;*/
+    /*background-color: #ececec;*/
+    height: 260px;
     width: 760px;
     display: block;
 }

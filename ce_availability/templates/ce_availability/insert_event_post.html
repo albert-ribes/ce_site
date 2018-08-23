@@ -1,15 +1,33 @@
-{% extends "ce_availability/base.html" %}
+{% load staticfiles %}
+<html>
+    <head>
+        <title>CE Availability</title>
+        <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+        <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
+        <link href='//fonts.googleapis.com/css?family=Lobster&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
+        <link rel="stylesheet" href="{% static 'css/style.css' %}">
+        <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+        {% comment%}
+        <script type="text/javascript" src="/my_admin/jsi18n/"></script>
+        <script type="text/javascript" src="/media/admin/js/core.js"></script>
+        {% endcomment %}
 
+        {% load static %}
+</head>
+<div class="content container">
+<br>
 {% block content %}
     {% if user.is_authenticated %}
 	{% if result %}
-		<p>Unavailability(ies) sucessfully registered with ID(s) = {{ id }}.<p>
-		<!--<p>Unavailability sucessfully registered with ID = <a href='/ce_availability/details/{{ id }}'>{{ id }}</a>.<p>-->
+		<p>Calendar Event(s) sucessfully registered with ID(s) = {{ id }}.<p>
+        {% if request.session.url %}
+			<p><a href={{ request.session.url }}>Back</a></p>
+        {% endif %}
 	{% else %}
-		<p>No Unavailabilities were registered. Please review the introduced data.<p>
+		<p>No Calendar Events were registered. Please review the introduced data.<p>
 	{% endif %}
     {% else %}
-        <p>Please <a href="login">login</a> to add, view, edit and delete unavailabilities.</p>
+        <p>Please <a href="login">login</a> to add, view, edit and delete Events.</p>
     {% endif %}
 {% endblock %}
-
+</div>

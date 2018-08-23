@@ -154,6 +154,7 @@ class ListFilterForm(forms.Form):
        #self.fields['ce_selector'].choices = [('All', 'All')] + list(self.fields['ce_selector'].choices)
        self.fields['unavailability_selector'].choices = [('All', 'All')] + list(self.fields['unavailability_selector'].choices)
        self.fields['category_selector'].choices = [('All', 'All')] + list(self.fields['category_selector'].choices)
+       
 
     def save(self, commit=True):
         #print("> INFO, forms.py: save() method")
@@ -222,10 +223,149 @@ class CalendarEventFilterForm(forms.Form):
         #print("INFO: FORMS.CalendarEventFilterForm.save " + location + ", " + ", " + kindofday + ", " + year + ", " + month)
         return(location, kindofday, year, month)
 
-
 class CalendarEventForm(forms.ModelForm):
-    #location_selector = forms.ChoiceField(label='Location', choices=[(choice.pk, choice) for choice in Location.objects.all().order_by('location')])
+    location_selector = forms.ChoiceField(label='Location', choices=[(choice.pk, choice) for choice in Location.objects.all().order_by('location')])
+    hidden_type_date_input = forms.CharField(initial= "single_date")
+    date_selector = forms.DateField(initial=date.today, widget=DateInput(attrs={'type': 'date'}))
 
+    class Meta:
+        model = CalendarEvent
+        fields = ('kindofday', 'start_date', 'end_date','comment')
+
+        widgets = {
+            'start_date': DateInput(attrs={'type': 'date'}),
+            'end_date': DateInput(attrs={'type': 'date'}),
+        }
+
+    def __init__(self, user, location_choices, kindofday_choices, location, *args, **kwargs):
+       super(CalendarEventForm, self).__init__(*args, **kwargs)
+       self.fields['location_selector'].choices = location_choices
+       self.fields['kindofday'].choices = kindofday_choices
+       self.fields['start_date'].required = False
+       self.fields['end_date'].required = False
+       self.fields['date_selector'].required = False
+       print(location)
+       if (location != ""):
+           self.fields['location_selector'].initial = location
+       self.user=user
+       
+       #print ("INFO: FORMS.CalendarEventForm.__init__, event_id=" + str(event_id))
+
+    def save(self, commit=True):
+        location = self.cleaned_data.get('location_selector', None)
+        if (location != "All"):
+            location_id = self.cleaned_data.get('location_selector', None)
+            location = Location.objects.get(id=location_id)
+          
+        kindofday = self.cleaned_data.get('kindofday', None)
+        type_date_input = self.cleaned_data.get('hidden_type_date_input')
+        if(type_date_input=="single_date"):
+            start_date = self.cleaned_data.get('date_selector')
+            end_date = start_date
+        else:
+            start_date = self.cleaned_data.get('start_date', None)
+            end_date = self.cleaned_data.get('end_date', None)
+        comment = self.cleaned_data.get('comment', None)
+        print("INFO: FORMS.CalendarEventForm.save: " + str(location) + ", " + str(kindofday) + ", " + str(start_date) + ", " + str(end_date) + ", " + str(comment) + ", ")
+        return (location, kindofday, start_date, end_date, comment)
+
+    def clean_location_selector(self):
+        #print ("INFO: FORMS.ListFilterForm.clean, ")
+        data = self.cleaned_data.get('location_selector')
+        data = self.cleaned_data['location_selector']
+        #print("INFO: FORMS.ListFilterForm.clean, " + str(data))
+        return data
+    def clean_start_date(self):
+        #print ("INFO: FORMS.ListFilterForm.clean, ")
+        data = self.cleaned_data.get('start_date')
+        data = self.cleaned_data['start_date']
+        #print("INFO: FORMS.ListFilterForm.clean, " + str(data))
+        return data
+    def clean_end_date(self):
+        #print ("INFO: FORMS.ListFilterForm.clean, ")
+        data = self.cleaned_data.get('end_date')
+        data = self.cleaned_data['end_date']
+        #print("INFO: FORMS.ListFilterForm.clean, " + str(data))
+        return data
+
+    def clean(self):
+        type_date_input = self.cleaned_data.get('hidden_type_date_input')
+        location = self.cleaned_data.get('location_selector')
+        #print(location)
+        if (location == ""):
+            raise forms.ValidationError({'location': ["This field is required.",]})
+            print("Invalid Location selection")
+        if(type_date_input=="single_date"):
+            date = self.cleaned_data.get('date_selector')
+            #print(date)
+            if (date==None):
+                raise forms.ValidationError({'date_selector': ["This field is required.",]})
+        else:
+            start_date = self.cleaned_data.get('start_date') 
+            end_date = self.cleaned_data.get('end_date')
+            if (start_date == None):
+                raise forms.ValidationError({'start_date': ["This field is required.",]})
+            if (end_date == None):
+                raise forms.ValidationError({'end_date': ["This field is required.",]})
+
+class CalendarEventEditForm(forms.ModelForm):
+    """
+    location_selector = forms.ChoiceField(label='Location', choices=[(choice.pk, choice) for choice in Location.objects.all().order_by('location')])
+    date = forms.DateField(initial=date.today, widget=DateInput(attrs={'type': 'date'}))
+
+    class Meta:
+        model = CalendarEvent
+        fields = ('kindofday', 'start_date', 'location', 'end_date','comment')
+
+        widgets = {
+            'start_date': DateInput(attrs={'type': 'date'}),
+            'end_date': DateInput(attrs={'type': 'date'}),
+        }
+
+    def __init__(self, user, location_choices, kindofday_choices, location, *args, **kwargs):
+       super(CalendarEventEditForm, self).__init__(*args, **kwargs)
+       self.fields['location_selector'].choices = location_choices
+       self.fields['kindofday'].choices = kindofday_choices
+       #print(location)
+       if (location != ""):
+           self.fields['location_selector'].initial = location
+       self.user=user
+       #print ("INFO: FORMS.CalendarEventForm.__init__, event_id=" + str(event_id))
+    
+    def save(self, commit=True):
+        print("ueeee")
+        location = self.cleaned_data.get('location_selector', None)
+        print(location)
+        if (location != "All"):
+            location_id = self.cleaned_data.get('location_selector', None)
+            location =Location.objects.get(id=location_id)
+        kindofday = self.cleaned_data.get('kindofday', None)
+        print(location)
+        start_date = self.cleaned_data.get('start_date', None)
+        end_date = self.cleaned_data.get('end_date', None)
+        comment = self.cleaned_data.get('comment', None)
+        print("INFO: FORMS.CalendarEventEditForm.save: " + str(location) + ", " + str(kindofday) + str(start_date) + ", " + str(end_date) + ", " + str(comment) + ", ")
+        return (location, kindofday, start_date, end_date, comment)
+    
+
+    def clean_location_selector(self):
+        #print ("INFO: FORMS.ListFilterForm.clean, ")
+        data = self.cleaned_data['location_selector']
+        print("INFO: FORMS.ListFilterForm.clean, " + str(data))
+        return data
+
+    def clean(self):
+        #print("RegisterForm: CLEAN")
+        start_date = self.cleaned_data.get('start_date')
+        end_date = self.cleaned_data.get('end_date')
+        location = self.cleaned_data.get('location_selector')
+        comment = self.cleaned_data.get('comment')
+        kindofday = self.cleaned_data.get('kindofday')
+        if(start_date>end_date):
+            raise forms.ValidationError({'start_date': ["The Start Date cannot be older than the End Date.",]})
+            print("Oops!  That was no valid date.  Try again...")
+        print("INFO: FORMS.CalendarEventEditForm.clean: " + str(location) + ", " + str(kindofday) + ", " + str(start_date) + ", " + str(end_date) + ", " + str(comment))
+    """
     class Meta:
         model = CalendarEvent
         fields = ('location', 'kindofday', 'start_date', 'end_date','comment')
@@ -236,12 +376,24 @@ class CalendarEventForm(forms.ModelForm):
         }
 
     def __init__(self, user, location_choices, kindofday_choices, *args, **kwargs):
-       super(CalendarEventForm, self).__init__(*args, **kwargs)
+       super(CalendarEventEditForm, self).__init__(*args, **kwargs)
        self.fields['location'].choices = location_choices
        self.user=user
        self.fields['kindofday'].choices = kindofday_choices
        #print ("INFO: FORMS.CalendarEventForm.__init__, event_id=" + str(event_id))
 
+    def clean(self):
+        #print("RegisterForm: CLEAN")
+        start_date = self.cleaned_data.get('start_date')
+        end_date = self.cleaned_data.get('end_date')
+        """
+        location = self.cleaned_data.get('location_selector')
+        comment = self.cleaned_data.get('comment')
+        kindofday = self.cleaned_data.get('kindofday')
+        """
+        if(start_date>end_date):
+            raise forms.ValidationError({'start_date': ["The Start Date cannot be older than the End Date.",]})
+            print("Oops!  That was no valid date.  Try again...")  
 
 class UserForm(forms.ModelForm):
     class Meta:
