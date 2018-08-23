@@ -225,7 +225,7 @@ class CalendarEventFilterForm(forms.Form):
 
 class CalendarEventForm(forms.ModelForm):
     location_selector = forms.ChoiceField(label='Location', choices=[(choice.pk, choice) for choice in Location.objects.all().order_by('location')])
-    hidden_type_date_input = forms.CharField(initial= "single_date")
+    hidden_type_date_input = forms.CharField()
     date_selector = forms.DateField(initial=date.today, widget=DateInput(attrs={'type': 'date'}))
 
     class Meta:
@@ -244,7 +244,7 @@ class CalendarEventForm(forms.ModelForm):
        self.fields['start_date'].required = False
        self.fields['end_date'].required = False
        self.fields['date_selector'].required = False
-       print(location)
+
        if (location != ""):
            self.fields['location_selector'].initial = location
        self.user=user
@@ -307,6 +307,8 @@ class CalendarEventForm(forms.ModelForm):
                 raise forms.ValidationError({'start_date': ["This field is required.",]})
             if (end_date == None):
                 raise forms.ValidationError({'end_date': ["This field is required.",]})
+            if (end_date < start_date):
+                raise forms.ValidationError({'start_date': ["Finish date cannot be previous to Start date.",]})
 
 class CalendarEventEditForm(forms.ModelForm):
     """
