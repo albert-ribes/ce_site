@@ -380,7 +380,7 @@ def calendar_filter(request, mode, year, month):
     percentage = {}
     for employee in employees:
         employee_total_hours_month[employee.username]=0
-        print("<<<<" + employee.username)
+        #print("<<<<" + employee.username)
         for day, kind_day in employee_day_kindofday[employee.username].items():
             #print(str(day) + ", " + kind_day)
             if (kind_day=="WorkingDay"):
@@ -394,9 +394,9 @@ def calendar_filter(request, mode, year, month):
         percentage[employee.username]=100*employee_nahours_month[employee.username]/employee_total_hours_month[employee.username]
         percentage[employee.username]=format(percentage[employee.username], '.2f')
 
-        print(employee_nahours_month[employee.username])
-        print(employee_total_hours_month[employee.username])
-        print(percentage[employee.username])
+        #print(employee_nahours_month[employee.username])
+        #print(employee_total_hours_month[employee.username])
+        #print(percentage[employee.username])
     #print(" ################################################# ")
 
     hours_month = 0
@@ -461,8 +461,8 @@ def calendar_filter(request, mode, year, month):
         'mode': mode,
         'user_type': user_type
     }
-    print(employee_total_hours_month)
-    print(percentage)
+    #print(employee_total_hours_month)
+    #print(percentage)
     return render(request, 'ce_availability/calendar.html', data)
 
 @login_required
