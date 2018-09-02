@@ -377,6 +377,7 @@ def calendar_filter(request, mode, year, month):
 
     #hours_month: suma d'hores laborables del mes
     employee_total_hours_month={}
+    percentage = {}
     for employee in employees:
         employee_total_hours_month[employee.username]=0
         #print("<<<<" + employee.username)
@@ -389,9 +390,13 @@ def calendar_filter(request, mode, year, month):
             else:
                 employee_total_hours_month[employee.username]=employee_total_hours_month[employee.username] + 0
 
+
+        percentage[employee]=100*employee_nahours_month[employee.username]/employee_total_hours_month[employee.username]
+        percentage[employee]=format(percentage[employee], '.2f')
+
         #print(employee_nahours_month[employee.username])
         #print(employee_total_hours_month[employee.username])
-
+        #print(percentage[employee])
     #print(" ################################################# ")
 
     hours_month = 0

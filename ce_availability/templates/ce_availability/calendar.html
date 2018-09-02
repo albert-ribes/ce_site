@@ -41,6 +41,20 @@ function resizeWin() {
         </form>
         </div>
 
+	{% ifequal user_type "SDM"%}
+		<div class=edit_calendar>
+		<!---
+		<a href="./" title="Refresh" class="top-menu-icon"><span class="glyphicon glyphicon-refresh"></span></a>
+		<br>
+		<br>
+<a class="festive_link" target="popup" onclick="window.open('/ce_availability/day_info/{{employee.id}}/{{year}}/{{month}}/{{day}}' ,'name','width=600,height=200')">
+		-->
+		<a target="popup" onclick="window.open('/ce_availability/calendar_edit' ,'name','width=1080,height=600')">
+			Edit Calendar Events
+		</a>
+		</div>	
+	{%endifequal%}
+
 	{%ifequal mode "hours"%}
 	<table class="table_calendar">
 		<tr>
@@ -158,19 +172,6 @@ function resizeWin() {
 	{%endifequal%}
 
 
-	{% ifequal user_type "SDM"%}
-		<div class=edit_calendar>
-		<!---
-		<a href="./" title="Refresh" class="top-menu-icon"><span class="glyphicon glyphicon-refresh"></span></a>
-		<br>
-		<br>
-<a class="festive_link" target="popup" onclick="window.open('/ce_availability/day_info/{{employee.id}}/{{year}}/{{month}}/{{day}}' ,'name','width=600,height=200')">
-		-->
-		<a target="popup" onclick="window.open('/ce_availability/calendar_edit' ,'name','width=1080,height=600')">
-			Edit Calendar Events
-		</a>
-		</div>	
-	{%endifequal%}
 
 	{%comment%}
 	<script>
