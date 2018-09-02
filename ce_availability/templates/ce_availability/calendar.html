@@ -301,8 +301,8 @@ function resizeWin() {
 					<td class='total_hours'><b>{{hours}}</b></td>
 				{%endifequal%}
 			{% endfor %}
-			{% for usr, value in percentage.items %}
-				{% ifequal usr employee.username%}
+			{% for User, value in percentage.items %}
+				{% ifequal User employee.username%}
 					<td class='total_percentage_hours'><b>{{value}}</b></td>
 				{%endifequal%}
 			{% endfor %}

@@ -380,7 +380,7 @@ def calendar_filter(request, mode, year, month):
     percentage = {}
     for employee in employees:
         employee_total_hours_month[employee.username]=0
-        #print("<<<<" + employee.username)
+        print("<<<<" + employee.username)
         for day, kind_day in employee_day_kindofday[employee.username].items():
             #print(str(day) + ", " + kind_day)
             if (kind_day=="WorkingDay"):
@@ -391,12 +391,12 @@ def calendar_filter(request, mode, year, month):
                 employee_total_hours_month[employee.username]=employee_total_hours_month[employee.username] + 0
 
 
-        percentage[employee]=100*employee_nahours_month[employee.username]/employee_total_hours_month[employee.username]
-        percentage[employee]=format(percentage[employee], '.2f')
+        percentage[employee.username]=100*employee_nahours_month[employee.username]/employee_total_hours_month[employee.username]
+        percentage[employee.username]=format(percentage[employee.username], '.2f')
 
-        #print(employee_nahours_month[employee.username])
-        #print(employee_total_hours_month[employee.username])
-        #print(percentage[employee])
+        print(employee_nahours_month[employee.username])
+        print(employee_total_hours_month[employee.username])
+        print(percentage[employee.username])
     #print(" ################################################# ")
 
     hours_month = 0
@@ -409,14 +409,15 @@ def calendar_filter(request, mode, year, month):
            hours_month+=7
     #print(hours_month)
 
-    #percentage: percentatge d'hores NA/hours_month per Employee al mes
+    """  
     percentage = {}
     for usr, hours in sum_hours.items():
         percentage[usr]=100*hours/hours_month
         percentage[usr]=format(percentage[usr], '.2f')
-    #print(percentage)
 
         # If this is a POST request then process the Form data
+    """
+    #print(percentage)
     if request.method == "POST":
         # Create a form instance and populate it with data from the request (binding):
         form = CalendarFilterForm(request.POST)
@@ -460,6 +461,8 @@ def calendar_filter(request, mode, year, month):
         'mode': mode,
         'user_type': user_type
     }
+    print(employee_total_hours_month)
+    print(percentage)
     return render(request, 'ce_availability/calendar.html', data)
 
 @login_required
