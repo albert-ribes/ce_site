@@ -3,8 +3,10 @@ from django.shortcuts import render
 # Create your views here.
 
 from django.contrib.auth.models import User, Group
+from ce_availability.models import Register
+
 from rest_framework import viewsets
-from restapi.serializers import UserSerializer, GroupSerializer
+from restapi.serializers import UserSerializer, GroupSerializer, RegisterSerializer
 
 
 class UserViewSet(viewsets.ModelViewSet):
@@ -21,4 +23,13 @@ class GroupViewSet(viewsets.ModelViewSet):
     """
     queryset = Group.objects.all()
     serializer_class = GroupSerializer
+
+class RegisterViewSet(viewsets.ModelViewSet):
+    """
+    API endpoint that allows events to be viewed or edited.
+    """
+    queryset = Register.objects.all()
+    serializer_class = RegisterSerializer
+
+
 
