@@ -184,15 +184,30 @@ class CalendarFilterForm(forms.Form):
 
     year_selector = forms.ChoiceField(label='Year',choices=YEAR_CHOICES)
     month_selector = forms.ChoiceField(label='Month',choices=MONTH_CHOICES)
-    mode_selector = forms.ChoiceField(label='Year',choices=MODE_CHOICES)
+    mode_selector = forms.ChoiceField(label='Mode',choices=MODE_CHOICES)
+    #change
+    location_selector = forms.ChoiceField(label='Location', choices=[(choice.pk, choice) for choice in Location.objects.all().order_by('location')])
+
+    def __init__(self, user, location_choices, *args, **kwargs):
+       super(CalendarFilterForm, self).__init__(*args, **kwargs)
+       self.fields['location_selector'].choices = location_choices
+
 
     def save(self, commit=True):
         #print("> INFO, forms.py: save() method")
         year = self.cleaned_data.get('year_selector', None)
         month = self.cleaned_data.get('month_selector', None)
         mode = self.cleaned_data.get('mode_selector', None)
-        #print("INFO: FORMS.ListFilterForm.save " + mode + ", " + year + ", " + month)
-        return(mode, year, month)
+        location = self.cleaned_data.get('location_selector', None)
+        print("INFO: FORMS.CalendarFilterForm.save "+ location + ", " + mode + ", " + year + ", " + month)
+        return(location, mode, year, month)
+
+    def clean_location_selector(self):
+        #print ("INFO: FORMS.ListFilterForm.clean, ")
+        data = self.cleaned_data.get('location_selector')
+        data = self.cleaned_data['location_selector']
+        #print("INFO: FORMS.ListFilterForm.clean, " + str(data))
+        return data
 
 class CalendarEventFilterForm(forms.Form):
 

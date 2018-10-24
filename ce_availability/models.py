@@ -50,6 +50,9 @@ class Employee(models.Model):
         string = self.user.last_name + ", " + self.user.first_name
         #string = User.last_name + ", " + User.first_name
         return string
+
+    class Meta:
+         ordering = ['location','user__last_name']
     """
     @receiver(post_save, sender=User)
     def create_user_profile(sender, instance, created, **kwargs):

@@ -40,9 +40,9 @@ def day_info(request, ce, year, month, day):
     employee=User.objects.filter(id=ce).get()
     datetime=date(int(year), int(month), int(day))
     location_id=Employee.objects.filter(user_id=employee.id).values_list('location', flat=True).get()
-    print("INFO: " + str(datetime) + ", location_id:" + str(location_id))
+    #print("INFO: " + str(datetime) + ", location_id:" + str(location_id))
     calendar_events=CalendarEvent.objects.filter(start_date__lte=datetime).filter(end_date__gte=datetime).filter(location=location_id).order_by('start_date')
-    print(calendar_events)
+    #print(calendar_events)
     data={
         'calendar_events': calendar_events,
         'employee': employee,
@@ -147,10 +147,10 @@ def list_filter(request, ce, unavailability, category, year, month, week):
         if (unavailability!='All'):
             queryset = queryset.filter(unavailability=unavailability)
             category=Unavailability.objects.filter(id=unavailability).values_list('category_id', flat=True).get()
-            print("INFO: VIEWS.list_filter: category_selector=" + str(category))
+            #print("INFO: VIEWS.list_filter: category_selector=" + str(category))
         if (category!='All' and unavailability=='All'):
             queryset = queryset.filter(unavailability__category=category)
-            print(queryset)
+            #print(queryset)
             category_selector=category
             unavailability='All'
         """
@@ -196,7 +196,14 @@ def about(request):
 
 
 @login_required
-def calendar_filter(request, mode, year, month):
+def calendar_filter(request, location, mode, year, month):
+    initial = {
+        'location_selector': location,
+        'mode_selector': mode,
+        'year_selector': year,
+        'month_selector': month,
+    }
+    #print(initial)
     user=request.user
     #print(user.employee.location)
     
@@ -259,11 +266,16 @@ def calendar_filter(request, mode, year, month):
     if user_type=='CE':
        manager_id=user.employee.manager.id
        employees=User.objects.filter(id=user.id)
+       employee_count = 1
     if user_type=='SDM':
        manager_id=user.id
        #ce='All'
-       employees = User.objects.filter(groups__name='CE').filter(employee__manager=manager_id).order_by('last_name')
-    
+       employees = User.objects.filter(groups__name='CE').filter(employee__manager=manager_id).order_by('employee__location','last_name')#.order_by('last_name')
+       #print("location: " + location)
+       if (location!="all" and location!="All"):
+           employees = employees.filter(employee__location_id=location)
+       employee_count=employees.count()
+       #print(employee_count)    
     employee_day_kindofday={} 
     for employee in employees:
         employee_day_kindofday[employee.username]={}
@@ -272,8 +284,8 @@ def calendar_filter(request, mode, year, month):
         location_id=Employee.objects.filter(user_id=employee.id).values_list('location', flat=True).get()
         #print(str(datetime_last_day_of_week) + ", " + str(datetime_first_day_of_week) + ", " + str(location_id))
         calendar_events=CalendarEvent.objects.filter(start_date__lte=datetime_last_day_of_week).filter(end_date__gte=datetime_first_day_of_week).filter(location=location_id).order_by('start_date')
-        location=Location.objects.filter(id=location_id).get()
-        #print("@" + str(location))
+        loc=Location.objects.filter(id=location_id).get()
+        #print("@" + str(loc))
         day_week=first_day_of_week
         for day in month_range:
             if(5==day_week or day_week==6):
@@ -409,36 +421,27 @@ def calendar_filter(request, mode, year, month):
            hours_month+=7
     #print(hours_month)
 
-    """  
-    percentage = {}
-    for usr, hours in sum_hours.items():
-        percentage[usr]=100*hours/hours_month
-        percentage[usr]=format(percentage[usr], '.2f')
-
-        # If this is a POST request then process the Form data
-    """
     #print(percentage)
+    location_choices=[(choice.pk, choice.location) for choice in Location.objects.filter(manager_id=manager_id).order_by('location')]
+    location_choices= [('All', 'All')] + location_choices
+    #print(location_choices)
     if request.method == "POST":
         # Create a form instance and populate it with data from the request (binding):
-        form = CalendarFilterForm(request.POST)
+        form = CalendarFilterForm(request.user, location_choices, request.POST)
          # Check if the form is valid:
         if form.is_valid():
-            
-            print("INFO: VIEWS.list: form.is_valid()")
+            #print("INFO: VIEWS.list: form.is_valid()")
             # process the data in form
-            mode, year, month = form.save(commit=False)
-            form_url="/ce_availability/calendar/"+mode+"/"+year+"/"+month+"/"
+            location, mode, year, month = form.save(commit=False)
+            form_url="/ce_availability/calendar/"+location+"/"+mode+"/"+year+"/"+month+"/"
             #return render(request, 'ce_availability/calendar.html', {'registers': registers, 'form': form, 'hours': hours})
             return HttpResponseRedirect(form_url)
     #If this is a GET (or any other method) create the default form.
     else:
-        initial = {
-            'mode_selector': mode,
-            'year_selector': year,
-            'month_selector': month,
-        }
 
-        form = CalendarFilterForm(initial)
+        #print("initial-------------" + str(initial))
+        form = CalendarFilterForm(request.user, location_choices, initial)
+
     #print(employee_day_category)
     data = {
         'employee_day_nahours': employee_day_nahours,
@@ -459,8 +462,10 @@ def calendar_filter(request, mode, year, month):
         'percentage':percentage,
         'form': form,
         'mode': mode,
-        'user_type': user_type
+        'user_type': user_type,
+        'employee_count': employee_count
     }
+    #print(data)
     #print(employee_total_hours_month)
     #print(percentage)
     return render(request, 'ce_availability/calendar.html', data)
@@ -473,9 +478,12 @@ def calendar(request):
     user_type=getUserType(user)
     if user_type=='CE':
        mode="hours"
+       location=user.employee.location_id
+       #print("####: " + str(location))
     if user_type=='SDM':
        mode="percentage"
-    return HttpResponseRedirect("/ce_availability/calendar/" + mode + "/" + str(currentYear) + "/" + str(currentMonth))
+       location="all"
+    return HttpResponseRedirect("/ce_availability/calendar/" + str(location) + "/" + mode + "/" + str(currentYear) + "/" + str(currentMonth))
 
 
 @login_required
@@ -646,7 +654,7 @@ def insert_register(request):
 
     user=request.user
     user_type=getUserType(user)
-    print("INFO: VIEWS.list_filter: user.id=" + str(user.id) +", user_type=" + user_type)
+    #print("INFO: VIEWS.list_filter: user.id=" + str(user.id) +", user_type=" + user_type)
 
     if user_type=='CE':
        ce_choices=[(choice.pk, choice.last_name  + ", " + choice.first_name) for choice in User.objects.filter(id=user.id)]
@@ -661,7 +669,7 @@ def insert_register(request):
     if request.method == "POST":
         form = RegisterForm(user, register_id, ce_choices, request.POST)
         ce = form['user'].value()
-        print("INFO: VIEWS.list_filter: ce=" + str(ce))
+        #print("INFO: VIEWS.list_filter: ce=" + str(ce))
         if form.is_valid():
             #print("VIEWS: insert, form_is_valid, type_date_input: " + str(form.cleaned_data.get('hidden_type_date_input', None)))
             if (str(form.cleaned_data.get('hidden_type_date_input', None))=="single_date"):
@@ -702,7 +710,7 @@ def insert_register(request):
                             for j in range(delta_events.days + 1):
                                 day_event = event.start_date + timedelta(days=j)
                                 if (day_range==day_event):
-                                    print("-kindofday=" + str(event.kindofday))
+                                    #print("-kindofday=" + str(event.kindofday))
                                     if(str(event.kindofday)=="Intensive"):
                                         day_with_event = "Intensive"
                                         #print("Intensive")
@@ -938,8 +946,10 @@ def register_details_popup(request, pk):
             register.save()
             result=True
             return render(request, 'ce_availability/update_register_post_popup.html', {'result':result, 'id': register.id})"""
+        """
         else:
              print("INFO: VIEWS.register_details: FORM_IS_NOT_VALID")
+        """
     else:
         form = RegisterForm(user, register_id, ce_choices, instance=register)
     return render(request, 'ce_availability/register_details_popup.html', {'form': form, 'register': register})

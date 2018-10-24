@@ -21,6 +21,13 @@ function resizeWin() {
 
 	<div class="calendar_filter_form">
         <form method="POST" class="CalendarFilterForm" novalidate>{% csrf_token %}
+
+                        <div class="fieldWrapper_filter">
+                        <label for="{{ form.mode_selector.id_for_label }}">Location:</label>
+                        <div class="input_field_filter"> {{ form.location_selector }} </div>
+                        </div>
+
+		
                         <div class="fieldWrapper_filter">
                         <label for="{{ form.mode_selector.id_for_label }}">View Mode:</label>
                         <div class="input_field_filter"> {{ form.mode_selector }} </div>
@@ -311,8 +318,12 @@ function resizeWin() {
 	</table>
 
 	{%endifequal%}
+	{% ifequal user_type "SDM"%}
+	<br>
+	<p>Employee count: <b>{{employee_count}}</b></p>
+	{%endifequal%}
 	
-	<br>	
+	<br>
 	<div class=calendar_info>
 	<a href="{{prev_url}}" title="Previous month"><<
 		<span class="glyphicon glyphicon-menu-left">

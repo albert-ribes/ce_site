@@ -1,5 +1,6 @@
 /*BASE.HTML*/
 .page-header {
+	width: 1600px;
     background-color: #ffd633;
     margin-top: 0;
     margin-bottom: 10px;
@@ -146,6 +147,11 @@ button.submit-button{
     margin-right: 10px;
 }
 
+#id_location_selector{
+    margin-left: 4px;
+    margin-right: 10px;
+}
+
 
 .calendar_filter_form{
     margin-top: 10px;
@@ -153,7 +159,7 @@ button.submit-button{
     margin-right: 10px;
     border: 1px solid #ececec;
     /*background-color: #ececec;*/
-    height: 160px;
+    height: 200px;
     width: 440px;
     display: block;
     float: left;
@@ -216,26 +222,26 @@ table.table_calendar td, table.table_calendar th {
 }
 
 table.table_calendar th.ce {
-    width:180px;
+    width:220px;
     border: 1px solid #000000;
     padding-left: 8px;
 }
 
 table.table_calendar th.ce_header {
-    width:180px;
+    width:220px;
     border: 1px solid #000000;
     padding-left: 8px;
 	background: white;
 }
 table.table_calendar th.ce_header:hover {
-    width:180px;
+    width:220px;
     border: 1px solid #000000;
     padding-left: 8px;
 	background: white;
 }
 
 table.table_calendar td.ce {
-    width:180px;
+    width:220px;
     border: 1px solid #000000;
     padding-left: 8px;
 }
