@@ -261,14 +261,15 @@ def calendar_filter(request, location, mode, year, month):
             day_week = day_week + 1
 
     user=request.user
+    #print(user.id)
     user_type=getUserType(user)
 
     if user_type=='CE':
        manager_id=user.employee.manager.id
        employees=User.objects.filter(id=user.id)
        employee_count = 1
-       employee_location_id=Employee.objects.filter(id=user.id).values_list('location', flat=True).get()
-       #print(employee_location)
+       employee_location=Employee.objects.filter(id=user.id).values_list('location', flat=True).get()
+       #print("employee_location: " + str(employee_location))
        #location_id=Employee.objects.filter(user_id=employee.id).values_list('id', flat=True).get()
        #location=Employee.objects.filter(user_id=employee.id).values_list('location', flat=True).get()
        #location_choices=((location,location_id))
@@ -277,7 +278,7 @@ def calendar_filter(request, location, mode, year, month):
        #print(manager_id)
        #print(str((Location.objects.filter(location__manager_id=manager_id).values_list('id', flat=True).get()))
        #location_choices = ((Location.objects.filter(location__manager_id=manager_id).values_list('id', flat=True).get(),Location.objects.filter(location__manager_id=manager_id).values_list('location', flat=True).get()))
-       location_choices=[(choice.pk, choice.location) for choice in Location.objects.filter(id=employee_location_id).order_by('location')]
+       location_choices=[(choice.pk, choice.location) for choice in Location.objects.filter(id=user.employee.location.id).order_by('location')]
        #print(location_choices)
 
     if user_type=='SDM':

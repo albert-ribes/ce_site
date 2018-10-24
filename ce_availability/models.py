@@ -48,7 +48,7 @@ class Employee(models.Model):
     #manager = models.ForeignKey(User, on_delete=models.CASCADE, related_name='Mgr', default=0)
 
     def __str__(self):
-        string = self.user.last_name + ", " + self.user.first_name
+        string = self.user.last_name + ", " + self.user.first_name + "; " + str(self.location)
         #string = User.last_name + ", " + User.first_name
         return string
 
