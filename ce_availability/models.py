@@ -15,6 +15,7 @@ from django.dispatch import receiver
 
 class Location(models.Model):
     location = models.CharField(max_length=200)
+    #location_short = models.CharField(max_length=3)
     manager = models.ForeignKey(User, related_name='LocManager', blank=True, default=6)
     def __str__(self):
         string=self.location# + ", manager=" + str(self.manager.first_name) + " " + str(self.manager.last_name)

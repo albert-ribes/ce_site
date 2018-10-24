@@ -267,6 +267,19 @@ def calendar_filter(request, location, mode, year, month):
        manager_id=user.employee.manager.id
        employees=User.objects.filter(id=user.id)
        employee_count = 1
+       employee_location_id=Employee.objects.filter(id=user.id).values_list('location', flat=True).get()
+       #print(employee_location)
+       #location_id=Employee.objects.filter(user_id=employee.id).values_list('id', flat=True).get()
+       #location=Employee.objects.filter(user_id=employee.id).values_list('location', flat=True).get()
+       #location_choices=((location,location_id))
+
+       manager_id=str(user.employee.manager.id)
+       #print(manager_id)
+       #print(str((Location.objects.filter(location__manager_id=manager_id).values_list('id', flat=True).get()))
+       #location_choices = ((Location.objects.filter(location__manager_id=manager_id).values_list('id', flat=True).get(),Location.objects.filter(location__manager_id=manager_id).values_list('location', flat=True).get()))
+       location_choices=[(choice.pk, choice.location) for choice in Location.objects.filter(id=employee_location_id).order_by('location')]
+       #print(location_choices)
+
     if user_type=='SDM':
        manager_id=user.id
        #ce='All'
@@ -275,7 +288,11 @@ def calendar_filter(request, location, mode, year, month):
        if (location!="all" and location!="All"):
            employees = employees.filter(employee__location_id=location)
        employee_count=employees.count()
-       #print(employee_count)    
+       #print(employee_count)
+       location_choices=[(choice.pk, choice.location) for choice in Location.objects.filter(manager_id=manager_id).order_by('location')]
+       location_choices= [('All', 'All')] + location_choices
+
+    print(location_choices)
     employee_day_kindofday={} 
     for employee in employees:
         employee_day_kindofday[employee.username]={}
@@ -422,9 +439,7 @@ def calendar_filter(request, location, mode, year, month):
     #print(hours_month)
 
     #print(percentage)
-    location_choices=[(choice.pk, choice.location) for choice in Location.objects.filter(manager_id=manager_id).order_by('location')]
-    location_choices= [('All', 'All')] + location_choices
-    #print(location_choices)
+
     if request.method == "POST":
         # Create a form instance and populate it with data from the request (binding):
         form = CalendarFilterForm(request.user, location_choices, request.POST)
