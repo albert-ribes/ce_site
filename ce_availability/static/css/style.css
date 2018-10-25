@@ -1,6 +1,6 @@
 /*BASE.HTML*/
 .page-header {
-	width: 1600px;
+	min-width: 1600px;
     background-color: #ffd633;
     margin-top: 0;
     margin-bottom: 10px;
