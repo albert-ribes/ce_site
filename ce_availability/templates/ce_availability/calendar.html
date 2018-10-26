@@ -205,6 +205,7 @@ function resizeWin() {
 	<table class="table_calendar">
 		<tr>
 			<th class='ce_header'><b>Employee</b></th>
+			<th class='location_header'><b>Location</b></th>
 			{% for day in month_range %}
 				{% for num_day, kind_day in day_of_week.items%}
 					{% ifequal num_day day%}
@@ -229,7 +230,8 @@ function resizeWin() {
 		</tr>
 		{% for employee in employees %}
 		<tr>
-			<td class='ce'><a href='/ce_availability/list/{{employee.id}}/All/All/{{year}}/{{month}}/All/' title="Check {{employee.first_name}}'s unavailabilites of this month">{% with employee.employee.location.loc_short as loc %}{{loc}}{% endwith %} - {{employee.last_name}}, {{employee.first_name}}</a></td>
+			<td class='ce'><a href='/ce_availability/list/{{employee.id}}/All/All/{{year}}/{{month}}/All/' title="Check {{employee.first_name}}'s unavailabilites of this month">{{employee.last_name}}, {{employee.first_name}}</a></td>
+			<td class='ce'>{% with employee.employee.location.location as loc %}{{loc}}{% endwith %}</td>
 			{% for day in month_range %}
 				{% for usr, value in employee_day_nahours_percent.items%}
 					{% ifequal usr employee.username%}

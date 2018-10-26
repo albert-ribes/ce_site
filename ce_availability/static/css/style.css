@@ -231,13 +231,19 @@ table.table_calendar th.ce_header {
     width:220px;
     border: 1px solid #000000;
     padding-left: 8px;
-	background: white;
+	background: #9e9e9e54;
+}
+table.table_calendar th.location_header {
+    width:80px;
+    border: 1px solid #000000;
+    padding-left: 8px;
+	background: #00bcd4;
 }
 table.table_calendar th.ce_header:hover {
     width:220px;
     border: 1px solid #000000;
     padding-left: 8px;
-	background: white;
+	background: #9e9e9e54;
 }
 
 table.table_calendar td.ce {
