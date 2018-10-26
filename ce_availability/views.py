@@ -215,14 +215,14 @@ def calendar_filter(request, location, mode, year, month):
     monthname=month_name[int(month)]
     #print("MONTH=" + month)
     if(month==str(1)):
-        prev_url="/ce_availability/calendar/"+mode+"/"+str(int(year)-1)+"/12"
-        next_url="/ce_availability/calendar/"+mode+"/"+year+"/"+str(int(month)+1)+"/"
+        prev_url="/ce_availability/calendar/"+location+"/"+mode+"/"+str(int(year)-1)+"/12"
+        next_url="/ce_availability/calendar/"+location+"/"+mode+"/"+year+"/"+str(int(month)+1)+"/"
     elif(month==str(12)):
-        prev_url="/ce_availability/calendar/"+mode+"/"+year+"/"+str(int(month)-1)+"/"
-        next_url="/ce_availability/calendar/"+mode+"/"+str(int(year)+1)+"/1"
+        prev_url="/ce_availability/calendar/"+location+"/"+mode+"/"+year+"/"+str(int(month)-1)+"/"
+        next_url="/ce_availability/calendar/"+location+"/"+mode+"/"+str(int(year)+1)+"/1"
     else:
-        prev_url="/ce_availability/calendar/"+mode+"/"+year+"/"+str(int(month)-1)+"/"
-        next_url="/ce_availability/calendar/"+mode+"/"+year+"/"+str(int(month)+1)+"/"
+        prev_url="/ce_availability/calendar/"+location+"/"+mode+"/"+year+"/"+str(int(month)-1)+"/"
+        next_url="/ce_availability/calendar/"+location+"/"+mode+"/"+year+"/"+str(int(month)+1)+"/"
     #print("URLS: " + prev_url + ", " + next_url)
 
     """ -------- PROCESSAMENT DADES EMPLOYEE/MONTH/DAY/HOURS -------- 
