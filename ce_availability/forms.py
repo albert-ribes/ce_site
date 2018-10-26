@@ -1,12 +1,23 @@
 from django import forms
+from .models import Register, Employee, Unavailability, CalendarEvent, Category, KindOfDay, Location
 from django.forms import ModelForm, DateTimeInput, DateInput
-from .models import Register, Employee, Unavailability, CalendarEvent, Category, Location, KindOfDay
 from django.contrib.auth.models import User
 from datetime import datetime, timedelta, date
 from django.contrib.admin.widgets import AdminDateWidget
 from django.utils import timezone
-
 from django.contrib.admin import widgets
+
+
+currentMonth = datetime.now().month
+currentYear = datetime.now().year
+currentWeek = datetime.now().isocalendar()[1]
+
+#LOCATION_CHOICES=[(choice.pk, choice) for choice in Location.objects.all().order_by('location')]
+LOCATION_CHOICES=[('','---------')]
+YEAR_CHOICES =  ((str(currentYear+1),str(currentYear+1)), (str(currentYear),str(currentYear)),(str(currentYear-1),str(currentYear-1)),(str(currentYear-2),str(currentYear-2)))
+MONTH_CHOICES = (('1','January'), ('2','February'),('3','March'),('4','April'),('5','May'),('6','June'),('7','July'),('8','August'),('9','September'),('10','October'),('11','November'),('12','Desember'))
+MODE_CHOICES = (('hours','  Hours'),('percentage','Percentage'))
+WEEK_CHOICES = (('All', '  All'),(currentWeek,'Current'))
 
 class RegisterForm(forms.ModelForm):
     unavailability = forms.ModelChoiceField(queryset=Unavailability.objects.order_by('unavailability'))
@@ -18,7 +29,7 @@ class RegisterForm(forms.ModelForm):
 
     class Meta:
         currentYear = datetime.now().year
-        YEAR_CHOICES =  (str(currentYear+1),str(currentYear),str(currentYear-1),str(currentYear-2))
+        #YEAR_CHOICES =  (str(currentYear+1),str(currentYear),str(currentYear-1),str(currentYear-2))
         model = Register
         fields = ('user', 'unavailability', 'hours', 'date','comments',)
         widgets = {
@@ -129,10 +140,12 @@ class ListFilterForm(forms.Form):
     firstDayWeek = datetime.now() - timedelta(days=datetime.now().weekday())
     lastDayWeek = firstDayWeek + timedelta(days=6)
     #print("INFO: ListFilterForm, " + currentYear + "," + currentMonth)
-    
-    YEAR_CHOICES =  (('All','  All'),(str(currentYear+1),str(currentYear+1)), (str(currentYear),str(currentYear)),(str(currentYear-1),str(currentYear-1)),(str(currentYear-2),str(currentYear-2)))
-    MONTH_CHOICES = (('All','  All'),('1','January'), ('2','February'),('3','March'),('4','April'),('5','May'),('6','June'),('7','July'),('8','August'),('9','September'),('10','October'),('11','November'),('12','Desember'))
-    WEEK_CHOICES = (('All', '  All'),(currentWeek,'Current'))
+
+    #YEAR_CHOICES =  (('All','  All'),(str(currentYear+1),str(currentYear+1)), (str(currentYear),str(currentYear)),(str(currentYear-1),str(currentYear-1)),(str(currentYear-2),str(currentYear-2)))
+    #MONTH_CHOICES = (('All','  All'),('1','January'), ('2','February'),('3','March'),('4','April'),('5','May'),('6','June'),('7','July'),('8','August'),('9','September'),('10','October'),('11','November'),('12','Desember'))
+    #WEEK_CHOICES = (('All', '  All'),(currentWeek,'Current'))
+
+
     #Filter selectors
     ce_selector = forms.ChoiceField(label='CE', choices=[(choice.pk, choice.last_name + ", " + choice.first_name) for choice in User.objects.filter(groups__name='CE').order_by('last_name')])
     """
@@ -143,9 +156,9 @@ class ListFilterForm(forms.Form):
     #category_selector = forms.ChoiceField(label='Category', choices=[(choice.pk, choice) for choice in Category.objects.all().order_by('category')])
     category_selector = forms.ChoiceField(label='Category', choices=[(choice.pk, choice) for choice in Category.objects.all().order_by('category')])
     #unavailability_selector = forms.ChoiceField(label='Unavailability', choices=[(choice.pk, choice) for choice in Unavailability.objects.values_list('unavailability').distinct()])
-    year_selector = forms.ChoiceField(label='Year',choices=YEAR_CHOICES)
-    month_selector = forms.ChoiceField(label='Month',choices=MONTH_CHOICES)
-    week_selector = forms.ChoiceField(label='Week',choices=WEEK_CHOICES)
+    year_selector = forms.ChoiceField(label='Year',choices=(('All', 'All'),) + YEAR_CHOICES)
+    month_selector = forms.ChoiceField(label='Month',choices=(('All', 'All'),) + MONTH_CHOICES)
+    week_selector = forms.ChoiceField(label='Week',choices= WEEK_CHOICES)
     
 
     def __init__(self, user, ce_choices, *args, **kwargs):
@@ -175,18 +188,12 @@ class ListFilterForm(forms.Form):
         return data
 
 class CalendarFilterForm(forms.Form):
-    currentMonth = datetime.now().month
-    currentYear = datetime.now().year
-
-    YEAR_CHOICES =  ((str(currentYear+1),str(currentYear+1)), (str(currentYear),str(currentYear)),(str(currentYear-1),str(currentYear-1)),(str(currentYear-2),str(currentYear-2)))
-    MONTH_CHOICES = (('1','January'), ('2','February'),('3','March'),('4','April'),('5','May'),('6','June'),('7','July'),('8','August'),('9','September'),('10','October'),('11','November'),('12','Desember'))
-    MODE_CHOICES = (('hours','  Hours'),('percentage','Percentage'))
 
     year_selector = forms.ChoiceField(label='Year',choices=YEAR_CHOICES)
     month_selector = forms.ChoiceField(label='Month',choices=MONTH_CHOICES)
     mode_selector = forms.ChoiceField(label='Mode',choices=MODE_CHOICES)
     #change
-    location_selector = forms.ChoiceField(label='Location', choices=[(choice.pk, choice) for choice in Location.objects.all().order_by('location')])
+    location_selector = forms.ChoiceField(label='Location', choices=LOCATION_CHOICES)
 
     def __init__(self, user, location_choices, *args, **kwargs):
        super(CalendarFilterForm, self).__init__(*args, **kwargs)
@@ -211,13 +218,16 @@ class CalendarFilterForm(forms.Form):
 
 class CalendarEventFilterForm(forms.Form):
 
-    location_selector = forms.ChoiceField(label='Location', choices=[(choice.pk, choice) for choice in Location.objects.all().order_by('location')])
+    #location_selector = forms.ChoiceField(label='Location', choices=[(choice.pk, choice) for choice in Location.objects.all().order_by('location')])
+    location_selector = forms.ChoiceField(label='Location', choices=LOCATION_CHOICES)
     kindofday_selector = forms.ChoiceField(label='KindOfDay', choices=[(choice.pk, choice) for choice in KindOfDay.objects.all().order_by('kindofday')])
 
     currentMonth = datetime.now().month
     currentYear = datetime.now().year
+    """
     YEAR_CHOICES =  ((str(currentYear+1),str(currentYear+1)), (str(currentYear),str(currentYear)),(str(currentYear-1),str(currentYear-1)),(str(currentYear-2),str(currentYear-2)))
     MONTH_CHOICES = (('All', 'All'), ('1','January'), ('2','February'),('3','March'),('4','April'),('5','May'),('6','June'),('7','July'),('8','August'),('9','September'),('10','October'),('11','November'),('12','Desember'))
+    """
     year_selector = forms.ChoiceField(label='Year',choices=YEAR_CHOICES)
     month_selector = forms.ChoiceField(label='Month',choices=MONTH_CHOICES)
 
@@ -239,7 +249,8 @@ class CalendarEventFilterForm(forms.Form):
         return(location, kindofday, year, month)
 
 class CalendarEventForm(forms.ModelForm):
-    location_selector = forms.ChoiceField(label='Location', choices=[(choice.pk, choice) for choice in Location.objects.all().order_by('location')])
+    #location_selector = forms.ChoiceField(label='Location', choices=[(choice.pk, choice) for choice in Location.objects.all().order_by('location')])
+    location_selector = forms.ChoiceField(label='Location', choices=LOCATION_CHOICES)
     hidden_type_date_input = forms.CharField()
     date_selector = forms.DateField(initial=date.today, widget=DateInput(attrs={'type': 'date'}))
 
@@ -326,63 +337,6 @@ class CalendarEventForm(forms.ModelForm):
                 raise forms.ValidationError({'start_date': ["Finish date cannot be previous to Start date.",]})
 
 class CalendarEventEditForm(forms.ModelForm):
-    """
-    location_selector = forms.ChoiceField(label='Location', choices=[(choice.pk, choice) for choice in Location.objects.all().order_by('location')])
-    date = forms.DateField(initial=date.today, widget=DateInput(attrs={'type': 'date'}))
-
-    class Meta:
-        model = CalendarEvent
-        fields = ('kindofday', 'start_date', 'location', 'end_date','comment')
-
-        widgets = {
-            'start_date': DateInput(attrs={'type': 'date'}),
-            'end_date': DateInput(attrs={'type': 'date'}),
-        }
-
-    def __init__(self, user, location_choices, kindofday_choices, location, *args, **kwargs):
-       super(CalendarEventEditForm, self).__init__(*args, **kwargs)
-       self.fields['location_selector'].choices = location_choices
-       self.fields['kindofday'].choices = kindofday_choices
-       #print(location)
-       if (location != ""):
-           self.fields['location_selector'].initial = location
-       self.user=user
-       #print ("INFO: FORMS.CalendarEventForm.__init__, event_id=" + str(event_id))
-    
-    def save(self, commit=True):
-        print("ueeee")
-        location = self.cleaned_data.get('location_selector', None)
-        print(location)
-        if (location != "All"):
-            location_id = self.cleaned_data.get('location_selector', None)
-            location =Location.objects.get(id=location_id)
-        kindofday = self.cleaned_data.get('kindofday', None)
-        print(location)
-        start_date = self.cleaned_data.get('start_date', None)
-        end_date = self.cleaned_data.get('end_date', None)
-        comment = self.cleaned_data.get('comment', None)
-        print("INFO: FORMS.CalendarEventEditForm.save: " + str(location) + ", " + str(kindofday) + str(start_date) + ", " + str(end_date) + ", " + str(comment) + ", ")
-        return (location, kindofday, start_date, end_date, comment)
-    
-
-    def clean_location_selector(self):
-        #print ("INFO: FORMS.ListFilterForm.clean, ")
-        data = self.cleaned_data['location_selector']
-        print("INFO: FORMS.ListFilterForm.clean, " + str(data))
-        return data
-
-    def clean(self):
-        #print("RegisterForm: CLEAN")
-        start_date = self.cleaned_data.get('start_date')
-        end_date = self.cleaned_data.get('end_date')
-        location = self.cleaned_data.get('location_selector')
-        comment = self.cleaned_data.get('comment')
-        kindofday = self.cleaned_data.get('kindofday')
-        if(start_date>end_date):
-            raise forms.ValidationError({'start_date': ["The Start Date cannot be older than the End Date.",]})
-            print("Oops!  That was no valid date.  Try again...")
-        print("INFO: FORMS.CalendarEventEditForm.clean: " + str(location) + ", " + str(kindofday) + ", " + str(start_date) + ", " + str(end_date) + ", " + str(comment))
-    """
     class Meta:
         model = CalendarEvent
         fields = ('location', 'kindofday', 'start_date', 'end_date','comment')
@@ -403,11 +357,6 @@ class CalendarEventEditForm(forms.ModelForm):
         #print("RegisterForm: CLEAN")
         start_date = self.cleaned_data.get('start_date')
         end_date = self.cleaned_data.get('end_date')
-        """
-        location = self.cleaned_data.get('location_selector')
-        comment = self.cleaned_data.get('comment')
-        kindofday = self.cleaned_data.get('kindofday')
-        """
         if(start_date>end_date):
             raise forms.ValidationError({'start_date': ["The Start Date cannot be older than the End Date.",]})
             print("Oops!  That was no valid date.  Try again...")  

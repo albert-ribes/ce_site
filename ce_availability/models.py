@@ -15,7 +15,7 @@ from django.dispatch import receiver
 
 class Location(models.Model):
     location = models.CharField(max_length=200)
-    #location_short = models.CharField(max_length=3)
+    loc_short = models.CharField(max_length=3, default=" ")
     manager = models.ForeignKey(User, related_name='LocManager', blank=True, default=6)
     def __str__(self):
         string=self.location# + ", manager=" + str(self.manager.first_name) + " " + str(self.manager.last_name)
@@ -48,7 +48,7 @@ class Employee(models.Model):
     #manager = models.ForeignKey(User, on_delete=models.CASCADE, related_name='Mgr', default=0)
 
     def __str__(self):
-        string = self.user.last_name + ", " + self.user.first_name + "; " + str(self.location)
+        string = self.user.last_name + ", " + self.user.first_name + " - " + str(self.location.loc_short)
         #string = User.last_name + ", " + User.first_name
         return string
 

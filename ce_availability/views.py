@@ -270,14 +270,8 @@ def calendar_filter(request, location, mode, year, month):
        employee_count = 1
        employee_location=Employee.objects.filter(id=user.id).values_list('location', flat=True).get()
        #print("employee_location: " + str(employee_location))
-       #location_id=Employee.objects.filter(user_id=employee.id).values_list('id', flat=True).get()
-       #location=Employee.objects.filter(user_id=employee.id).values_list('location', flat=True).get()
-       #location_choices=((location,location_id))
 
        manager_id=str(user.employee.manager.id)
-       #print(manager_id)
-       #print(str((Location.objects.filter(location__manager_id=manager_id).values_list('id', flat=True).get()))
-       #location_choices = ((Location.objects.filter(location__manager_id=manager_id).values_list('id', flat=True).get(),Location.objects.filter(location__manager_id=manager_id).values_list('location', flat=True).get()))
        location_choices=[(choice.pk, choice.location) for choice in Location.objects.filter(id=user.employee.location.id).order_by('location')]
        #print(location_choices)
 
@@ -285,7 +279,6 @@ def calendar_filter(request, location, mode, year, month):
        manager_id=user.id
        #ce='All'
        employees = User.objects.filter(groups__name='CE').filter(employee__manager=manager_id).order_by('employee__location','last_name')#.order_by('last_name')
-       #print("location: " + location)
        if (location!="all" and location!="All"):
            employees = employees.filter(employee__location_id=location)
        employee_count=employees.count()
@@ -293,9 +286,10 @@ def calendar_filter(request, location, mode, year, month):
        location_choices=[(choice.pk, choice.location) for choice in Location.objects.filter(manager_id=manager_id).order_by('location')]
        location_choices= [('All', 'All')] + location_choices
 
-    print(location_choices)
+    #print(location_choices)
     employee_day_kindofday={} 
     for employee in employees:
+        #print(employee.username + " - " + employee.employee.location.loc_short)
         employee_day_kindofday[employee.username]={}
         #print("-------------------------------------------------")
         #print(">>>" + employee.username + ", ID=" + str(employee.id))
@@ -466,7 +460,8 @@ def calendar_filter(request, location, mode, year, month):
         'employee_nahours_month': employee_nahours_month,
         'employee_total_hours_month': employee_total_hours_month,
         'employee_day_category': employee_day_category,
-        'day_of_week': day_of_week,'employees': employees, 
+        'day_of_week': day_of_week,
+        'employees': employees, 
         'year':year,'month': month, 'monthname':monthname,
         'first_day_of_week': first_day_of_week,
         'month_range':month_range ,
@@ -492,13 +487,14 @@ def calendar(request):
     currentYear = datetime.now().year
     user=request.user
     user_type=getUserType(user)
+    #print("####: " + str(user_type))
     if user_type=='CE':
        mode="hours"
-       location=user.employee.location_id
-       #print("####: " + str(location))
+       location=user.employee.location
     if user_type=='SDM':
        mode="percentage"
        location="all"
+    #print("####: " + str(location))
     return HttpResponseRedirect("/ce_availability/calendar/" + str(location) + "/" + mode + "/" + str(currentYear) + "/" + str(currentMonth))
 
 
