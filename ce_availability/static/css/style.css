@@ -12,7 +12,7 @@
 }
 
 /* On screens that are 600px or less*/
-@media screen and (max-width: 600px) {
+@media screen and (max-device-width : 600px) {
 	.page-header {
 		width: 600px;
 		background-color: #e91e63e6;
