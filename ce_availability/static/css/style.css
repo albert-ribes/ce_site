@@ -11,9 +11,9 @@
 	}
 }
 /* On screens that are 600px or less*/
-@media screen and (max-width : 600px) {
+@media screen and (max-width : 720px) {
 	.page-header {
-		width: 600px;
+		width: 720px;
 		background-color: #e91e63e6;
 		margin-top: 0;
 		margin-bottom: 10px;
