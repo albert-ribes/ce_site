@@ -14,7 +14,8 @@
 @media screen and (max-width : 720px) {
 	.page-header {
 		width: 720px;
-		background-color: #e91e63e6;
+		#background-color: #e91e63e6;
+		background-color: #ffd633;
 		margin-top: 0;
 		margin-bottom: 10px;
 		padding: 20px 20px 20px 40px;
