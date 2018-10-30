@@ -1,4 +1,27 @@
 /*BASE.HTML*/
+
+/* On screens that are 1600px or less*/
+@media screen and (max-width: 1600px) {
+	.page-header {
+		width: 1600px;
+		background-color: #ffd633;
+		margin-top: 0;
+		margin-bottom: 10px;
+		padding: 20px 20px 20px 40px;
+	}
+}
+
+/* On screens that are 600px or less*/
+@media screen and (max-width: 600px) {
+	.page-header {
+		width: 600px;
+		background-color: #e91e63e6;
+		margin-top: 0;
+		margin-bottom: 10px;
+		padding: 20px 20px 20px 40px;
+	}
+}
+/*
 .page-header {
 	min-width: 1600px;
     background-color: #ffd633;
@@ -6,6 +29,7 @@
     margin-bottom: 10px;
     padding: 20px 20px 20px 40px;
 }
+*/
 
 .page-header h1, .page-header h1 a, .page-header h1 a:visited, .page-header h1 a:active {
     color: #444444;
@@ -1089,7 +1113,7 @@ table.table_calendar_events a
     /*border: 1px solid #ececec;*/
     /*background-color: #eeeeee;*/
     height: 320px;
-    width: 800px;
+    width: 600px;
 }
 
 .radio_field {
