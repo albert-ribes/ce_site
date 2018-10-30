@@ -1,7 +1,7 @@
 /*BASE.HTML*/
 
 /* On screens that are 1600px or less*/
-@media screen and (max-width: 1600px) {
+@media screen and (max-width : 1600px) {
 	.page-header {
 		width: 1600px;
 		background-color: #ffd633;
@@ -10,9 +10,8 @@
 		padding: 20px 20px 20px 40px;
 	}
 }
-
 /* On screens that are 600px or less*/
-@media screen and (max-device-width : 600px) {
+@media screen and (max-width : 600px) {
 	.page-header {
 		width: 600px;
 		background-color: #e91e63e6;
@@ -21,6 +20,9 @@
 		padding: 20px 20px 20px 40px;
 	}
 }
+
+
+
 /*
 .page-header {
 	min-width: 1600px;
