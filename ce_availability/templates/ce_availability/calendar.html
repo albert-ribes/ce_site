@@ -320,9 +320,92 @@ function resizeWin() {
 	</table>
 
 	{%endifequal%}
-	{% ifequal user_type "SDM"%}
+
+	{% ifequal user_type "SDM" %}
 	<br>
 	<p>Employee count: <b>{{employee_count}}</b></p>
+	{%endifequal%}
+	{% ifequal user_type "CE" %}
+		{% ifequal request.user.username "albert.ribes" %}
+		<br>
+		<table class="table_calendar_ce">
+			<tr>
+				<th class=day_laborable>Mon</th>
+				<th class=day_laborable>Tue</th>
+				<th class=day_laborable>Wed</th>
+				<th class=day_laborable>Thu</th>
+				<th class=day_laborable>Fri</th>
+				<th class=day_weekend>Sat</th>
+				<th class=day_weekend>Sun</th>
+			</tr>
+			<tr>
+			<td colspan=7 style=height:16px;></td>
+			</tr>
+			{% for day, dw in day_of_the_week.items%}
+				{%ifequal dw 0%}
+					<tr>
+				{%endifequal%}
+				{%ifequal day 1%}
+					{%ifequal dw 0%}
+						<td class=non-na><div class="calendar_day">{{day}}</div></td>
+					{%endifequal%}
+					{%ifequal dw 1%}
+						<td></td>
+						<td class=non-na><div class="calendar_day">{{day}}</div></td>
+					{%endifequal%}
+					{%ifequal dw 2%}
+						<td></td>
+						<td></td>
+						<td class=non-na><div class="calendar_day">{{day}}</div></td>
+					{%endifequal%}
+					{%ifequal dw 3%}
+						<td></td>
+						<td></td>
+						<td></td>
+						<td class=non-na><div class="calendar_day">{{day}}</div></td>
+					{%endifequal%}
+					{%ifequal dw 4%}
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td class=non-na><div class="calendar_day">{{day}}</div></td>
+					{%endifequal%}
+					{%ifequal dw 5%}
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td class=day_weekend_soft><div class="calendar_day">{{day}}</div></td>
+					{%endifequal%}
+					{%ifequal dw 6%}
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td class=day_weekend_soft><div class="calendar_day">{{day}}</div></td>
+					{%endifequal%}
+				{%endifequal%}
+				{%ifnotequal day 1%}
+					{%if dw == 6 or dw == 5%}
+						<td class=day_weekend_soft><div class="calendar_day">{{day}}</div></td>
+					{%else%}
+						<td class=non-na><div class="calendar_day">{{day}}</div></td>
+					{%endif%}
+				{%endifnotequal%}
+				{%ifequal dw 6%}
+					</tr>
+					
+				{%endifequal%}
+			{% endfor %}
+		{%endifequal%}
+	</table>
+	<hr>
+
+	<hr>
 	{%endifequal%}
 	
 	<br>

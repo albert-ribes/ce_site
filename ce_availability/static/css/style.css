@@ -1,24 +1,24 @@
 /*BASE.HTML*/
 
 /* On screens that are 1600px or less*/
-@media screen and (max-width : 1600px) {
+@media screen and (max-width : 2600px) {
 	.page-header {
-		width: 1600px;
+		min-widthwidth: 1600px;
 		background-color: #ffd633;
 		margin-top: 0;
 		margin-bottom: 10px;
-		padding: 20px 20px 20px 40px;
+		padding: 20px 20px 20px 30px;
 	}
 }
 /* On screens that are 600px or less*/
-@media screen and (max-width : 720px) {
+@media screen and (max-width : 600px) {
 	.page-header {
-		width: 720px;
+		width: 600px;
 		#background-color: #e91e63e6;
 		background-color: #ffd633;
 		margin-top: 0;
 		margin-bottom: 10px;
-		padding: 20px 20px 20px 40px;
+		padding: 20px 20px 20px 30px;
 	}
 }
 
@@ -42,7 +42,7 @@
 }
 
 .content {
-    margin-left: 40px;
+    margin-left: 30px;
     padding-left: 4px;
 }
 
@@ -371,6 +371,8 @@ table.table_calendar th.day_laborable {
     color: black;
 }
 
+
+
 table.table_calendar th.day_intensive {
     width:34px;
     border: 1px solid #000000;
@@ -427,6 +429,48 @@ table.table_calendar td.non-na {
     width:34px;
     border: 1px solid #000000;
     text-align: center;
+}
+
+
+
+table.table_calendar_ce td  {
+    width:42px;
+    height: 42px;
+    padding: 0;
+}
+table.table_calendar_ce td.non-na {
+    width:34px;
+    border: 1px solid #000000;
+    vertical-align: top;
+}
+
+table.table_calendar_ce th.day_laborable {
+    width:42px;
+    border: 1px solid #000000;
+    #text-align: center;
+    background: #5bd75b;
+    color: black;
+}
+
+table.table_calendar_ce th.day_weekend {
+    width:42px;
+    border: 1px solid #000000;
+    #text-align: center;
+    background: green;
+    color: white;
+}
+
+table.table_calendar_ce td.day_weekend_soft {
+    width:42px;
+    border: 1px solid #000000;
+    vertical-align: top;
+    background: #d9d9d9;
+}
+.calendar_day {
+	width: 4px;
+	align: right;
+	font-size: 10px;
+	vertical-align: top;
 }
 
 /*Table Legend*/

@@ -18,6 +18,9 @@ from django.http import HttpResponseRedirect, HttpResponse
 from calendar import monthrange, month_name
 from operator import itemgetter
 from django.template import RequestContext
+import logging
+
+log = logging.getLogger(__name__)
 
 def home(request):
     return render(request, 'ce_availability/home.html')
@@ -76,10 +79,11 @@ def registers_ce_day(request, ce, year, month, day):
 
 @login_required
 def list_filter(request, ce, unavailability, category, year, month, week):
-
+    user=request.user
+    log.info("VIEWS.PY: LIST accessed by " + user.username)
     #print("INFO: VIEWS.list_filter: ce=" + ce + ", unavailability=" + unavailability + ", year=" + year + ", month=" + month) 
     request.session['url'] = "/ce_availability/list/" + str(ce) + "/" + str(unavailability) + "/" + str(category) + "/" + str(year) + "/" + str(month) + "/"  + str(week) 
-    user=request.user
+
     #print("INFO: VIEWS.list_filter: user.id=" + str(user.id))
     user_type=getUserType(user)
     currentMonth = datetime.now().month
@@ -197,6 +201,8 @@ def about(request):
 
 @login_required
 def calendar_filter(request, location, mode, year, month):
+    user=request.user
+    log.info("VIEWS.PY: CALENDAR accessed by " + user.username)
     initial = {
         'location_selector': location,
         'mode_selector': mode,
@@ -204,7 +210,7 @@ def calendar_filter(request, location, mode, year, month):
         'month_selector': month,
     }
     #print(initial)
-    user=request.user
+    
     #print(user.employee.location)
     
 
@@ -228,6 +234,7 @@ def calendar_filter(request, location, mode, year, month):
     """ -------- PROCESSAMENT DADES EMPLOYEE/MONTH/DAY/HOURS -------- 
 
     day_of_week[day] = "Weekend" | "Intensive" | "WorkingDay" | "Festive"
+    dayofweek[day]= 1|2|3...7
     employee_day_kindofday[employee][day] = "Weekend" | "Intensive" | "WorkingDay" | "Festive"
     employee_day_nahours[employee][day] = {hours}
     employee_day_napercent[employee][day] = {percent}
@@ -248,6 +255,11 @@ def calendar_filter(request, location, mode, year, month):
     #calendar_events=CalendarEvent.objects.filter(start_date__lte=datetime_last_day_of_week).filter(end_date__gte=datetime_first_day_of_week).filter(location=user.employee.location).order_by('start_date')
     #print(calendar_events)
 
+    day_of_the_week = {}
+    for day in month_range:
+        day_of_the_week[day] = date(int(year), int(month), day).weekday()
+        #print(day_of_the_week[day])
+
     for day in month_range:
         if(5==day_week or day_week==6):
             day_of_week[day]="Weekend"
@@ -263,6 +275,7 @@ def calendar_filter(request, location, mode, year, month):
     user=request.user
     #print(user.id)
     user_type=getUserType(user)
+    #print(user_type)
 
     if user_type=='CE':
        manager_id=user.employee.manager.id
@@ -453,6 +466,7 @@ def calendar_filter(request, location, mode, year, month):
         form = CalendarFilterForm(request.user, location_choices, initial)
 
     #print(employee_day_category)
+    #print(request.user)
     data = {
         'employee_day_nahours': employee_day_nahours,
         'employee_day_nahours_percent': employee_day_nahours_percent,
@@ -461,6 +475,7 @@ def calendar_filter(request, location, mode, year, month):
         'employee_total_hours_month': employee_total_hours_month,
         'employee_day_category': employee_day_category,
         'day_of_week': day_of_week,
+        'day_of_the_week': day_of_the_week,
         'employees': employees, 
         'year':year,'month': month, 'monthname':monthname,
         'first_day_of_week': first_day_of_week,
@@ -629,6 +644,7 @@ def insert_event(request):
                                    comment=comment
                                    )
                     event.save()
+                    log.info("VIEWS.PY: new EVENT inserted by " + user.username)
                     id = id + ", " + str(event.id)
                     #print(">New insert: ID=" + str(register.id) +",Unavailability="+ str(register.unavailability_id) +",hours="+ str(register.hours) +",comments"+ str(register.comments) +",date="+ str(register.date) +",created_date="+ str(register.created_date) +",user_id="+ str(register.user_id))
                     result=True
@@ -646,6 +662,7 @@ def insert_event(request):
                                comment=comment
                                )
                 event.save()
+                log.info("VIEWS.PY: new EVENT inserted by " + user.username)
                 result=True
                 data = {
                     'result':result,
@@ -689,6 +706,7 @@ def insert_register(request):
                 register.createdby_id = user.id
                 register.user_id = int(ce)
                 register.save()
+                log.info("VIEWS.PY: new REGISTER inserted by " + user.username)
                 result=True
                 data = {
                     'result':result,
@@ -739,6 +757,7 @@ def insert_register(request):
                         register.createdby_id = user.id
                         register.user_id = int(ce)
                         register.save()
+                        log.info("VIEWS.PY: new REGISTER inserted by " + user.username)
                         result=True
                         id = id + ", " + str(register.id)
                         #print(">New insert: ID=" + str(register.id) +",Unavailability="+ str(register.unavailability_id) +",hours="+ str(register.hours) +",comments"+ str(register.comments) +",date="+ str(register.date) +",created_date="+ str(register.created_date) +",user_id="+ str(register.user_id))
@@ -753,6 +772,7 @@ def insert_register(request):
                             register.createdby_id = user.id
                             register.user_id = int(ce)
                             register.save()
+                            log.info("VIEWS.PY: new REGISTER inserted by " + user.username)
                             result=True
                             id = id + ", " + str(register.id)
                             #print(">New insert: ID=" + str(register.id) +",Unavailability="+ str(register.unavailability_id) +",hours="+ str(register.hours) +",comments"+ str(register.comments) +",date="+ str(register.date) +",created_date="+ str(register.created_date) +",user_id="+ str(register.user_id))
@@ -766,6 +786,7 @@ def insert_register(request):
                             register.createdby_id = user.id
                             register.user_id = int(ce)
                             register.save()
+                            log.info("VIEWS.PY: new REGISTER inserted by " + user.username)
                             result=True
                             id = id + ", " + str(register.id)
                             #print(">New insert: ID=" + str(register.id) +",Unavailability="+ str(register.unavailability_id) +",hours="+ str(register.hours) +",comments"+ str(register.comments) +",date="+ str(register.date) +",created_date="+ str(register.created_date) +",user_id="+ str(register.user_id))
@@ -796,6 +817,7 @@ def user_settings(request):
         if user_form.is_valid() and employee_form.is_valid():
             user_form.save()
             employee_form.save()
+            log.info("VIEWS.PY: new USER SETTING modified by " + user.username)
             messages.success(request, 'Your profile was successfully updated!')
             return redirect('/ce_availability')
         else:
@@ -831,36 +853,7 @@ def event_details(request, pk):
 
     location = ""
     #print(location_choices)
-    """
-    if request.method == "POST":
-        #print("INFO: VIEWS.event_details: POST")
-        form = CalendarEventEditForm(user, location_choices, kindofday_choices, request.POST, instance=event)
-        #print("INFO: VIEWS.register_details: form=" +str(form))
-        if form.is_valid():
-            print("INFO: VIEWS.event_details: FORM_IS_VALID")
-            location, kindofday, start_date, end_date, comment = form.save(commit=False)
-            print("location=" + str(location) + ", kindofday=" + str(kindofday) + ", start_date=" + str(start_date) + ", end_date=" + str(end_date) + ", comment=" + str(comment))
-            location=Location.objects.filter(manager_id=manager_id).filter(id=location).order_by('location')
 
-            event = CalendarEvent.objects.create(location=location,
-                                   kindofday=kindofday,
-                                   start_date=start_date,
-                                   end_date=end_date,
-                                   comment=comment
-                                   )
-            event.save()
-            id = str(event.id)
-            result=True
-
-            return render(request, 'ce_availability/update_event_post.html', {'result':result, 'id': event.id})
-        else:
-            print("INFO: VIEWS.event_details: FORM_IS_NOT_VALID")
-
-    else:
-        location =  event.location.id
-        form = CalendarEventEditForm(user, location_choices, kindofday_choices, location, instance=event)
-    return render(request, 'ce_availability/event_details.html', {'form': form, 'event': event})
-    """
     if request.method == "POST":
         #print("INFO: VIEWS.register_details: POST")
         form = CalendarEventEditForm(user, location_choices, kindofday_choices, request.POST, instance=event)
@@ -1009,6 +1002,7 @@ def change_password(request):
         form = PasswordChangeForm(request.user, request.POST)
         if form.is_valid():
             user = form.save()
+            log.info("VIEWS.PY: PASSWORD reseted by " + user.username)
             update_session_auth_hash(request, user)  # Important!
             messages.success(request, 'Your password was successfully updated!')
             #return redirect('home')
