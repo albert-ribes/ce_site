@@ -96,7 +96,7 @@ class RegisterForm(forms.ModelForm):
                 if (register_id!=0):
                     sum_hours=sum_hours - Register.objects.filter(id=register_id).values_list('hours', flat=True).get()
                 
-                print ("INFO: FORMS.RegisterForm.clean, user= " + str(ce) + ", dayofweek=" + str(dayofweek) + ", inserted_hours=" + str(hours) + ", sum_hours=" + str(sum_hours))
+                #print ("INFO: FORMS.RegisterForm.clean, user= " + str(ce) + ", dayofweek=" + str(dayofweek) + ", inserted_hours=" + str(hours) + ", sum_hours=" + str(sum_hours))
 
                 if hours==None:
                     raise forms.ValidationError({'hours': ["This field is required.",]})
