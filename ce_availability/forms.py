@@ -206,7 +206,7 @@ class CalendarFilterForm(forms.Form):
         month = self.cleaned_data.get('month_selector', None)
         mode = self.cleaned_data.get('mode_selector', None)
         location = self.cleaned_data.get('location_selector', None)
-        print("INFO: FORMS.CalendarFilterForm.save "+ location + ", " + mode + ", " + year + ", " + month)
+        #print("INFO: FORMS.CalendarFilterForm.save "+ location + ", " + mode + ", " + year + ", " + month)
         return(location, mode, year, month)
 
     def clean_location_selector(self):

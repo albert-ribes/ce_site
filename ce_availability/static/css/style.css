@@ -187,9 +187,9 @@ button.submit-button{
     border: 1px solid #ececec;
     /*background-color: #ececec;*/
     height: 200px;
-    width: 440px;
+    width: 360px;
     display: block;
-    float: left;
+    /*float: left;*/
 }
 
 .edit_calendar{
@@ -431,31 +431,94 @@ table.table_calendar td.non-na {
     text-align: center;
 }
 
-
+table.table_calendar_ce  {
+	display: block;
+    padding: 0;
+	/*margin-left: 24;*/
+}
 
 table.table_calendar_ce td  {
     width:42px;
     height: 42px;
+
     padding: 0;
 }
 table.table_calendar_ce td.non-na {
     width:34px;
     border: 1px solid #000000;
     vertical-align: top;
+
+    width:42px;
+	height: 26px;
+    font-size: 15px;
+    border: 1px solid #000000;
+    text-align: center;
+    color: black;
+	vertical-align: top;
 }
+
+table.table_calendar_ce td.professional-tasks {
+    width:42px;
+	height: 26px;
+    font-size: 15px;
+    border: 1px solid #000000;
+    text-align: center;
+	background: #0066ff;
+    color: black;
+	vertical-align: top;
+}
+
+table.table_calendar_ce td.medical {
+    width:42px;
+	height: 26px;
+    font-size: 15px;
+    border: 1px solid #000000;
+    text-align: center;
+    background: #ffff00;
+    color: black;
+	vertical-align: top;
+}
+
+table.table_calendar_ce td.training {
+    width:42px;
+	height: 26px;
+    font-size: 15px;
+    border: 1px solid #000000;
+    text-align: center;
+    background: #994d00;
+    color: black;
+	vertical-align: top;
+}
+
+table.table_calendar_ce td.rest {
+    width:42px;
+	height: 26px;
+    font-size: 15px;
+    border: 1px solid #000000;
+    text-align: center;
+    background: red;
+	padding: 0px;
+    color: black;
+	vertical-align: top;
+}
+
 
 table.table_calendar_ce th.day_laborable {
     width:42px;
+	height: 26px;
+    font-size: 15px;
     border: 1px solid #000000;
-    #text-align: center;
+    text-align: center;
     background: #5bd75b;
     color: black;
 }
 
 table.table_calendar_ce th.day_weekend {
     width:42px;
+	height: 26px;
+    font-size: 15px;
     border: 1px solid #000000;
-    #text-align: center;
+    text-align: center;
     background: green;
     color: white;
 }
@@ -466,6 +529,17 @@ table.table_calendar_ce td.day_weekend_soft {
     vertical-align: top;
     background: #d9d9d9;
 }
+
+table.table_calendar_ce th.day_laborable {
+    width:42px;
+	height: 26px;
+    font-size: 15px;
+    border: 1px solid #000000;
+    text-align: center;
+    background: #5bd75b;
+    color: black;
+}
+
 .calendar_day {
 	width: 4px;
 	align: right;
@@ -493,7 +567,8 @@ table.table_legend {
     border-collapse: collapse;
     font-size: 12px;
     border: 1px solid #000000;
-    table-layout:fixed
+    table-layout:fixed;
+	/*margin-left: 24;*/
 }
 
 
