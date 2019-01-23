@@ -449,7 +449,8 @@ table.table_calendar_ce td.non-na {
     vertical-align: top;
 
     width:42px;
-	height: 26px;
+	/*height: 26px;*/
+	height: 42px;
     font-size: 15px;
     border: 1px solid #000000;
     text-align: center;
@@ -459,7 +460,8 @@ table.table_calendar_ce td.non-na {
 
 table.table_calendar_ce td.professional-tasks {
     width:42px;
-	height: 26px;
+	/*height: 26px;*/
+	height: 42px;
     font-size: 15px;
     border: 1px solid #000000;
     text-align: center;
@@ -470,7 +472,8 @@ table.table_calendar_ce td.professional-tasks {
 
 table.table_calendar_ce td.medical {
     width:42px;
-	height: 26px;
+	/*height: 26px;*/
+	height: 42px;
     font-size: 15px;
     border: 1px solid #000000;
     text-align: center;
@@ -481,7 +484,8 @@ table.table_calendar_ce td.medical {
 
 table.table_calendar_ce td.training {
     width:42px;
-	height: 26px;
+	/*height: 26px;*/
+	height: 42px;
     font-size: 15px;
     border: 1px solid #000000;
     text-align: center;
@@ -492,7 +496,8 @@ table.table_calendar_ce td.training {
 
 table.table_calendar_ce td.rest {
     width:42px;
-	height: 26px;
+	/*height: 26px;*/
+	height: 42px;
     font-size: 15px;
     border: 1px solid #000000;
     text-align: center;
@@ -505,7 +510,8 @@ table.table_calendar_ce td.rest {
 
 table.table_calendar_ce th.day_laborable {
     width:42px;
-	height: 26px;
+	/*height: 26px;*/
+	height: 42px;
     font-size: 15px;
     border: 1px solid #000000;
     text-align: center;
@@ -515,7 +521,8 @@ table.table_calendar_ce th.day_laborable {
 
 table.table_calendar_ce th.day_weekend {
     width:42px;
-	height: 26px;
+	/*height: 26px;*/
+	height: 42px;
     font-size: 15px;
     border: 1px solid #000000;
     text-align: center;
@@ -525,6 +532,8 @@ table.table_calendar_ce th.day_weekend {
 
 table.table_calendar_ce td.day_weekend_soft {
     width:42px;
+	/*height: 26px;*/
+	height: 42px;
     border: 1px solid #000000;
     vertical-align: top;
     background: #d9d9d9;
@@ -532,7 +541,8 @@ table.table_calendar_ce td.day_weekend_soft {
 
 table.table_calendar_ce th.day_laborable {
     width:42px;
-	height: 26px;
+	/*height: 26px;*/
+	height: 42px;
     font-size: 15px;
     border: 1px solid #000000;
     text-align: center;

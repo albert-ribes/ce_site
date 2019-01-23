@@ -372,7 +372,6 @@ function resizeWin() {
 					{%endfor%}
 					{%if dw < 5%}
 
-
 			{% for employee in employees %}
 				{% for usr, value in employee_day_nahours.items%}
 	        		 {% ifequal usr employee.username%}
@@ -410,17 +409,27 @@ function resizeWin() {
 																{% ifequal num_day day%}
 																	{%comment%}
 																	{% ifequal kind_day "Festive"%}
-																	<td class='day_festive_soft'></td>
+																					<td class='day_festive_soft'>
+																					<div class="calendar_day">{{day}}</div>
+																					</td>
 																	{%endifequal%}
 																	{%endcomment%}
 																	{% ifequal kind_day "Weekend"%}
-																	<td class='day_weekend_soft'></td>
+																					<td class='day_weekend_soft'>
+																					<div class="calendar_day">{{day}}</div>
+																					</td>
 																	{%endifequal%}
 																	{% ifequal kind_day "WorkingDay"%}
-																	{{h}}
+																					<td class='non-na'>
+																					<div class="calendar_day">{{day}}</div>
+																					{{h}}
+																					</td>
 																	{%endifequal%}
 																	{% ifequal kind_day "Intensive"%}
-																	<td class='non-na'>{{h}}</td>
+																					<td class='non-na'>
+																					<div class="calendar_day">{{day}}</div>
+																					{{h}}
+																					</td>
 																	{%endifequal%}
 																{%endifequal%}
 															{% endfor %}
@@ -608,17 +617,27 @@ function resizeWin() {
 																{% ifequal num_day day%}
 																	{%comment%}
 																	{% ifequal kind_day "Festive"%}
-																	<td class='day_festive_soft'></td>
+																		<td class='day_festive_soft'>
+																		<div class="calendar_day">{{day}}</div>
+																		</td>
 																	{%endifequal%}
 																	{%endcomment%}
 																	{% ifequal kind_day "Weekend"%}
-																	<td class='day_weekend_soft'></td>
+																		<td class='day_weekend_soft'>
+																		<div class="calendar_day">{{day}}</div>
+																		</td>
 																	{%endifequal%}
 																	{% ifequal kind_day "WorkingDay"%}
-																	{{h}}
+																		<td class='non-na'>
+																		<div class="calendar_day">{{day}}</div>		
+																		1
+																		</td>
 																	{%endifequal%}
 																	{% ifequal kind_day "Intensive"%}
-																	<td class='non-na'>{{h}}</td>
+																		<td class='non-na'>
+																		<div class="calendar_day">{{day}}</div>		
+																		1
+																		</td>
 																	{%endifequal%}
 																{%endifequal%}
 															{% endfor %}
