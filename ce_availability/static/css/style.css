@@ -470,6 +470,19 @@ table.table_calendar_ce td.professional-tasks {
 	vertical-align: top;
 }
 
+table.table_calendar_ce td.day_festive {
+    width:42px;
+	/*height: 26px;*/
+	height: 42px;
+    font-size: 15px;
+    border: 1px solid #000000;
+    text-align: center;
+	color:white;
+    background: #660066;
+	vertical-align: top;
+
+}
+
 table.table_calendar_ce td.medical {
     width:42px;
 	/*height: 26px;*/

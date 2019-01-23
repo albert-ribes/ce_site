@@ -400,6 +400,7 @@ function resizeWin() {
 													{% ifequal dy_ day%}
 														{% ifequal kind "Festive"%}
 															<td class='day_festive'>
+																	<div class="calendar_day">{{day}}</div>
 																	<a class="festive_link" target="popup" onclick="window.open('/ce_availability/day_info/{{employee.id}}/{{year}}/{{month}}/{{day}}' ,'name','width=600,height=200')">
 																	F
 																	</a>
@@ -409,7 +410,7 @@ function resizeWin() {
 																{% ifequal num_day day%}
 																	{%comment%}
 																	{% ifequal kind_day "Festive"%}
-																					<td class='day_festive_soft'>
+																					<td class='day_festive'>
 																					<div class="calendar_day">{{day}}</div>
 																					</td>
 																	{%endifequal%}
@@ -489,17 +490,21 @@ function resizeWin() {
 																{% ifequal dy_ day%}
 																	{% ifequal kind "Festive"%}
 																		<td class='day_festive'>
-																				<a class="festive_link" target="popup" onclick="window.open('/ce_availability/day_info/{{employee.id}}/{{year}}/{{month}}/{{day}}' ,'name','width=600,height=200')">
-																				F
-																				</a>
+																			<div class="calendar_day">{{day}}</div>
+																			<a class="festive_link" target="popup" onclick="window.open('/ce_availability/day_info/{{employee.id}}/{{year}}/{{month}}/{{day}}' ,'name','width=600,height=200')">
+																			F
+																			</a>
 																		</td>
 																	{%else%}
 																		{% for num_day, kind_day in day_of_week.items%}
 																			{% ifequal num_day day%}
 																				{%comment%}
 																				{% ifequal kind_day "Festive"%}
-																					<td class='day_festive_soft'>
+																					<td class='day_festive'>
 																					<div class="calendar_day">{{day}}</div>
+																					<a class="festive_link" target="popup" onclick="window.open('/ce_availability/day_info/{{employee.id}}/{{year}}/{{month}}/{{day}}' ,'name','width=600,height=200')">
+																					F
+																					</a>
 																					</td>
 																				{%endifequal%}
 																				{%endcomment%}
@@ -608,6 +613,7 @@ function resizeWin() {
 													{% ifequal dy_ day%}
 														{% ifequal kind "Festive"%}
 															<td class='day_festive'>
+																<div class="calendar_day">{{day}}</div>
 																	<a class="festive_link" target="popup" onclick="window.open('/ce_availability/day_info/{{employee.id}}/{{year}}/{{month}}/{{day}}' ,'name','width=600,height=200')">
 																	F
 																	</a>
@@ -617,7 +623,7 @@ function resizeWin() {
 																{% ifequal num_day day%}
 																	{%comment%}
 																	{% ifequal kind_day "Festive"%}
-																		<td class='day_festive_soft'>
+																		<td class='day_festive'>
 																		<div class="calendar_day">{{day}}</div>
 																		</td>
 																	{%endifequal%}
@@ -697,6 +703,7 @@ function resizeWin() {
 																{% ifequal dy_ day%}
 																	{% ifequal kind "Festive"%}
 																		<td class='day_festive'>
+																				<div class="calendar_day">{{day}}</div>										
 																				<a class="festive_link" target="popup" onclick="window.open('/ce_availability/day_info/{{employee.id}}/{{year}}/{{month}}/{{day}}' ,'name','width=600,height=200')">
 																				F
 																				</a>
@@ -706,7 +713,7 @@ function resizeWin() {
 																			{% ifequal num_day day%}
 																				{%comment%}
 																				{% ifequal kind_day "Festive"%}
-																					<td class='day_festive_soft'>
+																					<td class='day_festive'>
 																					<div class="calendar_day">{{day}}</div>
 																					</td>
 																				{%endifequal%}
