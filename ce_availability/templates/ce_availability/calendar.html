@@ -761,9 +761,6 @@ function resizeWin() {
 
 	</table>
 	{%endifequal%}
-
-
-	{%endifequal%}
 			<br><br>
 			{% for usr, hours in employee_nahours_month.items %}
 				<p>Total NA hours in the month (NA): 	<b>{{hours}}</b></p>
@@ -779,6 +776,9 @@ function resizeWin() {
 				<p>Percentage NA/H: 					<b>{{value}}</b>%</p>
 				<!--		<td class='total_percentage_hours'><b>{{value}}</b></td> -->
 			{% endfor %}
+
+	{%endifequal%}
+
 
 
 	<hr>
