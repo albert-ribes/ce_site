@@ -583,94 +583,9 @@ function resizeWin() {
 					{%for i in ''|center:dw %}
 						<td></td>
 					{%endfor%}
-					{%if dw < 5%}
 
-
-			{% for employee in employees %}
-				{% for usr, value in employee_day_nahours_percent.items%}
-	        		 {% ifequal usr employee.username%}
-						{% for dy, hrs in value.items%}
-							{% ifequal dy day%}
-								{% for h in hrs %}
-									{% ifnotequal h "1.00"%}
-
-										{% for usr_, value in employee_day_category.items%}
-												{% ifequal usr_ employee.username%}
-													{% for dy_, category in value.items%}
-														{% ifequal dy_ day%}
-															<td class='{{category}}'> 
-																<div class="calendar_day">{{day}}</div>
-																<a class="{{category}}_link" title="Check {{employee.first_name}}'s unavailabilites of this day" target="popup" onclick="window.open('/ce_availability/registers/{{employee.id}}/{{year}}/{{month}}/{{day}}' ,'name','width=1200,height=480')">
-																{{h}}
-																</a>
-															</td>
-														{%endifequal%}
-													{% endfor%}
-												{%endifequal%}
-											{%endfor%}
-									{% else %}
-										{% for usr_, value in employee_day_kindofday.items%}
-											{% ifequal usr_ employee.username%}
-												{% for dy_, kind in value.items%}
-													{% ifequal dy_ day%}
-														{% ifequal kind "Festive"%}
-															<td class='day_festive'>
-																<div class="calendar_day">{{day}}</div>
-																	<a class="festive_link" target="popup" onclick="window.open('/ce_availability/day_info/{{employee.id}}/{{year}}/{{month}}/{{day}}' ,'name','width=600,height=200')">
-																	F
-																	</a>
-															</td>
-														{%else%}
-															{% for num_day, kind_day in day_of_week.items%}
-																{% ifequal num_day day%}
-																	{%comment%}
-																	{% ifequal kind_day "Festive"%}
-																		<td class='day_festive'>
-																		<div class="calendar_day">{{day}}</div>
-																		</td>
-																	{%endifequal%}
-																	{%endcomment%}
-																	{% ifequal kind_day "Weekend"%}
-																		<td class='day_weekend_soft'>
-																		<div class="calendar_day">{{day}}</div>
-																		</td>
-																	{%endifequal%}
-																	{% ifequal kind_day "WorkingDay"%}
-																		<td class='non-na'>
-																		<div class="calendar_day">{{day}}</div>		
-																		1
-																		</td>
-																	{%endifequal%}
-																	{% ifequal kind_day "Intensive"%}
-																		<td class='non-na'>
-																		<div class="calendar_day">{{day}}</div>		
-																		1
-																		</td>
-																	{%endifequal%}
-																{%endifequal%}
-															{% endfor %}
-														{%endifequal%}
-													{%endifequal%}
-												{%endfor%}
-											{%endifequal%}
-										{%endfor%}
-									{%endifnotequal%}
-								{%endfor%}
-							{%endifequal%}
-						{% endfor %}
-					{%endifequal%}
-				{% endfor %}
-			{% endfor %}
-
-
-					{%endif%}
-					{%if dw >= 5%}
-					<td class=day_weekend_soft>
-						<div class="calendar_day">{{day}}</div>
-					</td>
-					{%endif%}
 				{%endifequal%}
-				{%ifnotequal day 1%}
+
 					{%if dw == 6 or dw == 5%}
 						<td class=day_weekend_soft><div class="calendar_day">{{day}}</div></td>
 					{%else%}
@@ -752,7 +667,7 @@ function resizeWin() {
 							{% endfor %}
 						{% endfor %}
 					{%endif%}
-				{%endifnotequal%}
+
 				{%ifequal dw 6%}
 					</tr>
 

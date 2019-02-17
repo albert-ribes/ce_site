@@ -466,7 +466,7 @@ table.table_calendar_ce td.professional-tasks {
     border: 1px solid #000000;
     text-align: center;
 	background: #0066ff;
-    color: black;
+    color: white;
 	vertical-align: top;
 }
 
@@ -503,7 +503,7 @@ table.table_calendar_ce td.training {
     border: 1px solid #000000;
     text-align: center;
     background: #994d00;
-    color: black;
+    color: white;
 	vertical-align: top;
 }
 
@@ -516,7 +516,7 @@ table.table_calendar_ce td.rest {
     text-align: center;
     background: red;
 	padding: 0px;
-    color: black;
+    color: white;
 	vertical-align: top;
 }
 
