@@ -1140,3 +1140,413 @@
 [17/Feb/2019 08:26:28] INFO [ce_availability.views:205] VIEWS.PY: CALENDAR accessed by albert.ribes
 [17/Feb/2019 08:30:30] INFO [ce_availability.views:205] VIEWS.PY: CALENDAR accessed by albert.ribes
 [17/Feb/2019 08:30:41] INFO [ce_availability.views:205] VIEWS.PY: CALENDAR accessed by albert.ribes
+[03/May/2019 09:38:06] INFO [ce_availability.views:205] VIEWS.PY: CALENDAR accessed by xavier.urbiola
+[03/May/2019 09:38:25] INFO [ce_availability.views:205] VIEWS.PY: CALENDAR accessed by albert.ribes
+[03/May/2019 09:38:43] INFO [ce_availability.views:205] VIEWS.PY: CALENDAR accessed by albert.ribes
+[03/May/2019 09:38:43] INFO [ce_availability.views:205] VIEWS.PY: CALENDAR accessed by albert.ribes
+[03/May/2019 09:41:46] INFO [ce_availability.views:205] VIEWS.PY: CALENDAR accessed by albert.ribes
+[03/May/2019 09:48:04] INFO [ce_availability.views:205] VIEWS.PY: CALENDAR accessed by albert.ribes
+[03/May/2019 09:48:09] INFO [ce_availability.views:205] VIEWS.PY: CALENDAR accessed by albert.ribes
+[03/May/2019 09:50:06] INFO [ce_availability.views:205] VIEWS.PY: CALENDAR accessed by albert.ribes
+[03/May/2019 10:05:04] INFO [ce_availability.views:709] VIEWS.PY: new REGISTER inserted by albert.ribes
+[03/May/2019 11:12:15] INFO [ce_availability.views:709] VIEWS.PY: new REGISTER inserted by albert.ribes
+[03/May/2019 11:12:19] INFO [ce_availability.views:205] VIEWS.PY: CALENDAR accessed by albert.ribes
+[03/May/2019 12:13:57] INFO [ce_availability.views:205] VIEWS.PY: CALENDAR accessed by albert.ribes
+[03/May/2019 12:28:31] INFO [ce_availability.views:205] VIEWS.PY: CALENDAR accessed by albert.ribes
+[03/May/2019 12:29:13] INFO [ce_availability.views:709] VIEWS.PY: new REGISTER inserted by albert.ribes
+[03/May/2019 12:57:56] INFO [ce_availability.views:775] VIEWS.PY: new REGISTER inserted by albert.ribes
+[03/May/2019 12:57:56] INFO [ce_availability.views:775] VIEWS.PY: new REGISTER inserted by albert.ribes
+[03/May/2019 12:57:56] INFO [ce_availability.views:789] VIEWS.PY: new REGISTER inserted by albert.ribes
+[03/May/2019 12:57:56] INFO [ce_availability.views:775] VIEWS.PY: new REGISTER inserted by albert.ribes
+[03/May/2019 12:57:56] INFO [ce_availability.views:775] VIEWS.PY: new REGISTER inserted by albert.ribes
+[03/May/2019 12:57:56] INFO [ce_availability.views:775] VIEWS.PY: new REGISTER inserted by albert.ribes
+[03/May/2019 14:55:15] INFO [ce_availability.views:205] VIEWS.PY: CALENDAR accessed by albert.ribes
+[03/May/2019 19:01:57] INFO [ce_availability.views:83] VIEWS.PY: LIST accessed by albert.ribes
+[03/May/2019 19:01:59] INFO [ce_availability.views:205] VIEWS.PY: CALENDAR accessed by albert.ribes
+[03/May/2019 20:34:21] INFO [ce_availability.views:712] VIEWS.PY: new REGISTER inserted by albert.ribes
+[03/May/2019 20:34:23] INFO [ce_availability.views:205] VIEWS.PY: CALENDAR accessed by albert.ribes
+[03/May/2019 20:36:22] INFO [ce_availability.views:205] VIEWS.PY: CALENDAR accessed by albert.ribes
+[03/May/2019 20:36:35] INFO [ce_availability.views:205] VIEWS.PY: CALENDAR accessed by albert.ribes
+[03/May/2019 20:39:08] INFO [ce_availability.views:714] VIEWS.PY: new REGISTER inserted by albert.ribes
+[03/May/2019 20:39:21] INFO [ce_availability.views:205] VIEWS.PY: CALENDAR accessed by albert.ribes
+[03/May/2019 20:40:42] INFO [ce_availability.views:205] VIEWS.PY: CALENDAR accessed by albert.ribes
+[03/May/2019 20:42:56] INFO [ce_availability.views:205] VIEWS.PY: CALENDAR accessed by albert.ribes
+[03/May/2019 20:45:29] INFO [ce_availability.views:717] VIEWS.PY: new REGISTER inserted by albert.ribes
+[03/May/2019 21:16:05] INFO [ce_availability.views:205] VIEWS.PY: CALENDAR accessed by albert.ribes
+[03/May/2019 21:18:03] INFO [ce_availability.views:205] VIEWS.PY: CALENDAR accessed by albert.ribes
+[03/May/2019 22:06:52] INFO [ce_availability.views:205] VIEWS.PY: CALENDAR accessed by albert.ribes
+[03/May/2019 22:09:00] INFO [ce_availability.views:205] VIEWS.PY: CALENDAR accessed by xavier.urbiola
+[03/May/2019 22:09:59] INFO [ce_availability.views:647] VIEWS.PY: new EVENT inserted by xavier.urbiola
+[03/May/2019 22:09:59] INFO [ce_availability.views:647] VIEWS.PY: new EVENT inserted by xavier.urbiola
+[03/May/2019 22:09:59] INFO [ce_availability.views:647] VIEWS.PY: new EVENT inserted by xavier.urbiola
+[03/May/2019 22:09:59] INFO [ce_availability.views:647] VIEWS.PY: new EVENT inserted by xavier.urbiola
+[03/May/2019 22:09:59] INFO [ce_availability.views:647] VIEWS.PY: new EVENT inserted by xavier.urbiola
+[03/May/2019 22:10:54] INFO [ce_availability.views:205] VIEWS.PY: CALENDAR accessed by xavier.urbiola
+[03/May/2019 22:11:20] INFO [ce_availability.views:768] VIEWS.PY: new REGISTER inserted by xavier.urbiola
+[03/May/2019 22:11:20] INFO [ce_availability.views:768] VIEWS.PY: new REGISTER inserted by xavier.urbiola
+[03/May/2019 22:11:20] INFO [ce_availability.views:768] VIEWS.PY: new REGISTER inserted by xavier.urbiola
+[03/May/2019 22:11:27] INFO [ce_availability.views:205] VIEWS.PY: CALENDAR accessed by xavier.urbiola
+[03/May/2019 22:11:38] INFO [ce_availability.views:205] VIEWS.PY: CALENDAR accessed by xavier.urbiola
+[03/May/2019 22:11:42] INFO [ce_availability.views:83] VIEWS.PY: LIST accessed by xavier.urbiola
+[03/May/2019 22:11:47] INFO [ce_availability.views:83] VIEWS.PY: LIST accessed by xavier.urbiola
+[03/May/2019 22:11:47] INFO [ce_availability.views:83] VIEWS.PY: LIST accessed by xavier.urbiola
+[03/May/2019 22:12:40] INFO [ce_availability.views:717] VIEWS.PY: new REGISTER inserted by xavier.urbiola
+[03/May/2019 22:12:44] INFO [ce_availability.views:83] VIEWS.PY: LIST accessed by xavier.urbiola
+[03/May/2019 22:23:44] INFO [ce_availability.views:719] VIEWS.PY: new REGISTER inserted by xavier.urbiola
+[03/May/2019 22:27:46] INFO [ce_availability.views:83] VIEWS.PY: LIST accessed by xavier.urbiola
+[03/May/2019 22:29:25] INFO [ce_availability.views:83] VIEWS.PY: LIST accessed by xavier.urbiola
+[03/May/2019 22:29:25] INFO [ce_availability.views:83] VIEWS.PY: LIST accessed by xavier.urbiola
+[03/May/2019 22:29:30] INFO [ce_availability.views:83] VIEWS.PY: LIST accessed by xavier.urbiola
+[03/May/2019 22:29:50] INFO [ce_availability.views:719] VIEWS.PY: new REGISTER inserted by xavier.urbiola
+[03/May/2019 22:33:57] INFO [ce_availability.views:83] VIEWS.PY: LIST accessed by xavier.urbiola
+[03/May/2019 22:33:57] INFO [ce_availability.views:83] VIEWS.PY: LIST accessed by xavier.urbiola
+[03/May/2019 22:34:02] INFO [ce_availability.views:83] VIEWS.PY: LIST accessed by xavier.urbiola
+[03/May/2019 22:34:06] INFO [ce_availability.views:83] VIEWS.PY: LIST accessed by xavier.urbiola
+[03/May/2019 22:34:06] INFO [ce_availability.views:83] VIEWS.PY: LIST accessed by xavier.urbiola
+[03/May/2019 22:38:20] INFO [ce_availability.views:744] VIEWS.PY: new REGISTER inserted by xavier.urbiola
+[03/May/2019 22:39:09] INFO [ce_availability.views:744] VIEWS.PY: new REGISTER inserted by xavier.urbiola
+[03/May/2019 22:39:09] INFO [ce_availability.views:779] VIEWS.PY: new REGISTER inserted by xavier.urbiola
+[03/May/2019 22:39:13] INFO [ce_availability.views:83] VIEWS.PY: LIST accessed by xavier.urbiola
+[03/May/2019 22:39:24] INFO [ce_availability.views:83] VIEWS.PY: LIST accessed by xavier.urbiola
+[03/May/2019 22:39:37] INFO [ce_availability.views:744] VIEWS.PY: new REGISTER inserted by xavier.urbiola
+[03/May/2019 22:39:37] INFO [ce_availability.views:779] VIEWS.PY: new REGISTER inserted by xavier.urbiola
+[03/May/2019 22:39:39] INFO [ce_availability.views:83] VIEWS.PY: LIST accessed by xavier.urbiola
+[03/May/2019 22:39:53] INFO [ce_availability.views:83] VIEWS.PY: LIST accessed by xavier.urbiola
+[03/May/2019 22:39:53] INFO [ce_availability.views:83] VIEWS.PY: LIST accessed by xavier.urbiola
+[03/May/2019 22:40:45] INFO [ce_availability.views:744] VIEWS.PY: new REGISTER inserted by xavier.urbiola
+[03/May/2019 22:40:45] INFO [ce_availability.views:779] VIEWS.PY: new REGISTER inserted by xavier.urbiola
+[03/May/2019 22:40:48] INFO [ce_availability.views:83] VIEWS.PY: LIST accessed by xavier.urbiola
+[03/May/2019 22:40:51] INFO [ce_availability.views:83] VIEWS.PY: LIST accessed by xavier.urbiola
+[03/May/2019 22:40:51] INFO [ce_availability.views:83] VIEWS.PY: LIST accessed by xavier.urbiola
+[03/May/2019 22:48:37] INFO [ce_availability.views:744] VIEWS.PY: new REGISTER inserted by xavier.urbiola
+[03/May/2019 22:48:37] INFO [ce_availability.views:779] VIEWS.PY: new REGISTER inserted by xavier.urbiola
+[03/May/2019 22:49:24] INFO [ce_availability.views:83] VIEWS.PY: LIST accessed by xavier.urbiola
+[04/May/2019 00:09:46] INFO [ce_availability.views:665] VIEWS.PY: new EVENT inserted by xavier.urbiola
+[04/May/2019 00:10:02] INFO [ce_availability.views:779] VIEWS.PY: new REGISTER inserted by xavier.urbiola
+[04/May/2019 00:10:06] INFO [ce_availability.views:83] VIEWS.PY: LIST accessed by xavier.urbiola
+[04/May/2019 00:14:53] INFO [ce_availability.views:83] VIEWS.PY: LIST accessed by xavier.urbiola
+[04/May/2019 00:28:43] INFO [ce_availability.views:748] VIEWS.PY: new REGISTER inserted by xavier.urbiola
+[04/May/2019 00:28:46] INFO [ce_availability.views:83] VIEWS.PY: LIST accessed by xavier.urbiola
+[04/May/2019 00:28:53] INFO [ce_availability.views:83] VIEWS.PY: LIST accessed by xavier.urbiola
+[04/May/2019 00:29:11] INFO [ce_availability.views:748] VIEWS.PY: new REGISTER inserted by xavier.urbiola
+[04/May/2019 00:29:14] INFO [ce_availability.views:83] VIEWS.PY: LIST accessed by xavier.urbiola
+[04/May/2019 00:31:36] INFO [ce_availability.views:748] VIEWS.PY: new REGISTER inserted by xavier.urbiola
+[04/May/2019 00:31:41] INFO [ce_availability.views:83] VIEWS.PY: LIST accessed by xavier.urbiola
+[04/May/2019 09:31:12] INFO [ce_availability.views:205] VIEWS.PY: CALENDAR accessed by xavier.urbiola
+[04/May/2019 16:48:01] INFO [ce_availability.views:83] VIEWS.PY: LIST accessed by xavier.urbiola
+[04/May/2019 17:33:51] INFO [ce_availability.views:83] VIEWS.PY: LIST accessed by xavier.urbiola
+[04/May/2019 17:33:51] INFO [ce_availability.views:83] VIEWS.PY: LIST accessed by xavier.urbiola
+[04/May/2019 23:32:35] INFO [ce_availability.views:205] VIEWS.PY: CALENDAR accessed by xavier.urbiola
+[04/May/2019 23:32:57] INFO [ce_availability.views:837] VIEWS.PY: new REGISTER inserted by xavier.urbiola
+[04/May/2019 23:32:57] INFO [ce_availability.views:837] VIEWS.PY: new REGISTER inserted by xavier.urbiola
+[04/May/2019 23:33:00] INFO [ce_availability.views:83] VIEWS.PY: LIST accessed by xavier.urbiola
+[05/May/2019 00:04:41] INFO [ce_availability.views:909] VIEWS.PY: new REGISTER inserted by xavier.urbiola
+[05/May/2019 00:04:41] INFO [ce_availability.views:909] VIEWS.PY: new REGISTER inserted by xavier.urbiola
+[05/May/2019 00:04:46] INFO [ce_availability.views:83] VIEWS.PY: LIST accessed by xavier.urbiola
+[05/May/2019 00:05:48] INFO [ce_availability.views:909] VIEWS.PY: new REGISTER inserted by xavier.urbiola
+[05/May/2019 00:05:48] INFO [ce_availability.views:909] VIEWS.PY: new REGISTER inserted by xavier.urbiola
+[05/May/2019 00:05:51] INFO [ce_availability.views:83] VIEWS.PY: LIST accessed by xavier.urbiola
+[05/May/2019 00:05:53] INFO [ce_availability.views:205] VIEWS.PY: CALENDAR accessed by xavier.urbiola
+[05/May/2019 00:06:08] INFO [ce_availability.views:205] VIEWS.PY: CALENDAR accessed by xavier.urbiola
+[05/May/2019 00:06:09] INFO [ce_availability.views:205] VIEWS.PY: CALENDAR accessed by xavier.urbiola
+[05/May/2019 00:26:15] INFO [ce_availability.views:83] VIEWS.PY: LIST accessed by xavier.urbiola
+[05/May/2019 00:26:20] INFO [ce_availability.views:205] VIEWS.PY: CALENDAR accessed by xavier.urbiola
+[10/May/2019 15:35:30] INFO [ce_availability.views:83] VIEWS.PY: LIST accessed by xavier.urbiola
+[10/May/2019 15:35:36] INFO [ce_availability.views:205] VIEWS.PY: CALENDAR accessed by xavier.urbiola
+[10/May/2019 15:44:36] INFO [ce_availability.views:205] VIEWS.PY: CALENDAR accessed by xavier.urbiola
+[10/May/2019 15:44:45] INFO [ce_availability.views:205] VIEWS.PY: CALENDAR accessed by xavier.urbiola
+[10/May/2019 15:44:47] INFO [ce_availability.views:205] VIEWS.PY: CALENDAR accessed by xavier.urbiola
+[10/May/2019 15:45:12] INFO [ce_availability.views:205] VIEWS.PY: CALENDAR accessed by xavier.urbiola
+[10/May/2019 15:45:18] INFO [ce_availability.views:205] VIEWS.PY: CALENDAR accessed by xavier.urbiola
+[10/May/2019 15:45:20] INFO [ce_availability.views:205] VIEWS.PY: CALENDAR accessed by xavier.urbiola
+[10/May/2019 15:47:06] INFO [ce_availability.views:205] VIEWS.PY: CALENDAR accessed by xavier.urbiola
+[10/May/2019 15:47:28] INFO [ce_availability.views:205] VIEWS.PY: CALENDAR accessed by xavier.urbiola
+[10/May/2019 15:49:01] INFO [ce_availability.views:205] VIEWS.PY: CALENDAR accessed by xavier.urbiola
+[10/May/2019 15:49:23] INFO [ce_availability.views:205] VIEWS.PY: CALENDAR accessed by xavier.urbiola
+[10/May/2019 15:49:48] INFO [ce_availability.views:205] VIEWS.PY: CALENDAR accessed by xavier.urbiola
+[10/May/2019 15:50:27] INFO [ce_availability.views:205] VIEWS.PY: CALENDAR accessed by xavier.urbiola
+[10/May/2019 15:50:28] INFO [ce_availability.views:205] VIEWS.PY: CALENDAR accessed by xavier.urbiola
+[10/May/2019 15:50:50] INFO [ce_availability.views:205] VIEWS.PY: CALENDAR accessed by xavier.urbiola
+[10/May/2019 15:51:00] INFO [ce_availability.views:205] VIEWS.PY: CALENDAR accessed by xavier.urbiola
+[10/May/2019 15:51:52] INFO [ce_availability.views:205] VIEWS.PY: CALENDAR accessed by xavier.urbiola
+[10/May/2019 15:51:57] INFO [ce_availability.views:205] VIEWS.PY: CALENDAR accessed by xavier.urbiola
+[10/May/2019 15:52:15] INFO [ce_availability.views:205] VIEWS.PY: CALENDAR accessed by xavier.urbiola
+[10/May/2019 15:52:21] INFO [ce_availability.views:205] VIEWS.PY: CALENDAR accessed by xavier.urbiola
+[10/May/2019 15:52:23] INFO [ce_availability.views:205] VIEWS.PY: CALENDAR accessed by xavier.urbiola
+[10/May/2019 15:52:37] INFO [ce_availability.views:205] VIEWS.PY: CALENDAR accessed by xavier.urbiola
+[10/May/2019 15:52:39] INFO [ce_availability.views:205] VIEWS.PY: CALENDAR accessed by xavier.urbiola
+[10/May/2019 15:56:26] INFO [ce_availability.views:205] VIEWS.PY: CALENDAR accessed by xavier.urbiola
+[10/May/2019 15:57:04] INFO [ce_availability.views:205] VIEWS.PY: CALENDAR accessed by xavier.urbiola
+[10/May/2019 15:58:21] INFO [ce_availability.views:205] VIEWS.PY: CALENDAR accessed by xavier.urbiola
+[10/May/2019 15:59:03] INFO [ce_availability.views:205] VIEWS.PY: CALENDAR accessed by xavier.urbiola
+[10/May/2019 15:59:35] INFO [ce_availability.views:205] VIEWS.PY: CALENDAR accessed by xavier.urbiola
+[10/May/2019 15:59:41] INFO [ce_availability.views:205] VIEWS.PY: CALENDAR accessed by xavier.urbiola
+[10/May/2019 16:00:32] INFO [ce_availability.views:205] VIEWS.PY: CALENDAR accessed by xavier.urbiola
+[10/May/2019 16:01:44] INFO [ce_availability.views:205] VIEWS.PY: CALENDAR accessed by xavier.urbiola
+[10/May/2019 16:01:47] INFO [ce_availability.views:205] VIEWS.PY: CALENDAR accessed by xavier.urbiola
+[10/May/2019 16:02:35] INFO [ce_availability.views:205] VIEWS.PY: CALENDAR accessed by albert.ribes
+[10/May/2019 16:04:07] INFO [ce_availability.views:205] VIEWS.PY: CALENDAR accessed by albert.ribes
+[10/May/2019 16:04:15] INFO [ce_availability.views:205] VIEWS.PY: CALENDAR accessed by albert.ribes
+[10/May/2019 16:04:16] INFO [ce_availability.views:205] VIEWS.PY: CALENDAR accessed by albert.ribes
+[10/May/2019 16:04:37] INFO [ce_availability.views:205] VIEWS.PY: CALENDAR accessed by albert.ribes
+[10/May/2019 16:04:45] INFO [ce_availability.views:205] VIEWS.PY: CALENDAR accessed by albert.ribes
+[10/May/2019 16:04:45] INFO [ce_availability.views:205] VIEWS.PY: CALENDAR accessed by albert.ribes
+[10/May/2019 16:04:48] INFO [ce_availability.views:205] VIEWS.PY: CALENDAR accessed by albert.ribes
+[10/May/2019 16:08:34] INFO [ce_availability.views:205] VIEWS.PY: CALENDAR accessed by albert.ribes
+[10/May/2019 16:09:13] INFO [ce_availability.views:205] VIEWS.PY: CALENDAR accessed by albert.ribes
+[10/May/2019 16:09:18] INFO [ce_availability.views:205] VIEWS.PY: CALENDAR accessed by xavier.urbiola
+[10/May/2019 16:09:24] INFO [ce_availability.views:205] VIEWS.PY: CALENDAR accessed by xavier.urbiola
+[10/May/2019 16:17:02] INFO [ce_availability.views:205] VIEWS.PY: CALENDAR accessed by xavier.urbiola
+[10/May/2019 16:18:04] INFO [ce_availability.views:205] VIEWS.PY: CALENDAR accessed by xavier.urbiola
+[10/May/2019 16:18:11] INFO [ce_availability.views:205] VIEWS.PY: CALENDAR accessed by xavier.urbiola
+[10/May/2019 16:18:27] INFO [ce_availability.views:205] VIEWS.PY: CALENDAR accessed by xavier.urbiola
+[10/May/2019 16:19:06] INFO [ce_availability.views:205] VIEWS.PY: CALENDAR accessed by xavier.urbiola
+[10/May/2019 16:19:48] INFO [ce_availability.views:205] VIEWS.PY: CALENDAR accessed by xavier.urbiola
+[10/May/2019 16:20:05] INFO [ce_availability.views:205] VIEWS.PY: CALENDAR accessed by xavier.urbiola
+[10/May/2019 16:27:44] INFO [ce_availability.views:205] VIEWS.PY: CALENDAR accessed by xavier.urbiola
+[10/May/2019 16:56:03] INFO [ce_availability.views:205] VIEWS.PY: CALENDAR accessed by xavier.urbiola
+[10/May/2019 18:10:38] INFO [ce_availability.views:205] VIEWS.PY: CALENDAR accessed by xavier.urbiola
+[10/May/2019 18:10:43] INFO [ce_availability.views:205] VIEWS.PY: CALENDAR accessed by xavier.urbiola
+[10/May/2019 18:17:20] INFO [ce_availability.views:205] VIEWS.PY: CALENDAR accessed by albert.ribes
+[10/May/2019 18:17:53] INFO [ce_availability.views:205] VIEWS.PY: CALENDAR accessed by albert.ribes
+[10/May/2019 18:28:36] INFO [ce_availability.views:205] VIEWS.PY: CALENDAR accessed by albert.ribes
+[10/May/2019 18:28:42] INFO [ce_availability.views:205] VIEWS.PY: CALENDAR accessed by albert.ribes
+[10/May/2019 18:28:42] INFO [ce_availability.views:205] VIEWS.PY: CALENDAR accessed by albert.ribes
+[10/May/2019 18:29:51] INFO [ce_availability.views:205] VIEWS.PY: CALENDAR accessed by albert.ribes
+[10/May/2019 18:30:31] INFO [ce_availability.views:205] VIEWS.PY: CALENDAR accessed by albert.ribes
+[10/May/2019 18:32:40] INFO [ce_availability.views:205] VIEWS.PY: CALENDAR accessed by albert.ribes
+[10/May/2019 18:32:40] INFO [ce_availability.views:205] VIEWS.PY: CALENDAR accessed by albert.ribes
+[10/May/2019 18:32:45] INFO [ce_availability.views:205] VIEWS.PY: CALENDAR accessed by albert.ribes
+[10/May/2019 18:32:46] INFO [ce_availability.views:205] VIEWS.PY: CALENDAR accessed by albert.ribes
+[10/May/2019 18:32:49] INFO [ce_availability.views:205] VIEWS.PY: CALENDAR accessed by albert.ribes
+[10/May/2019 18:34:53] INFO [ce_availability.views:205] VIEWS.PY: CALENDAR accessed by xavier.urbiola
+[10/May/2019 18:35:14] INFO [ce_availability.views:205] VIEWS.PY: CALENDAR accessed by albert.ribes
+[10/May/2019 18:35:14] INFO [ce_availability.views:205] VIEWS.PY: CALENDAR accessed by albert.ribes
+[10/May/2019 18:35:37] INFO [ce_availability.views:908] VIEWS.PY: new REGISTER inserted by xavier.urbiola
+[10/May/2019 18:35:37] INFO [ce_availability.views:908] VIEWS.PY: new REGISTER inserted by xavier.urbiola
+[10/May/2019 18:35:39] INFO [ce_availability.views:205] VIEWS.PY: CALENDAR accessed by albert.ribes
+[10/May/2019 18:35:43] INFO [ce_availability.views:205] VIEWS.PY: CALENDAR accessed by albert.ribes
+[10/May/2019 18:35:43] INFO [ce_availability.views:205] VIEWS.PY: CALENDAR accessed by albert.ribes
+[10/May/2019 18:36:26] INFO [ce_availability.views:908] VIEWS.PY: new REGISTER inserted by xavier.urbiola
+[10/May/2019 18:36:26] INFO [ce_availability.views:908] VIEWS.PY: new REGISTER inserted by xavier.urbiola
+[10/May/2019 18:36:29] INFO [ce_availability.views:205] VIEWS.PY: CALENDAR accessed by albert.ribes
+[10/May/2019 18:37:14] INFO [ce_availability.views:908] VIEWS.PY: new REGISTER inserted by xavier.urbiola
+[10/May/2019 18:37:14] INFO [ce_availability.views:908] VIEWS.PY: new REGISTER inserted by xavier.urbiola
+[10/May/2019 18:37:16] INFO [ce_availability.views:205] VIEWS.PY: CALENDAR accessed by albert.ribes
+[10/May/2019 18:37:58] INFO [ce_availability.views:836] VIEWS.PY: new REGISTER inserted by xavier.urbiola
+[10/May/2019 18:37:58] INFO [ce_availability.views:836] VIEWS.PY: new REGISTER inserted by xavier.urbiola
+[10/May/2019 18:37:58] INFO [ce_availability.views:865] VIEWS.PY: new REGISTER inserted by xavier.urbiola
+[10/May/2019 18:38:01] INFO [ce_availability.views:205] VIEWS.PY: CALENDAR accessed by albert.ribes
+[10/May/2019 18:38:13] INFO [ce_availability.views:205] VIEWS.PY: CALENDAR accessed by albert.ribes
+[10/May/2019 18:38:51] INFO [ce_availability.views:851] VIEWS.PY: new REGISTER inserted by xavier.urbiola
+[10/May/2019 18:38:51] INFO [ce_availability.views:851] VIEWS.PY: new REGISTER inserted by xavier.urbiola
+[10/May/2019 18:38:51] INFO [ce_availability.views:851] VIEWS.PY: new REGISTER inserted by xavier.urbiola
+[10/May/2019 18:38:51] INFO [ce_availability.views:851] VIEWS.PY: new REGISTER inserted by xavier.urbiola
+[10/May/2019 18:38:51] INFO [ce_availability.views:865] VIEWS.PY: new REGISTER inserted by xavier.urbiola
+[10/May/2019 18:38:55] INFO [ce_availability.views:205] VIEWS.PY: CALENDAR accessed by albert.ribes
+[10/May/2019 18:51:22] INFO [ce_availability.views:205] VIEWS.PY: CALENDAR accessed by albert.ribes
+[10/May/2019 18:52:07] INFO [ce_availability.views:205] VIEWS.PY: CALENDAR accessed by albert.ribes
+[10/May/2019 18:52:19] INFO [ce_availability.views:205] VIEWS.PY: CALENDAR accessed by albert.ribes
+[10/May/2019 18:52:45] INFO [ce_availability.views:205] VIEWS.PY: CALENDAR accessed by xavier.urbiola
+[10/May/2019 18:54:24] INFO [ce_availability.views:205] VIEWS.PY: CALENDAR accessed by albert.ribes
+[10/May/2019 18:56:13] INFO [ce_availability.views:205] VIEWS.PY: CALENDAR accessed by xavier.urbiola
+[10/May/2019 18:56:55] INFO [ce_availability.views:205] VIEWS.PY: CALENDAR accessed by xavier.urbiola
+[10/May/2019 18:57:10] INFO [ce_availability.views:205] VIEWS.PY: CALENDAR accessed by albert.ribes
+[10/May/2019 19:00:24] INFO [ce_availability.views:205] VIEWS.PY: CALENDAR accessed by xavier.urbiola
+[10/May/2019 19:02:32] INFO [ce_availability.views:83] VIEWS.PY: LIST accessed by xavier.urbiola
+[10/May/2019 19:02:32] INFO [ce_availability.views:83] VIEWS.PY: LIST accessed by xavier.urbiola
+[10/May/2019 19:04:29] INFO [ce_availability.views:205] VIEWS.PY: CALENDAR accessed by xavier.urbiola
+[10/May/2019 19:06:01] INFO [ce_availability.views:205] VIEWS.PY: CALENDAR accessed by xavier.urbiola
+[10/May/2019 19:08:14] INFO [ce_availability.views:205] VIEWS.PY: CALENDAR accessed by xavier.urbiola
+[10/May/2019 19:09:28] INFO [ce_availability.views:205] VIEWS.PY: CALENDAR accessed by xavier.urbiola
+[10/May/2019 19:09:31] INFO [ce_availability.views:83] VIEWS.PY: LIST accessed by xavier.urbiola
+[10/May/2019 19:12:21] INFO [ce_availability.views:205] VIEWS.PY: CALENDAR accessed by xavier.urbiola
+[10/May/2019 19:13:00] INFO [ce_availability.views:83] VIEWS.PY: LIST accessed by xavier.urbiola
+[10/May/2019 19:13:04] INFO [ce_availability.views:205] VIEWS.PY: CALENDAR accessed by xavier.urbiola
+[10/May/2019 19:13:19] INFO [ce_availability.views:205] VIEWS.PY: CALENDAR accessed by xavier.urbiola
+[10/May/2019 19:13:56] INFO [ce_availability.views:205] VIEWS.PY: CALENDAR accessed by xavier.urbiola
+[10/May/2019 19:14:22] INFO [ce_availability.views:205] VIEWS.PY: CALENDAR accessed by xavier.urbiola
+[10/May/2019 19:17:41] INFO [ce_availability.views:205] VIEWS.PY: CALENDAR accessed by xavier.urbiola
+[10/May/2019 19:18:46] INFO [ce_availability.views:205] VIEWS.PY: CALENDAR accessed by albert.ribes
+[10/May/2019 19:20:56] INFO [ce_availability.views:205] VIEWS.PY: CALENDAR accessed by albert.ribes
+[10/May/2019 19:21:53] INFO [ce_availability.views:205] VIEWS.PY: CALENDAR accessed by xavier.urbiola
+[10/May/2019 19:22:25] INFO [ce_availability.views:205] VIEWS.PY: CALENDAR accessed by xavier.urbiola
+[10/May/2019 19:23:16] INFO [ce_availability.views:205] VIEWS.PY: CALENDAR accessed by xavier.urbiola
+[10/May/2019 19:23:35] INFO [ce_availability.views:205] VIEWS.PY: CALENDAR accessed by xavier.urbiola
+[10/May/2019 19:24:11] INFO [ce_availability.views:205] VIEWS.PY: CALENDAR accessed by xavier.urbiola
+[10/May/2019 19:24:14] INFO [ce_availability.views:83] VIEWS.PY: LIST accessed by xavier.urbiola
+[10/May/2019 19:24:38] INFO [ce_availability.views:83] VIEWS.PY: LIST accessed by xavier.urbiola
+[10/May/2019 19:25:01] INFO [ce_availability.views:205] VIEWS.PY: CALENDAR accessed by xavier.urbiola
+[10/May/2019 19:26:05] INFO [ce_availability.views:83] VIEWS.PY: LIST accessed by xavier.urbiola
+[10/May/2019 19:26:41] INFO [ce_availability.views:205] VIEWS.PY: CALENDAR accessed by xavier.urbiola
+[10/May/2019 19:26:51] INFO [ce_availability.views:83] VIEWS.PY: LIST accessed by xavier.urbiola
+[10/May/2019 19:29:06] INFO [ce_availability.views:205] VIEWS.PY: CALENDAR accessed by xavier.urbiola
+[10/May/2019 19:29:21] INFO [ce_availability.views:205] VIEWS.PY: CALENDAR accessed by xavier.urbiola
+[10/May/2019 19:30:45] INFO [ce_availability.views:205] VIEWS.PY: CALENDAR accessed by xavier.urbiola
+[10/May/2019 19:31:11] INFO [ce_availability.views:205] VIEWS.PY: CALENDAR accessed by xavier.urbiola
+[10/May/2019 19:32:15] INFO [ce_availability.views:205] VIEWS.PY: CALENDAR accessed by xavier.urbiola
+[10/May/2019 19:33:35] INFO [ce_availability.views:205] VIEWS.PY: CALENDAR accessed by xavier.urbiola
+[10/May/2019 19:33:55] INFO [ce_availability.views:205] VIEWS.PY: CALENDAR accessed by xavier.urbiola
+[10/May/2019 19:34:10] INFO [ce_availability.views:205] VIEWS.PY: CALENDAR accessed by xavier.urbiola
+[10/May/2019 19:34:17] INFO [ce_availability.views:83] VIEWS.PY: LIST accessed by xavier.urbiola
+[10/May/2019 19:37:15] INFO [ce_availability.views:83] VIEWS.PY: LIST accessed by xavier.urbiola
+[10/May/2019 19:37:22] INFO [ce_availability.views:205] VIEWS.PY: CALENDAR accessed by xavier.urbiola
+[10/May/2019 19:38:11] INFO [ce_availability.views:205] VIEWS.PY: CALENDAR accessed by xavier.urbiola
+[10/May/2019 19:39:12] INFO [ce_availability.views:83] VIEWS.PY: LIST accessed by xavier.urbiola
+[10/May/2019 19:39:56] INFO [ce_availability.views:83] VIEWS.PY: LIST accessed by xavier.urbiola
+[10/May/2019 19:40:36] INFO [ce_availability.views:83] VIEWS.PY: LIST accessed by xavier.urbiola
+[10/May/2019 19:42:39] INFO [ce_availability.views:83] VIEWS.PY: LIST accessed by xavier.urbiola
+[10/May/2019 19:42:44] INFO [ce_availability.views:205] VIEWS.PY: CALENDAR accessed by xavier.urbiola
+[10/May/2019 19:46:41] INFO [ce_availability.views:83] VIEWS.PY: LIST accessed by xavier.urbiola
+[10/May/2019 19:47:21] INFO [ce_availability.views:83] VIEWS.PY: LIST accessed by xavier.urbiola
+[10/May/2019 19:53:03] INFO [ce_availability.views:83] VIEWS.PY: LIST accessed by xavier.urbiola
+[10/May/2019 19:56:12] INFO [ce_availability.views:205] VIEWS.PY: CALENDAR accessed by xavier.urbiola
+[10/May/2019 19:56:14] INFO [ce_availability.views:83] VIEWS.PY: LIST accessed by xavier.urbiola
+[10/May/2019 19:56:57] INFO [ce_availability.views:83] VIEWS.PY: LIST accessed by xavier.urbiola
+[10/May/2019 19:57:08] INFO [ce_availability.views:83] VIEWS.PY: LIST accessed by xavier.urbiola
+[10/May/2019 19:58:34] INFO [ce_availability.views:83] VIEWS.PY: LIST accessed by xavier.urbiola
+[10/May/2019 19:59:06] INFO [ce_availability.views:83] VIEWS.PY: LIST accessed by xavier.urbiola
+[10/May/2019 19:59:33] INFO [ce_availability.views:83] VIEWS.PY: LIST accessed by xavier.urbiola
+[10/May/2019 19:59:37] INFO [ce_availability.views:205] VIEWS.PY: CALENDAR accessed by xavier.urbiola
+[10/May/2019 20:00:05] INFO [ce_availability.views:205] VIEWS.PY: CALENDAR accessed by xavier.urbiola
+[10/May/2019 20:00:24] INFO [ce_availability.views:205] VIEWS.PY: CALENDAR accessed by xavier.urbiola
+[10/May/2019 20:01:00] INFO [ce_availability.views:205] VIEWS.PY: CALENDAR accessed by xavier.urbiola
+[10/May/2019 20:02:48] INFO [ce_availability.views:205] VIEWS.PY: CALENDAR accessed by xavier.urbiola
+[10/May/2019 20:03:09] INFO [ce_availability.views:205] VIEWS.PY: CALENDAR accessed by xavier.urbiola
+[10/May/2019 20:05:47] INFO [ce_availability.views:205] VIEWS.PY: CALENDAR accessed by xavier.urbiola
+[10/May/2019 20:06:09] INFO [ce_availability.views:205] VIEWS.PY: CALENDAR accessed by xavier.urbiola
+[10/May/2019 20:06:26] INFO [ce_availability.views:205] VIEWS.PY: CALENDAR accessed by xavier.urbiola
+[10/May/2019 20:06:58] INFO [ce_availability.views:205] VIEWS.PY: CALENDAR accessed by xavier.urbiola
+[10/May/2019 20:16:08] INFO [ce_availability.views:205] VIEWS.PY: CALENDAR accessed by xavier.urbiola
+[10/May/2019 20:16:48] INFO [ce_availability.views:205] VIEWS.PY: CALENDAR accessed by xavier.urbiola
+[10/May/2019 20:17:35] INFO [ce_availability.views:205] VIEWS.PY: CALENDAR accessed by xavier.urbiola
+[10/May/2019 20:24:54] INFO [ce_availability.views:205] VIEWS.PY: CALENDAR accessed by xavier.urbiola
+[10/May/2019 20:25:22] INFO [ce_availability.views:205] VIEWS.PY: CALENDAR accessed by albert.ribes
+[10/May/2019 20:25:29] INFO [ce_availability.views:205] VIEWS.PY: CALENDAR accessed by albert.ribes
+[10/May/2019 20:26:12] INFO [ce_availability.views:205] VIEWS.PY: CALENDAR accessed by albert.ribes
+[10/May/2019 20:26:23] INFO [ce_availability.views:205] VIEWS.PY: CALENDAR accessed by albert.ribes
+[10/May/2019 20:27:52] INFO [ce_availability.views:205] VIEWS.PY: CALENDAR accessed by xavier.urbiola
+[18/May/2019 09:09:30] INFO [ce_availability.views:792] VIEWS.PY: new REGISTER inserted by albert.ribes
+[18/May/2019 09:10:18] INFO [ce_availability.views:908] VIEWS.PY: new REGISTER inserted by albert.ribes
+[18/May/2019 09:10:18] INFO [ce_availability.views:908] VIEWS.PY: new REGISTER inserted by albert.ribes
+[18/May/2019 09:10:18] INFO [ce_availability.views:908] VIEWS.PY: new REGISTER inserted by albert.ribes
+[18/May/2019 09:10:20] INFO [ce_availability.views:205] VIEWS.PY: CALENDAR accessed by albert.ribes
+[18/May/2019 09:10:46] INFO [ce_availability.views:908] VIEWS.PY: new REGISTER inserted by albert.ribes
+[18/May/2019 09:11:03] INFO [ce_availability.views:205] VIEWS.PY: CALENDAR accessed by albert.ribes
+[18/May/2019 09:19:15] INFO [ce_availability.views:83] VIEWS.PY: LIST accessed by albert.ribes
+[18/May/2019 09:21:35] INFO [ce_availability.views:908] VIEWS.PY: new REGISTER inserted by albert.ribes
+[18/May/2019 09:21:35] INFO [ce_availability.views:908] VIEWS.PY: new REGISTER inserted by albert.ribes
+[18/May/2019 09:21:35] INFO [ce_availability.views:908] VIEWS.PY: new REGISTER inserted by albert.ribes
+[18/May/2019 09:21:35] INFO [ce_availability.views:908] VIEWS.PY: new REGISTER inserted by albert.ribes
+[18/May/2019 09:21:38] INFO [ce_availability.views:205] VIEWS.PY: CALENDAR accessed by albert.ribes
+[18/May/2019 09:22:06] INFO [ce_availability.views:784] VIEWS.PY: new REGISTER inserted by albert.ribes
+[18/May/2019 09:22:09] INFO [ce_availability.views:205] VIEWS.PY: CALENDAR accessed by albert.ribes
+[18/May/2019 09:23:52] INFO [ce_availability.views:205] VIEWS.PY: CALENDAR accessed by albert.ribes
+[18/May/2019 09:25:02] INFO [ce_availability.views:205] VIEWS.PY: CALENDAR accessed by albert.ribes
+[18/May/2019 09:26:38] INFO [ce_availability.views:205] VIEWS.PY: CALENDAR accessed by albert.ribes
+[18/May/2019 09:28:09] INFO [ce_availability.views:205] VIEWS.PY: CALENDAR accessed by albert.ribes
+[18/May/2019 09:28:21] INFO [ce_availability.views:205] VIEWS.PY: CALENDAR accessed by albert.ribes
+[18/May/2019 09:28:26] INFO [ce_availability.views:205] VIEWS.PY: CALENDAR accessed by albert.ribes
+[18/May/2019 09:28:50] INFO [ce_availability.views:908] VIEWS.PY: new REGISTER inserted by albert.ribes
+[18/May/2019 09:28:50] INFO [ce_availability.views:908] VIEWS.PY: new REGISTER inserted by albert.ribes
+[18/May/2019 09:28:50] INFO [ce_availability.views:908] VIEWS.PY: new REGISTER inserted by albert.ribes
+[18/May/2019 09:28:50] INFO [ce_availability.views:908] VIEWS.PY: new REGISTER inserted by albert.ribes
+[18/May/2019 09:28:50] INFO [ce_availability.views:908] VIEWS.PY: new REGISTER inserted by albert.ribes
+[18/May/2019 09:28:50] INFO [ce_availability.views:908] VIEWS.PY: new REGISTER inserted by albert.ribes
+[18/May/2019 09:28:51] INFO [ce_availability.views:205] VIEWS.PY: CALENDAR accessed by albert.ribes
+[18/May/2019 09:28:55] INFO [ce_availability.views:205] VIEWS.PY: CALENDAR accessed by albert.ribes
+[18/May/2019 09:28:57] INFO [ce_availability.views:205] VIEWS.PY: CALENDAR accessed by albert.ribes
+[18/May/2019 09:29:28] INFO [ce_availability.views:205] VIEWS.PY: CALENDAR accessed by albert.ribes
+[18/May/2019 09:29:28] INFO [ce_availability.views:205] VIEWS.PY: CALENDAR accessed by albert.ribes
+[18/May/2019 09:29:49] INFO [ce_availability.views:784] VIEWS.PY: new REGISTER inserted by albert.ribes
+[18/May/2019 09:29:54] INFO [ce_availability.views:205] VIEWS.PY: CALENDAR accessed by albert.ribes
+[18/May/2019 09:58:14] INFO [ce_availability.views:892] VIEWS.PY: new REGISTER inserted by albert.ribes
+[18/May/2019 09:58:14] INFO [ce_availability.views:892] VIEWS.PY: new REGISTER inserted by albert.ribes
+[18/May/2019 09:58:14] INFO [ce_availability.views:892] VIEWS.PY: new REGISTER inserted by albert.ribes
+[18/May/2019 09:58:14] INFO [ce_availability.views:892] VIEWS.PY: new REGISTER inserted by albert.ribes
+[18/May/2019 09:58:14] INFO [ce_availability.views:892] VIEWS.PY: new REGISTER inserted by albert.ribes
+[18/May/2019 09:58:23] INFO [ce_availability.views:205] VIEWS.PY: CALENDAR accessed by albert.ribes
+[18/May/2019 09:59:20] INFO [ce_availability.views:892] VIEWS.PY: new REGISTER inserted by albert.ribes
+[18/May/2019 09:59:20] INFO [ce_availability.views:892] VIEWS.PY: new REGISTER inserted by albert.ribes
+[18/May/2019 09:59:20] INFO [ce_availability.views:892] VIEWS.PY: new REGISTER inserted by albert.ribes
+[18/May/2019 09:59:20] INFO [ce_availability.views:892] VIEWS.PY: new REGISTER inserted by albert.ribes
+[18/May/2019 09:59:20] INFO [ce_availability.views:892] VIEWS.PY: new REGISTER inserted by albert.ribes
+[18/May/2019 09:59:23] INFO [ce_availability.views:205] VIEWS.PY: CALENDAR accessed by albert.ribes
+[18/May/2019 10:00:47] INFO [ce_availability.views:205] VIEWS.PY: CALENDAR accessed by xavier.urbiola
+[18/May/2019 10:01:13] INFO [ce_availability.views:205] VIEWS.PY: CALENDAR accessed by xavier.urbiola
+[18/May/2019 10:02:02] INFO [ce_availability.views:205] VIEWS.PY: CALENDAR accessed by xavier.urbiola
+[18/May/2019 10:02:40] INFO [ce_availability.views:205] VIEWS.PY: CALENDAR accessed by xavier.urbiola
+[18/May/2019 10:03:22] INFO [ce_availability.views:205] VIEWS.PY: CALENDAR accessed by xavier.urbiola
+[18/May/2019 10:03:56] INFO [ce_availability.views:205] VIEWS.PY: CALENDAR accessed by xavier.urbiola
+[18/May/2019 10:12:50] INFO [ce_availability.views:205] VIEWS.PY: CALENDAR accessed by xavier.urbiola
+[18/May/2019 10:12:59] INFO [ce_availability.views:205] VIEWS.PY: CALENDAR accessed by xavier.urbiola
+[18/May/2019 10:13:35] INFO [ce_availability.views:836] VIEWS.PY: new REGISTER inserted by xavier.urbiola
+[18/May/2019 10:13:35] INFO [ce_availability.views:865] VIEWS.PY: new REGISTER inserted by xavier.urbiola
+[18/May/2019 10:13:35] INFO [ce_availability.views:836] VIEWS.PY: new REGISTER inserted by xavier.urbiola
+[18/May/2019 10:13:35] INFO [ce_availability.views:836] VIEWS.PY: new REGISTER inserted by xavier.urbiola
+[18/May/2019 10:13:43] INFO [ce_availability.views:205] VIEWS.PY: CALENDAR accessed by xavier.urbiola
+[18/May/2019 10:13:52] INFO [ce_availability.views:205] VIEWS.PY: CALENDAR accessed by xavier.urbiola
+[18/May/2019 10:14:25] INFO [ce_availability.views:851] VIEWS.PY: new REGISTER inserted by xavier.urbiola
+[18/May/2019 10:14:25] INFO [ce_availability.views:851] VIEWS.PY: new REGISTER inserted by xavier.urbiola
+[18/May/2019 10:14:25] INFO [ce_availability.views:851] VIEWS.PY: new REGISTER inserted by xavier.urbiola
+[18/May/2019 10:14:27] INFO [ce_availability.views:205] VIEWS.PY: CALENDAR accessed by xavier.urbiola
+[18/May/2019 10:15:58] INFO [ce_availability.views:851] VIEWS.PY: new REGISTER inserted by xavier.urbiola
+[18/May/2019 10:15:58] INFO [ce_availability.views:851] VIEWS.PY: new REGISTER inserted by xavier.urbiola
+[18/May/2019 10:15:58] INFO [ce_availability.views:865] VIEWS.PY: new REGISTER inserted by xavier.urbiola
+[18/May/2019 10:15:58] INFO [ce_availability.views:851] VIEWS.PY: new REGISTER inserted by xavier.urbiola
+[18/May/2019 10:16:00] INFO [ce_availability.views:205] VIEWS.PY: CALENDAR accessed by xavier.urbiola
+[18/May/2019 10:16:50] INFO [ce_availability.views:892] VIEWS.PY: new REGISTER inserted by xavier.urbiola
+[18/May/2019 10:16:50] INFO [ce_availability.views:892] VIEWS.PY: new REGISTER inserted by xavier.urbiola
+[18/May/2019 10:16:52] INFO [ce_availability.views:205] VIEWS.PY: CALENDAR accessed by xavier.urbiola
+[18/May/2019 10:18:54] INFO [ce_availability.views:205] VIEWS.PY: CALENDAR accessed by xavier.urbiola
+[18/May/2019 10:19:39] INFO [ce_availability.views:205] VIEWS.PY: CALENDAR accessed by xavier.urbiola
+[18/May/2019 10:19:45] INFO [ce_availability.views:892] VIEWS.PY: new REGISTER inserted by xavier.urbiola
+[18/May/2019 10:19:46] INFO [ce_availability.views:892] VIEWS.PY: new REGISTER inserted by xavier.urbiola
+[18/May/2019 10:19:46] INFO [ce_availability.views:892] VIEWS.PY: new REGISTER inserted by xavier.urbiola
+[18/May/2019 10:19:46] INFO [ce_availability.views:892] VIEWS.PY: new REGISTER inserted by xavier.urbiola
+[18/May/2019 10:20:08] INFO [ce_availability.views:205] VIEWS.PY: CALENDAR accessed by xavier.urbiola
+[18/May/2019 10:23:38] INFO [ce_availability.views:205] VIEWS.PY: CALENDAR accessed by xavier.urbiola
+[18/May/2019 10:24:01] INFO [ce_availability.views:836] VIEWS.PY: new REGISTER inserted by xavier.urbiola
+[18/May/2019 10:24:01] INFO [ce_availability.views:865] VIEWS.PY: new REGISTER inserted by xavier.urbiola
+[18/May/2019 10:24:01] INFO [ce_availability.views:836] VIEWS.PY: new REGISTER inserted by xavier.urbiola
+[18/May/2019 10:24:04] INFO [ce_availability.views:205] VIEWS.PY: CALENDAR accessed by xavier.urbiola
+[18/May/2019 10:24:20] INFO [ce_availability.views:205] VIEWS.PY: CALENDAR accessed by xavier.urbiola
+[18/May/2019 10:24:46] INFO [ce_availability.views:664] VIEWS.PY: new EVENT inserted by xavier.urbiola
+[18/May/2019 10:27:46] INFO [ce_availability.views:205] VIEWS.PY: CALENDAR accessed by xavier.urbiola
+[18/May/2019 10:33:56] INFO [ce_availability.views:911] VIEWS.PY: new REGISTER inserted by xavier.urbiola
+[18/May/2019 10:33:56] INFO [ce_availability.views:911] VIEWS.PY: new REGISTER inserted by xavier.urbiola
+[18/May/2019 10:33:56] INFO [ce_availability.views:911] VIEWS.PY: new REGISTER inserted by xavier.urbiola
+[18/May/2019 10:33:56] INFO [ce_availability.views:911] VIEWS.PY: new REGISTER inserted by xavier.urbiola
+[18/May/2019 10:33:56] INFO [ce_availability.views:911] VIEWS.PY: new REGISTER inserted by xavier.urbiola
+[18/May/2019 10:33:56] INFO [ce_availability.views:911] VIEWS.PY: new REGISTER inserted by xavier.urbiola
+[18/May/2019 10:33:56] INFO [ce_availability.views:911] VIEWS.PY: new REGISTER inserted by xavier.urbiola
+[18/May/2019 10:34:10] INFO [ce_availability.views:205] VIEWS.PY: CALENDAR accessed by xavier.urbiola
+[18/May/2019 10:34:16] INFO [ce_availability.views:205] VIEWS.PY: CALENDAR accessed by xavier.urbiola
+[18/May/2019 10:34:17] INFO [ce_availability.views:205] VIEWS.PY: CALENDAR accessed by xavier.urbiola
+[18/May/2019 10:35:55] INFO [ce_availability.views:205] VIEWS.PY: CALENDAR accessed by xavier.urbiola
+[18/May/2019 10:36:04] INFO [ce_availability.views:911] VIEWS.PY: new REGISTER inserted by xavier.urbiola
+[18/May/2019 10:36:04] INFO [ce_availability.views:911] VIEWS.PY: new REGISTER inserted by xavier.urbiola
+[18/May/2019 10:36:04] INFO [ce_availability.views:911] VIEWS.PY: new REGISTER inserted by xavier.urbiola
+[18/May/2019 10:36:04] INFO [ce_availability.views:911] VIEWS.PY: new REGISTER inserted by xavier.urbiola
+[18/May/2019 10:36:04] INFO [ce_availability.views:911] VIEWS.PY: new REGISTER inserted by xavier.urbiola
+[18/May/2019 10:36:07] INFO [ce_availability.views:205] VIEWS.PY: CALENDAR accessed by xavier.urbiola
+[18/May/2019 10:36:14] INFO [ce_availability.views:205] VIEWS.PY: CALENDAR accessed by xavier.urbiola
+[18/May/2019 10:36:15] INFO [ce_availability.views:205] VIEWS.PY: CALENDAR accessed by xavier.urbiola
+[18/May/2019 10:38:51] INFO [ce_availability.views:664] VIEWS.PY: new EVENT inserted by xavier.urbiola
+[18/May/2019 10:39:00] INFO [ce_availability.views:205] VIEWS.PY: CALENDAR accessed by xavier.urbiola
+[18/May/2019 10:39:32] INFO [ce_availability.views:851] VIEWS.PY: new REGISTER inserted by xavier.urbiola
+[18/May/2019 10:39:32] INFO [ce_availability.views:865] VIEWS.PY: new REGISTER inserted by xavier.urbiola
+[18/May/2019 10:39:32] INFO [ce_availability.views:836] VIEWS.PY: new REGISTER inserted by xavier.urbiola
+[18/May/2019 10:39:32] INFO [ce_availability.views:851] VIEWS.PY: new REGISTER inserted by xavier.urbiola
+[18/May/2019 10:39:34] INFO [ce_availability.views:205] VIEWS.PY: CALENDAR accessed by xavier.urbiola
+[18/May/2019 10:41:02] INFO [ce_availability.views:83] VIEWS.PY: LIST accessed by xavier.urbiola
+[18/May/2019 10:41:34] INFO [ce_availability.views:83] VIEWS.PY: LIST accessed by xavier.urbiola
+[18/May/2019 10:43:39] INFO [ce_availability.views:205] VIEWS.PY: CALENDAR accessed by xavier.urbiola
+[18/May/2019 10:43:46] INFO [ce_availability.views:205] VIEWS.PY: CALENDAR accessed by xavier.urbiola
+[18/May/2019 10:43:47] INFO [ce_availability.views:205] VIEWS.PY: CALENDAR accessed by xavier.urbiola
+[18/May/2019 10:44:11] INFO [ce_availability.views:911] VIEWS.PY: new REGISTER inserted by xavier.urbiola
+[18/May/2019 10:44:11] INFO [ce_availability.views:911] VIEWS.PY: new REGISTER inserted by xavier.urbiola
+[18/May/2019 10:44:11] INFO [ce_availability.views:911] VIEWS.PY: new REGISTER inserted by xavier.urbiola
+[18/May/2019 10:44:11] INFO [ce_availability.views:911] VIEWS.PY: new REGISTER inserted by xavier.urbiola
+[18/May/2019 10:44:11] INFO [ce_availability.views:911] VIEWS.PY: new REGISTER inserted by xavier.urbiola
+[18/May/2019 10:44:16] INFO [ce_availability.views:205] VIEWS.PY: CALENDAR accessed by xavier.urbiola

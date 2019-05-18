@@ -212,7 +212,6 @@ def calendar_filter(request, location, mode, year, month):
     #print(initial)
     
     #print(user.employee.location)
-    
 
     if (int(month)>12):
         return HttpResponseRedirect("/ce_availability/calendar/")
@@ -263,8 +262,8 @@ def calendar_filter(request, location, mode, year, month):
     for day in month_range:
         if(5==day_week or day_week==6):
             day_of_week[day]="Weekend"
-        #elif(day_week==4):
-            #day_of_week[day]="Intensive"
+        elif(day_week==4):
+            day_of_week[day]="Intensive"
         else:
             day_of_week[day]="WorkingDay"
         if (day_week==6):
@@ -705,41 +704,25 @@ def insert_register(request):
                 register = form.save(commit=False)
                 register.createdby_id = user.id
                 register.user_id = int(ce)
-                register.save()
-                log.info("VIEWS.PY: new REGISTER inserted by " + user.username)
-                result=True
-                data = {
-                    'result':result,
-                    'id': register.id
-                }
-                return render(request, 'ce_availability/insert_post.html', data)
-            elif (str(form.cleaned_data.get('hidden_type_date_input', None))=="range_date"):
-                id=""
-                result=False
-                start_date = form.cleaned_data.get('start_date')
-                end_date = form.cleaned_data.get('end_date')
-                delta_range = end_date - start_date
-                calendar_events = CalendarEvent.objects.filter(start_date__lte=end_date).filter(end_date__gte=start_date).filter(location=user.employee.location).order_by('start_date')
-                for i in range(delta_range.days + 1):
-                    day_range = start_date + timedelta(days=i)
-                    dayofweek=day_range.weekday()
-                    #print("############ DAY=" + str(day_range) + ", dayofweek: " + str(dayofweek))
+                if (form.cleaned_data.get('hidden_type_hours_input', None)=="whole_day"):
+                    hours = 6
+                    register.hours = hours
+                    dayofweek=register.date.weekday()
+                    #print("dayofweek:" + str(dayofweek))
+                    #print(register.date)
+                    calendar_events = CalendarEvent.objects.filter(start_date__lte=register.date).filter(end_date__gte=register.date).filter(location=user.employee.location)
+                    #print(calendar_events)
                     """
-                    if(dayofweek==4):
-                        print("Friday")
-                    elif(5<=dayofweek<=6):
-                        print("Weekend")
-                    else:
-                        print("WorkingDay")
+                    for event in calendar_events:
+                        print(event)
                     """
                     day_with_event = "None"
                     if calendar_events:
                         for event in calendar_events:
-                            #print(event)
                             delta_events = event.end_date - event.start_date
                             for j in range(delta_events.days + 1):
                                 day_event = event.start_date + timedelta(days=j)
-                                if (day_range==day_event):
+                                if (register.date==day_event):
                                     #print("-kindofday=" + str(event.kindofday))
                                     if(str(event.kindofday)=="Intensive"):
                                         day_with_event = "Intensive"
@@ -748,24 +731,102 @@ def insert_register(request):
                                         #print("Festive")
                                         day_with_event = "Festive"
                     if(day_with_event == "Intensive" and 0<=dayofweek<=3):
-                        register = Register()
-                        register.unavailability_id = form.cleaned_data.get('unavailability', None).id
+                        #register = Register()
+                        #register.unavailability_id = form.cleaned_data.get('unavailability', None).id
                         register.hours = KindOfDay.objects.filter(kindofday="Intensive").values_list('laborablehours', flat=True).get()
-                        register.comments = form.cleaned_data.get('comments', None)
-                        register.date = day_range
-                        register.created_date = timezone.now()#datetime.now()
-                        register.createdby_id = user.id
-                        register.user_id = int(ce)
+                        #register.comments = form.cleaned_data.get('comments', None)
+                        #register.date = day_range
+                        #register.created_date = timezone.now()#datetime.now()
+                        #register.createdby_id = user.id
+                        #register.user_id = int(ce)
+                        #register.save()
+                        #log.info("VIEWS.PY: new REGISTER inserted by " + user.username)
+                        result=True
+                        id = str(register.id)
                         register.save()
                         log.info("VIEWS.PY: new REGISTER inserted by " + user.username)
                         result=True
-                        id = id + ", " + str(register.id)
+                        data = {
+                            'result':result,
+                            'id': register.id
+                        }
                         #print(">New insert: ID=" + str(register.id) +",Unavailability="+ str(register.unavailability_id) +",hours="+ str(register.hours) +",comments"+ str(register.comments) +",date="+ str(register.date) +",created_date="+ str(register.created_date) +",user_id="+ str(register.user_id))
                     elif(day_with_event!="Festive"):
                         if(0<=dayofweek<=3):
+                            #register = Register()
+                            #register.unavailability_id = form.cleaned_data.get('unavailability', None).id
+                            register.hours = KindOfDay.objects.filter(kindofday="WorkingDay").values_list('laborablehours', flat=True).get()
+                            #register.comments = form.cleaned_data.get('comments', None)
+                            #register.date = day_range
+                            #register.created_date = timezone.now()#datetime.now()
+                            #register.createdby_id = user.id
+                            #register.user_id = int(ce)
+                            #register.save()
+                            #log.info("VIEWS.PY: new REGISTER inserted by " + user.username)
+                            result=True
+                            id = str(register.id)
+                            #print(">New insert: ID=" + str(register.id) +",Unavailability="+ str(register.unavailability_id) +",hours="+ str(register.hours) +",comments"+ str(register.comments) +",date="+ str(register.date) +",created_date="+ str(register.created_date) +",user_id="+ str(register.user_id))
+                        elif(dayofweek==4):
+                            #register = Register()
+                            #register.unavailability_id = form.cleaned_data.get('unavailability', None).id
+                            register.hours = KindOfDay.objects.filter(kindofday="Intensive").values_list('laborablehours', flat=True).get()
+                            #register.comments = form.cleaned_data.get('comments', None)
+                            #register.date = day_range
+                            #register.created_date = timezone.now()#datetime.now()
+                            #register.createdby_id = user.id
+                            #register.user_id = int(ce)
+                            #register.save()
+                            #log.info("VIEWS.PY: new REGISTER inserted by " + user.username)
+                            result=True
+                            id = str(register.id)
+                            #print(">New insert: ID=" + str(register.id) +",Unavailability="+ str(register.unavailability_id) +",hours="+ str(register.hours) +",comments"+ str(register.comments) +",date="+ str(register.date) +",created_date="+ str(register.created_date) +",user_id="+ str(register.user_id))
+                        register.save()
+                        log.info("VIEWS.PY: new REGISTER inserted by " + user.username)
+                        result=True
+                        data = {
+                            'result':result,
+                            'id': register.id
+                        }
+                else:
+                    register.save()
+                    log.info("VIEWS.PY: new REGISTER inserted by " + user.username)
+                    result=True
+                    data = {
+                        'result':result,
+                        'id': register.id
+                    }
+                return render(request, 'ce_availability/insert_post.html', data)
+            elif (str(form.cleaned_data.get('hidden_type_date_input', None))=="range_date"):
+                if (form.cleaned_data.get('hidden_type_hours_input', None)=="whole_day"):
+                    id=""
+                    result=False
+                    start_date = form.cleaned_data.get('start_date')
+                    end_date = form.cleaned_data.get('end_date')
+                    delta_range = end_date - start_date
+                    calendar_events = CalendarEvent.objects.filter(start_date__lte=end_date).filter(end_date__gte=start_date).filter(location=user.employee.location).order_by('start_date')
+                    for i in range(delta_range.days + 1):
+                        day_range = start_date + timedelta(days=i)
+                        dayofweek=day_range.weekday()
+                        #print("############ DAY=" + str(day_range) + ", dayofweek: " + str(dayofweek))
+                        day_with_event = "None"
+                        if calendar_events:
+                            for event in calendar_events:
+                                #print(event)
+                                delta_events = event.end_date - event.start_date
+                                for j in range(delta_events.days + 1):
+                                    day_event = event.start_date + timedelta(days=j)
+                                    if (day_range==day_event):
+                                        #print("-kindofday=" + str(event.kindofday))
+                                        if(str(event.kindofday)=="Intensive"):
+                                            day_with_event = "Intensive"
+                                            #print("Intensive")
+                                        elif(str(event.kindofday)=="Festive"):
+                                            #print("Festive")
+                                            day_with_event = "Festive"
+                        if(day_with_event == "Intensive" and 0<=dayofweek<=3):
                             register = Register()
                             register.unavailability_id = form.cleaned_data.get('unavailability', None).id
-                            register.hours = KindOfDay.objects.filter(kindofday="WorkingDay").values_list('laborablehours', flat=True).get()
+                            register.hours = KindOfDay.objects.filter(kindofday="Intensive").values_list('laborablehours', flat=True).get()
                             register.comments = form.cleaned_data.get('comments', None)
                             register.date = day_range
                             register.created_date = timezone.now()#datetime.now()
@@ -776,10 +837,71 @@ def insert_register(request):
                             result=True
                             id = id + ", " + str(register.id)
                             #print(">New insert: ID=" + str(register.id) +",Unavailability="+ str(register.unavailability_id) +",hours="+ str(register.hours) +",comments"+ str(register.comments) +",date="+ str(register.date) +",created_date="+ str(register.created_date) +",user_id="+ str(register.user_id))
-                        elif(dayofweek==4):
+                        elif(day_with_event!="Festive"):
+                            if(0<=dayofweek<=3):
+                                register = Register()
+                                register.unavailability_id = form.cleaned_data.get('unavailability', None).id
+                                register.hours = KindOfDay.objects.filter(kindofday="WorkingDay").values_list('laborablehours', flat=True).get()
+                                register.comments = form.cleaned_data.get('comments', None)
+                                register.date = day_range
+                                register.created_date = timezone.now()#datetime.now()
+                                register.createdby_id = user.id
+                                register.user_id = int(ce)
+                                register.save()
+                                log.info("VIEWS.PY: new REGISTER inserted by " + user.username)
+                                result=True
+                                id = id + ", " + str(register.id)
+                                #print(">New insert: ID=" + str(register.id) +",Unavailability="+ str(register.unavailability_id) +",hours="+ str(register.hours) +",comments"+ str(register.comments) +",date="+ str(register.date) +",created_date="+ str(register.created_date) +",user_id="+ str(register.user_id))
+                            elif(dayofweek==4):
+                                register = Register()
+                                register.unavailability_id = form.cleaned_data.get('unavailability', None).id
+                                register.hours = KindOfDay.objects.filter(kindofday="Intensive").values_list('laborablehours', flat=True).get()
+                                register.comments = form.cleaned_data.get('comments', None)
+                                register.date = day_range
+                                register.created_date = timezone.now()#datetime.now()
+                                register.createdby_id = user.id
+                                register.user_id = int(ce)
+                                register.save()
+                                log.info("VIEWS.PY: new REGISTER inserted by " + user.username)
+                                result=True
+                                id = id + ", " + str(register.id)
+                                #print(">New insert: ID=" + str(register.id) +",Unavailability="+ str(register.unavailability_id) +",hours="+ str(register.hours) +",comments"+ str(register.comments) +",date="+ str(register.date) +",created_date="+ str(register.created_date) +",user_id="+ str(register.user_id))
+                elif (form.cleaned_data.get('hidden_type_hours_input', None)=="insert"):
+                    #print("insert")
+                    id=""
+                    result=False
+                    start_date = form.cleaned_data.get('start_date')
+                    end_date = form.cleaned_data.get('end_date')
+                    delta_range = end_date - start_date
+                    calendar_events = CalendarEvent.objects.filter(start_date__lte=end_date).filter(end_date__gte=start_date).filter(location=user.employee.location).order_by('start_date')
+                    for i in range(delta_range.days + 1):
+                        day_range = start_date + timedelta(days=i)
+                        dayofweek=day_range.weekday()
+                        #print("############ DAY=" + str(day_range) + ", dayofweek: " + str(dayofweek))
+                        day_with_event = "None"
+                        if calendar_events:
+                            for event in calendar_events:
+                                #print(event)
+                                delta_events = event.end_date - event.start_date
+                                for j in range(delta_events.days + 1):
+                                    day_event = event.start_date + timedelta(days=j)
+                                    if (day_range==day_event):
+                                        #print("-kindofday=" + str(event.kindofday))
+                                        if(str(event.kindofday)=="Intensive"):
+                                            day_with_event = "Intensive"
+                                            #print("Intensive")
+                                        elif(str(event.kindofday)=="Festive"):
+                                            #print("Festive")
+                                            day_with_event = "Festive"
+                    for i in range(delta_range.days + 1):
+                        day_range = start_date + timedelta(days=i)
+                        dayofweek=day_range.weekday()
+                        #print("############ DAY=" + str(day_range) + ", dayofweek: " + str(dayofweek))
+                        day_with_event = "None"
+                        if((day_with_event!="Festive" or day_with_event=="") & 0<=dayofweek<=4):
                             register = Register()
                             register.unavailability_id = form.cleaned_data.get('unavailability', None).id
-                            register.hours = KindOfDay.objects.filter(kindofday="Intensive").values_list('laborablehours', flat=True).get()
+                            register.hours = form.cleaned_data.get('hours', None)
                             register.comments = form.cleaned_data.get('comments', None)
                             register.date = day_range
                             register.created_date = timezone.now()#datetime.now()

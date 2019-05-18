@@ -121,31 +121,31 @@ h2{
 }
 
 #id_ce_selector{
-    margin-left: 4px;
+
     margin-right: 10px;
 }
 
 #id_unavailability_selector{
-    margin-left: 4px;
+
     margin-right: 10px;
 }
 
 #id_category_selector{
-    margin-left: 4px;
+
     margin-right: 10px;
 }
 
 #id_year_selector{
-    margin-left: 4px;
+
     margin-right: 10px;
 }
  
 #id_month_selector{
-    margin-left: 4px;
+
     margin-right: 10px;
 }
 #id_week_selector{
-    margin-left: 4px;
+
     margin-right: 10px;
 }
 
@@ -175,12 +175,13 @@ button.submit-button{
 }
 
 #id_location_selector{
-    margin-left: 4px;
+
     margin-right: 10px;
 }
 
 
 .calendar_filter_form{
+	padding-top: 10px;
     margin-top: 10px;
     margin-bottom: 20px;
     margin-right: 10px;
@@ -214,19 +215,58 @@ table.table_calendar {
     border: 1px solid #000000;
     width: 1000px;
     table-layout:fixed;
-    	margin-top: 10px;
+    margin-top: 10px;
+    overflow: hidden;
+	z-index: 1;
+
 }
+
+table.table_calendar td, table.table_calendar th {
+    cursor: pointer;
+    position: relative;
+}
+
+
+table.table_calendar td:hover:before, .row:hover:before { 
+    background-color: #ffa;
+    content: '\00a0';  
+    height: 100%;
+    left: -5000px;
+    position: absolute;  
+    top: 0;
+    width: 10000px;   
+    z-index: -1;        
+}
+
+table.table_calendar td:hover:after, .col:hover:after { 
+    background-color: #ffa;
+    content: '\00a0';  
+    height: 10000px;    
+    left: 0;
+    position: absolute;  
+    top: -5000px;
+    width: 100%;
+    z-index: -1;        
+}
+
+
+table.table_calendar tr:hover {
+    font-weight: normal;
+    background-color: #fffeb3;
+}
+
 /*
 table.table_calendar tr:nth-child(odd) {
     font-weight: normal;
     background-color: #eeeeee;
 }
 */
-
+/*
 table.table_calendar tr:nth-child(odd):hover,  tr:nth-child(odd).selected {
     font-weight: normal;
     background-color: #fffeb3;
 }
+*/
 /*
 table.table_calendar tr:first-child th{
     font-weight: bold;
@@ -266,12 +306,14 @@ table.table_calendar th.location_header {
     padding-left: 8px;
 	background: #00bcd4;
 }
+/*
 table.table_calendar th.ce_header:hover {
     width:220px;
     border: 1px solid #000000;
     padding-left: 8px;
 	background: #9e9e9e54;
 }
+*/
 
 table.table_calendar td.ce {
     width:220px;
@@ -326,13 +368,13 @@ table.table_calendar td.total_percentage_hours {
 }
 
 table.table_calendar th.day {
-    width:34px;
+    width:34x;
     border: 1px solid #000000;
     text-align: center;
 }
 
 table.table_calendar th.day_weekend {
-    width:34px;
+    width:34x;
     border: 1px solid #000000;
     text-align: center;
     background: green;
@@ -340,14 +382,14 @@ table.table_calendar th.day_weekend {
 }
 
 table.table_calendar td.day_weekend_soft {
-    width:34px;
+    width:34x;
     border: 1px solid #000000;
     text-align: center;
     background: #d9d9d9;
 }
 
 table.table_calendar th.day_festive {
-    width:34px;
+    width:34x;
     border: 1px solid #000000;
     text-align: center;
     background: #669999;
@@ -355,7 +397,7 @@ table.table_calendar th.day_festive {
 }
 
 table.table_calendar td.day_festive {
-    width:34px;
+    width:34x;
     border: 1px solid #000000;
     text-align: center;
 	color:white;
@@ -364,7 +406,7 @@ table.table_calendar td.day_festive {
 
 
 table.table_calendar th.day_laborable {
-    width:34px;
+    width:34x;
     border: 1px solid #000000;
     text-align: center;
     background: #5bd75b;
@@ -374,28 +416,28 @@ table.table_calendar th.day_laborable {
 
 
 table.table_calendar th.day_intensive {
-    width:34px;
+    width:34x;
     border: 1px solid #000000;
     text-align: center;
-    background: #32cd32;
-    color: white;
+    background: #3d943d;
+    color: black;
 }
 
 table.table_calendar td.na {
-    width:34px;
+    width:34x;
     border: 1px solid #000000;
     text-align: center;
     background: #87cefa;
 }
 table.table_calendar td.medical {
-    width:34px;
+    width:34x;
     border: 1px solid #000000;
     text-align: center;
     background: #ffff00;
 }
 
 table.table_calendar td.rest {
-    width:34px;
+    width:34x;
     border: 1px solid #000000;
     color: black;
     text-align: center;
@@ -403,7 +445,7 @@ table.table_calendar td.rest {
 }
 
 table.table_calendar td.training {
-    width:34px;
+    width:34x;
     border: 1px solid #000000;
     text-align: center;
     background: #994d00;
@@ -411,7 +453,7 @@ table.table_calendar td.training {
 }
 
 table.table_calendar td.professional-tasks {
-    width:34px;
+    width:34x;
     border: 1px solid #000000;
     text-align: center;
     /*background: #994d00;*/
@@ -419,16 +461,23 @@ table.table_calendar td.professional-tasks {
 }
 
 table.table_calendar td.non-transactional {
-    width:34px;
+    width:34x;
     border: 1px solid #000000;
     text-align: center;
     background: #0066ff;
 }
 
 table.table_calendar td.non-na {
-    width:34px;
+    width:34x;
     border: 1px solid #000000;
     text-align: center;
+}
+
+table.table_calendar td.intensive {
+    width:34x;
+    border: 1px solid #000000;
+    text-align: center;
+	background: #ffe4e4;
 }
 
 table.table_calendar_ce  {
@@ -437,17 +486,39 @@ table.table_calendar_ce  {
 	/*margin-left: 24;*/
 }
 
+
 table.table_calendar_ce td  {
     width:42px;
     height: 42px;
 
     padding: 0;
 }
+
+table.table_calendar_ce td:hover {
+    font-weight: normal;
+    background-color: #fffeb3;
+}
+
 table.table_calendar_ce td.non-na {
-    width:34px;
+    width:34x;
     border: 1px solid #000000;
     vertical-align: top;
 
+    width:42px;
+	/*height: 26px;*/
+	height: 42px;
+    font-size: 15px;
+    border: 1px solid #000000;
+    text-align: center;
+    color: black;
+	vertical-align: top;
+}
+
+table.table_calendar_ce td.intensive {
+    width:34px;
+    border: 1px solid #000000;
+    vertical-align: top;
+	background: #ffe4e4;
     width:42px;
 	/*height: 26px;*/
 	height: 42px;
@@ -466,7 +537,7 @@ table.table_calendar_ce td.professional-tasks {
     border: 1px solid #000000;
     text-align: center;
 	background: #0066ff;
-    color: white;
+    color: #121217;
 	vertical-align: top;
 }
 
@@ -503,7 +574,7 @@ table.table_calendar_ce td.training {
     border: 1px solid #000000;
     text-align: center;
     background: #994d00;
-    color: white;
+    color: #f7e8e8;
 	vertical-align: top;
 }
 
@@ -516,7 +587,7 @@ table.table_calendar_ce td.rest {
     text-align: center;
     background: red;
 	padding: 0px;
-    color: white;
+    color: #f7e8e8;
 	vertical-align: top;
 }
 
@@ -529,6 +600,17 @@ table.table_calendar_ce th.day_laborable {
     border: 1px solid #000000;
     text-align: center;
     background: #5bd75b;
+    color: black;
+}
+
+table.table_calendar_ce th.day_intensive {
+    width:42px;
+	/*height: 26px;*/
+	height: 42px;
+    font-size: 15px;
+    border: 1px solid #000000;
+    text-align: center;
+    background: #3d943d;
     color: black;
 }
 
@@ -624,19 +706,19 @@ table.table_legend th.day_festive {
     color: white;
 }
 
+table.table_legend th.day_intensive {
+    width: 34px;
+    border: 1px solid #000000;
+    text-align: center;
+    background: #ffe4e4;
+    color: black;
+}
+
 table.table_legend th.day_laborable {
     width:34px;
     border: 1px solid #000000;
     text-align: center;
     background: green;
-    color: white;
-}
-
-table.table_legend th.day_intensive {
-    width:34px;
-    border: 1px solid #000000;
-    text-align: center;
-    background: #32cd32;
     color: white;
 }
 
@@ -700,6 +782,7 @@ table.table_registers {
     width: 1000px;
     font-size: 13px;
     border: 1px solid #000000;
+    overflow: hidden;
 }
 
 /*
@@ -766,6 +849,13 @@ table.table_registers tr:nth-child(odd):hover,  tr:nth-child(odd).selected {
     font-weight: normal;
     background-color: #fffeb3;
 }
+table.table_registers tr:nth-child(even):hover,  tr:nth-child(even).selected {
+    font-weight: normal;
+    background-color: #fffeb3;
+}
+
+
+
 
 table.table_registers tr:first-child th{
     font-weight: bold;
@@ -775,9 +865,12 @@ table.table_registers tr:first-child th{
 
 /*TABLE SELECT COLOR*/
 
+/*
 tr:hover, tr.selected {
     background-color: #fffeb3;
 }
+*/
+
 td {padding: 5px;}
 
 table.table_registers a
@@ -874,6 +967,7 @@ a.list_link:active {
 #id_hours {
     width: 50px;
 }
+
 #id_date {
     width: 130px;
     height: 26px;
@@ -988,17 +1082,14 @@ a.list_link:active {
 /* CALENDAR EVENTS*/
 
 #id_location_selector{
-/*
-    margin-left: 4px;
+
     margin-right: 10px;
-*/
+
 }
 
 #id_kindofday_selector{
-/*
-    margin-left: 4px;
     margin-right: 10px;
-*/
+
 }
 
 #id_location{
@@ -1048,6 +1139,7 @@ a.list_link:active {
 
 
 .calendar_edit_form{
+	padding-top: 10px;
     margin-top: 10px;
     margin-bottom: 10px;
     border: 1px solid #ececec;
@@ -1125,10 +1217,22 @@ table.table_calendar_events tr:nth-child(odd) {
     font-weight: normal;
     background-color: #eeeeee;
 }
+
+table.table_calendar_events tr:nth-child(even) {
+    font-weight: normal;
+    background-color: white;
+}
+/*
+table.table_calendar_events tr:nth-child(even):hover,  tr:nth-child(even).selected {
+    font-weight: normal;
+    background-color: #fffeb3;
+}
+
 table.table_calendar_events tr:nth-child(odd):hover,  tr:nth-child(odd).selected {
     font-weight: normal;
     background-color: #fffeb3;
 }
+*/
 
 table.table_calendar_events tr:first-child th{
     font-weight: bold;
@@ -1138,9 +1242,12 @@ table.table_calendar_events tr:first-child th{
 
 /*TABLE SELECT COLOR*/
 
+/*
 tr:hover, tr.selected {
     background-color: #fffeb3;
 }
+*/
+
 td {padding: 5px;}
 
 table.table_calendar_events a
@@ -1148,9 +1255,12 @@ table.table_calendar_events a
     display:block;
     text-decoration:none;
 }
+/* **************************************** */
 
+/* **************************************** */
 /*LIST REGISTERS*/
 .filter_form{
+	padding-top: 10px;
     margin-top: 10px;
     margin-bottom: 10px;
     border: 1px solid #ececec;
@@ -1189,7 +1299,6 @@ table.table_calendar_events a
     text-align: center;
     width: 120px;
     height: 22px;
-    margin-top: 10px;
     margin-left: 168px;
 }
 
@@ -1220,7 +1329,7 @@ table.table_calendar_events a
     height: 20px;
     width: 340px;
     /*Comment*/
-    margin-top: 10px;
+    /*margin-top: 10px;*/
     margin-right: 10px;
     float: left;
 }
@@ -1241,7 +1350,6 @@ table.table_calendar_events a
     margin-bottom: 10px;
     /*border: 1px solid #ececec;*/
     /*background-color: #ececec;*/
-    height: 260px;
     width: 760px;
     display: block;
 }
@@ -1252,12 +1360,18 @@ table.table_calendar_events a
 
 
 /*INSERT REGISTER*/
+
+.fieldForm_insert_register{
+	height:44px;
+	clear: both;
+}
+
 .unavailability_form{
     margin-top: 20px;
     margin-left: -40px;
     /*border: 1px solid #ececec;*/
     /*background-color: #eeeeee;*/
-    height: 320px;
+    height: 345px;
     width: 680px;
 }
 
@@ -1265,20 +1379,39 @@ table.table_calendar_events a
     height: 20px;
     width: 340px;
     /*Comment*/
-    margin-top: 10px;
+    /*margin-top: 10px;*/
+    margin-right: 10px;
+    float: left;
+	margin-left: 168px;
+	margin-bottom: 10px;
+}
+
+.radio_field_day {
+    height: 20px;
+    width: 86px;
+    /*Comment*/
+    /*margin-top: 10px;*/
     margin-right: 10px;
 	margin-left: 0px;
     float: left;
 }
 .input_field_insert {
-    height: 20px;
-    width: 340px;
+    /*height: 20px;*/
+    /*width: 280px;*/
     /*Comment*/
-    margin-top: 10px;
+    /*margin-top: 10px;*/
     margin-right: 10px;
     float: left;
 }
 
+.input_field_insert_hours {
+    /*height: 20px;*/
+    /*width: 60px;*/
+    /*Comment*/
+    /*margin-top: 10px;*/
+    margin-right: 10px;
+    float: left;
+}
 .fieldwrapper{
     display: block;
     height: 40px;
@@ -1290,7 +1423,7 @@ label {
     color: #333;
     height: 20px;
     width: 140px;
-    margin-top: 10px;
+    /*margin-top: 10px;*/
     margin-left: 10px;
     text-align: right;
     clear: both;
@@ -1300,8 +1433,8 @@ label {
 
 .input_field {
     height: 20px;
-    width: 240px;
-    margin-top: 10px;
+    /*width: 240px;*/
+    /*margin-top: 10px;*/
     margin-right: 10px;
     float: left;
 }
@@ -1309,18 +1442,27 @@ label {
 .input_field_filter {
     height: 20px;
     width: 160px;
-    margin-top: 10px;
+    /*margin-top: 10px;*/
     margin-right: 10px;
     float: left;
 }
 
 
 .form_error{
-   color: red;
-   height: 20px;
-    width: 160px;
-    margin-top: 10px;
-    float: left;
+	display: block;
+	float: left;
+}
+
+
+.error_field{
+    margin-left: 120px;
+	color: red;
+	height: 20px;
+    width: 400px;
+	font-size: 12;
+    /*margin-top: 30px;*/
+	clear: both;
+	margin-left: 168px;
 }
 
 .text_error{
@@ -1339,5 +1481,19 @@ button.save.btn.btn-default{
     width: 80px;
     margin-top: 18px;
     margin-left: 126px;
+}
+
+#id_start_date {
+    width: 130px;
+    height: 22px;
+}
+
+#id_end_date {
+    width: 130px;
+    height: 22px;
+}
+#id_date {
+    width: 130px;
+    height: 22px;
 }
 
