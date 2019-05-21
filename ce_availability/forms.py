@@ -153,6 +153,10 @@ class RegisterForm(forms.ModelForm):
             end_date = self.cleaned_data.get('end_date')
             delta_range = end_date - start_date
             if(type_hours_input=="insert"):
+                #print("type_hours_input==insert")
+                if hours==None:
+                    raise forms.ValidationError({'hours': ["This field is required.",]})
+            if(type_hours_input=="insert"):
                 if(start_date>=end_date):
                     raise forms.ValidationError({'start_date': ["The Start Date cannot be the same or older than the End Date.",]})
                 if (type_hours_input == "insert"):

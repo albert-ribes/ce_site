@@ -15,10 +15,10 @@ class Category(models.Model):
 
 class Overtime(models.Model):
     overtime = models.CharField(max_length=200)
-    category = models.ForeignKey(Category, related_name='Category')
+    short_name = models.CharField(max_length=80, blank=True, null=True, default=" ")
 
     def __str__(self):
-        string = self.unavailability + " (" + str(self.category) + ")"
+        string = self.overtime 
         return string
 
 
