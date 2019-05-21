@@ -71,6 +71,11 @@ class RegisterForm(forms.ModelForm):
         """
         ce=self.cleaned_data.get('user') 
         user = User.objects.filter(id=self.user.id).get()
+        """
+        unavailability = self.cleaned_data.get('unavailability') 
+        if unavailability==None:
+            raise forms.ValidationError({'unavailability': ["This field is required.",]})
+        """
         #print("-- type_date_input: " + type_date_input + ", type_hours_input: " + type_hours_input)
         if(type_date_input=="single_date"):
             location_id=Employee.objects.filter(user_id=self.user.id).values_list('location', flat=True).get()
@@ -150,7 +155,11 @@ class RegisterForm(forms.ModelForm):
             #comprovar tipus de dia (de la setmana/jornada intensiva)
             #introduir el registre que toqui per cada dia
             start_date = self.cleaned_data.get('start_date')
+            if start_date==None:
+                raise forms.ValidationError({'start_date': ["This field is required.",]})
             end_date = self.cleaned_data.get('end_date')
+            if end_date==None:
+                raise forms.ValidationError({'end_date': ["This field is required.",]})
             delta_range = end_date - start_date
             if(type_hours_input=="insert"):
                 #print("type_hours_input==insert")

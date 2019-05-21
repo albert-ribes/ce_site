@@ -1552,3 +1552,12 @@
 [18/May/2019 10:44:16] INFO [ce_availability.views:205] VIEWS.PY: CALENDAR accessed by xavier.urbiola
 [20/May/2019 11:12:05] INFO [ce_availability.views:205] VIEWS.PY: CALENDAR accessed by xavier.urbiola
 [20/May/2019 12:53:56] INFO [ce_availability.views:205] VIEWS.PY: CALENDAR accessed by xavier.urbiola
+[21/May/2019 11:22:22] INFO [ce_availability.views:792] VIEWS.PY: new REGISTER inserted by xavier.urbiola
+[21/May/2019 11:23:05] INFO [ce_availability.views:83] VIEWS.PY: LIST accessed by xavier.urbiola
+[21/May/2019 11:23:13] INFO [ce_availability.views:83] VIEWS.PY: LIST accessed by xavier.urbiola
+[21/May/2019 11:23:13] INFO [ce_availability.views:83] VIEWS.PY: LIST accessed by xavier.urbiola
+[21/May/2019 11:24:26] INFO [ce_availability.views:911] VIEWS.PY: new REGISTER inserted by xavier.urbiola
+[21/May/2019 11:24:26] INFO [ce_availability.views:911] VIEWS.PY: new REGISTER inserted by xavier.urbiola
+[21/May/2019 11:24:26] INFO [ce_availability.views:911] VIEWS.PY: new REGISTER inserted by xavier.urbiola
+[21/May/2019 11:24:27] INFO [ce_availability.views:205] VIEWS.PY: CALENDAR accessed by xavier.urbiola
+[21/May/2019 11:24:31] INFO [ce_availability.views:83] VIEWS.PY: LIST accessed by xavier.urbiola
