@@ -2,3 +2,4 @@ db.sqlite3
 ce_site/settings.py
 /home/projects/django/ce_site/ce_availability/migrations/
 /home/projects/django/ce_site/log/
+/home/projects/django/ce_site/log/ce_site.log
