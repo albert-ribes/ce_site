@@ -124,15 +124,15 @@ class RegisterForm(forms.ModelForm):
                            raise forms.ValidationError({'hours': ["Value must be greater than 0.",]})
                         if (dayofweek==4):
                             if (sum_hours + hours > HoursIntensiveKindOfDay):
-                                raise forms.ValidationError({'hours': ["The total amount of unavailable hours cannot be greather than "+max_hours+" in that day.",]})
+                                raise forms.ValidationError({'hours': ["The total amount of unavailable hours cannot be greather than "+str(HoursIntensiveKindOfDay)+" in that day.",]})
                         if (dayofweek==5 or dayofweek==6.0):
                             raise forms.ValidationError({'date': ["No unavailabilities allowed during the weekend.",]})
                         if(kindofday=="Intensive"):
                             if (sum_hours + hours > HoursIntensiveKindOfDay):
-                                raise forms.ValidationError({'hours': ["The total amount of unavailable hours cannot be greather than "+max_hours+" in that day.",]})
+                                raise forms.ValidationError({'hours': ["The total amount of unavailable hours cannot be greather than "+str(HoursIntensiveKindOfDay)+" in that day.",]})
                         if (dayofweek>=0 and dayofweek<=3):
                             if (sum_hours + hours > HoursLaborableKindOfDay):
-                                raise forms.ValidationError({'hours': ["The total amount of unavailable hours cannot be greather than "+max_hours+" in that day.",]})
+                                raise forms.ValidationError({'hours': ["The total amount of unavailable hours cannot be greather than "+str(HoursLaborableKindOfDay)+" in that day.",]})
                 elif (type_hours_input=="whole_day"):
                     if(kindofday=="Festive"):
                         raise forms.ValidationError({'hours': ["No unavailabilities allowed during festives.",]})
@@ -203,16 +203,16 @@ class RegisterForm(forms.ModelForm):
                     if(day_with_event == "Intensive" and 0<=dayofweek<=3):
                         if (hours + sum_hours > HoursIntensiveKindOfDay):
                             #print("The sum of unavailable hours at " + str(day_range) + " is not allowed (>7h).")
-                            raise forms.ValidationError({'hours': ["The sum of unavailable hours at " + str(day_range) + " is not allowed (>7h).",]})
+                            raise forms.ValidationError({'hours': ["The sum of unavailable hours at " + str(day_range) + " is not allowed (>"+str(HoursIntensiveKindOfDay)+"h).",]})
                     elif(day_with_event!="Festive"):
                         if(0<=dayofweek<=3):
                             if (hours + sum_hours > HoursLaborableKindOfDay):
                                 #print("The sum of unavailable hours at " + str(day_range) + " is not allowed (>8.5h).")
-                                raise forms.ValidationError({'hours': ["The sum of unavailable hours at " + str(day_range) + " is not allowed (>8.5h).",]})
+                                raise forms.ValidationError({'hours': ["The sum of unavailable hours at " + str(day_range) + " is not allowed (>"+str(HoursLaborableKindOfDay)+"h).",]})
                         elif(dayofweek==4):
                             if (hours + sum_hours > HoursIntensiveKindOfDay):
                                 #print("The sum of unavailable hours at " + str(day_range) + " is not allowed (>7h).")
-                                raise forms.ValidationError({'hours': ["The sum of unavailable hours at " + str(day_range) + " is not allowed (>7h).",]})
+                                raise forms.ValidationError({'hours': ["The sum of unavailable hours at " + str(day_range) + " is not allowed (>7"+str(HoursIntensiveKindOfDay)+"h).",]})
             elif (type_hours_input=="whole_day"):
                 delta_range = end_date - start_date
                 registers = Register.objects.filter(date__gte=start_date).filter(date__lte=end_date).filter(user__username=ce)
