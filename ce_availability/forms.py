@@ -124,15 +124,15 @@ class RegisterForm(forms.ModelForm):
                            raise forms.ValidationError({'hours': ["Value must be greater than 0.",]})
                         if (dayofweek==4):
                             if (sum_hours + hours > HoursIntensiveKindOfDay):
-                                raise forms.ValidationError({'hours': ["The total amount of unavailable hours cannot be greather than "+str(HoursIntensiveKindOfDay)+" in that day.",]})
+                                raise forms.ValidationError({'hours': ["The total amount of unavailable hours cannot be greather than "+str(HoursIntensiveKindOfDay)+"h.",]})
                         if (dayofweek==5 or dayofweek==6.0):
                             raise forms.ValidationError({'date': ["No unavailabilities allowed during the weekend.",]})
                         if(kindofday=="Intensive"):
                             if (sum_hours + hours > HoursIntensiveKindOfDay):
-                                raise forms.ValidationError({'hours': ["The total amount of unavailable hours cannot be greather than "+str(HoursIntensiveKindOfDay)+" in that day.",]})
+                                raise forms.ValidationError({'hours': ["The total amount of unavailable hours cannot be greather than "+str(HoursIntensiveKindOfDay)+"h.",]})
                         if (dayofweek>=0 and dayofweek<=3):
                             if (sum_hours + hours > HoursLaborableKindOfDay):
-                                raise forms.ValidationError({'hours': ["The total amount of unavailable hours cannot be greather than "+str(HoursLaborableKindOfDay)+" in that day.",]})
+                                raise forms.ValidationError({'hours': ["The total amount of unavailable hours cannot be greather than "+str(HoursLaborableKindOfDay)+"h.",]})
                 elif (type_hours_input=="whole_day"):
                     if(kindofday=="Festive"):
                         raise forms.ValidationError({'hours': ["No unavailabilities allowed during festives.",]})
