@@ -1604,3 +1604,6 @@
 [02/Jun/2019 10:28:28] INFO [ce_availability.views:205] VIEWS.PY: CALENDAR accessed by xavier.urbiola
 [27/Jun/2019 12:44:04] INFO [ce_availability.views:205] VIEWS.PY: CALENDAR accessed by albert.ribes
 [27/Jun/2019 12:44:14] INFO [ce_availability.views:784] VIEWS.PY: new REGISTER inserted by albert.ribes
+[27/Jun/2019 12:46:55] INFO [ce_availability.views:836] VIEWS.PY: new REGISTER inserted by albert.ribes
+[27/Jun/2019 12:46:55] INFO [ce_availability.views:865] VIEWS.PY: new REGISTER inserted by albert.ribes
+[27/Jun/2019 12:46:57] INFO [ce_availability.views:205] VIEWS.PY: CALENDAR accessed by albert.ribes
