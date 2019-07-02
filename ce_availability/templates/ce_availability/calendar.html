@@ -437,10 +437,17 @@ function resizeWin() {
 																					</td>
 																				{%endifequal%}
 																				{% ifequal kind_day "WorkingDay"%}
+																					{% ifequal kind "Intensive" %}
+																					<td class='intensive'>
+																					<div class="calendar_day">{{day}}</div>
+																					{{h}}
+																					</td>
+																					{% else %}
 																					<td class='non-na'>
 																					<div class="calendar_day">{{day}}</div>
 																					{{h}}
 																					</td>
+																					{%endifequal%}
 																				{%endifequal%}
 																				{% ifequal kind_day "Intensive"%}
 																					<td class='intensive'>
