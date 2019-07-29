@@ -308,7 +308,7 @@ def calendar_filter(request, location, mode, year, month):
         location_id=Employee.objects.filter(user_id=employee.id).values_list('location', flat=True).get()
         #print(str(datetime_last_day_of_week) + ", " + str(datetime_first_day_of_week) + ", " + str(location_id))
         #calendar_events=CalendarEvent.objects.filter(start_date__lte=datetime_last_day_of_week).filter(end_date__gte=datetime_first_day_of_week).filter(location=location_id).order_by('start_date')
-        calendar_events=CalendarEvent.objects.filter(start_date__lte=datetime_first_day_of_week).filter(end_date__gte=datetime_first_day_of_week).filter(location=location_id).order_by('start_date') | CalendarEvent.objects.filter(start_date__gte=datetime_first_day_of_week).filter(end_date__gte=datetime_first_day_of_week)
+        calendar_events=CalendarEvent.objects.filter(start_date__lte=datetime_first_day_of_week).filter(end_date__gte=datetime_first_day_of_week).filter(location=location_id).order_by('start_date') | CalendarEvent.objects.filter(start_date__gte=datetime_first_day_of_week).filter(end_date__gte=datetime_first_day_of_week).filter(location=location_id).order_by('start_date')
         #print(calendar_events)
         loc=Location.objects.filter(id=location_id).get()
         #print("@" + str(loc))
