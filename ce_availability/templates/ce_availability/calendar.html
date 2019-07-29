@@ -102,13 +102,16 @@ function resizeWin() {
 		<tr>
 			<td class='ce'><a href='/ce_availability/list/{{employee.id}}/All/All/{{year}}/{{month}}/All/' title="Check {{employee.first_name}}'s unavailabilites of this month">{{employee.last_name}}, {{employee.first_name}}</a></td>
 			<td class='ce'>{% with employee.employee.location.location as loc %}{{loc}}{% endwith %}</td>
+			<!-- Recorro tots els dies del mes -->
 			{% for day in month_range %}
+				<!-- Miro les NAs per cada dia per employee -->
 				{% for usr, value in employee_day_nahours.items%}
 	        		 {% ifequal usr employee.username%}
 						{% for dy, hrs in value.items%}
 							{% ifequal dy day%}
 								{% for h in hrs %}
 									{% if h %}
+										<!-- Miro quina categoria del dia pel employee -->
 										{% for usr_, value in employee_day_category.items%}
 												{% ifequal usr_ employee.username%}
 													{% for dy_, category in value.items%}
@@ -123,24 +126,24 @@ function resizeWin() {
 												{%endifequal%}
 											{%endfor%}
 									{% else %}
+										<!-- Miro quina tipus de dia és el dia -->
 										{% for usr_, value in employee_day_kindofday.items%}
 											{% ifequal usr_ employee.username%}
 												{% for dy_, kind in value.items%}
 													{% ifequal dy_ day%}
+														<!-- Si és festiu... -->
 														{% ifequal kind "Festive"%}
 															<td class='day_festive'>
 																	<a class="festive_link" target="popup" onclick="window.open('/ce_availability/day_info/{{employee.id}}/{{year}}/{{month}}/{{day}}' ,'name','width=600,height=200')">
 																	F
 																	</a>
 															</td>
+														<!-- Si NO és festiu... -->
 														{%else%}
+															<!-- Miro quina dia de la setmana és -->
 															{% for num_day, kind_day in day_of_week.items%}
 																{% ifequal num_day day%}
-																	{%comment%}
-																	{% ifequal kind_day "Festive"%}
-																	<td class='day_festive_soft'></td>
-																	{%endifequal%}
-																	{%endcomment%}
+
 																	{% ifequal kind_day "Weekend"%}
 																	<td class='day_weekend_soft'></td>
 																	{%endifequal%}

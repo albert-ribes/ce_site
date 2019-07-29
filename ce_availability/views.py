@@ -308,7 +308,7 @@ def calendar_filter(request, location, mode, year, month):
         location_id=Employee.objects.filter(user_id=employee.id).values_list('location', flat=True).get()
         #print(str(datetime_last_day_of_week) + ", " + str(datetime_first_day_of_week) + ", " + str(location_id))
         #calendar_events=CalendarEvent.objects.filter(start_date__lte=datetime_last_day_of_week).filter(end_date__gte=datetime_first_day_of_week).filter(location=location_id).order_by('start_date')
-        calendar_events=CalendarEvent.objects.filter(start_date__lte=datetime_first_day_of_week).filter(end_date__gte=datetime_first_day_of_week).filter(location=location_id).order_by('start_date')
+        calendar_events=CalendarEvent.objects.filter(start_date__gte=datetime_first_day_of_week).filter(end_date__lte=datetime_last_day_of_week).filter(location=location_id).order_by('start_date')
         #print(calendar_events)
         loc=Location.objects.filter(id=location_id).get()
         #print("@" + str(loc))
@@ -327,14 +327,14 @@ def calendar_filter(request, location, mode, year, month):
 
         for event in calendar_events:
             delta = event.end_date - event.start_date
-            print(event)
+            #print(event)
             for i in range(delta.days+1):
                 day_event=event.start_date + timedelta(days=i)
                 #print("---" + str(day_event))
                 #print(str(day.year) + "-"+ str(day.month) + "-" + str(day.day) + ", weekday=" + str(day.weekday()))
                 if(str(day_event.month) == month and day_event.weekday()!=6 and day_event.weekday()!=5 and employee_day_kindofday[employee.username][day_event.day]!="Festive"):
                     employee_day_kindofday[employee.username][day_event.day]=event.kindofday.kindofday
-                    print("---" + str(day_event) + " " + employee_day_kindofday[employee.username][day_event.day])
+                    #print("---" + str(day_event) + " " + employee_day_kindofday[employee.username][day_event.day])
 
     #print(" ################################################# ")
 
