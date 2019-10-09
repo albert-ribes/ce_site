@@ -36,6 +36,8 @@ def getUserType(user):
             user_type='SDM'
         if group.name=='Admin':
             user_type='Admin'
+        if group.name=='SUPER':
+            user_type='SUPER'
     return user_type
 
 @login_required
@@ -103,10 +105,15 @@ def list_filter(request, ce, unavailability, category, year, month, week):
        manager_id=user.id
        ce_choices=[(choice.pk, choice.last_name + ", " + choice.first_name) for choice in User.objects.filter(groups__name='CE').filter(employee__manager=manager_id).order_by('last_name')]
        ce_choices= [('All', 'All')] + ce_choices
+    if user_type=='SUPER':
+       manager_id=0
+       ce_choices=[(choice.pk, choice.last_name + ", " + choice.first_name) for choice in User.objects.filter(groups__name='CE').order_by('last_name')]
+       ce_choices= [('All', 'All')] + ce_choices
     """ 
     for choice in ce_choices:
              print(choice)
     """
+
     # If this is a POST request then process the Form data
     if request.method == "POST":
         # Create a form instance and populate it with data from the request (binding):
@@ -145,7 +152,8 @@ def list_filter(request, ce, unavailability, category, year, month, week):
         #queryset = Register.objects.filter(start_date__year__gte=start_year).filter(start_date__year__lte=end_year).filter(start_date__month__gte=start_month).filter(start_date__month__lte=end_month).order_by('-start_date')
         queryset = Register.objects.order_by('-date')
         if (ce=='All'):
-            queryset = queryset.filter(user__employee__manager=manager_id)
+            if (user_type!='SUPER'):
+                queryset = queryset.filter(user__employee__manager=manager_id)
         else:
             queryset = queryset.filter(user_id=ce)
         if (unavailability!='All'):
@@ -296,6 +304,17 @@ def calendar_filter(request, location, mode, year, month):
        employee_count=employees.count()
        #print(employee_count)
        location_choices=[(choice.pk, choice.location) for choice in Location.objects.filter(manager_id=manager_id).order_by('location')]
+       location_choices= [('All', 'All')] + location_choices
+
+    if user_type=='SUPER':
+       #manager_id=user.id
+       #ce='All'
+       employees = User.objects.filter(groups__name='CE').order_by('employee__location','last_name')#.order_by('last_name')
+       if (location!="all" and location!="All"):
+           employees = employees.filter(employee__location_id=location)
+       employee_count=employees.count()
+       #print(employee_count)
+       location_choices=[(choice.pk, choice.location) for choice in Location.objects.order_by('location')]
        location_choices= [('All', 'All')] + location_choices
 
     #print(location_choices)
@@ -510,6 +529,9 @@ def calendar(request):
     if user_type=='SDM':
        mode="percentage"
        location="all"
+    if user_type=='SUPER':
+       mode="percentage"
+       location="all"    
     #print("####: " + str(location))
     return HttpResponseRedirect("/ce_availability/calendar/" + str(location) + "/" + mode + "/" + str(currentYear) + "/" + str(currentMonth))
 
@@ -599,6 +621,9 @@ def list(request):
        manager_id=user.employee.manager.id
        ce=user.id
     if user_type=='SDM':
+       manager_id=user.id
+       ce='All'
+    if user_type=='SUPER':
        manager_id=user.id
        ce='All'
     unavailability='All'
@@ -691,6 +716,10 @@ def insert_register(request):
     if user_type=='SDM':
        manager_id=user.id
        ce_choices=[(choice.pk, choice.last_name + ", " + choice.first_name) for choice in User.objects.filter(groups__name='CE').filter(employee__manager=manager_id).order_by('last_name')]
+    if user_type=='SUPER':
+       manager_id=user.id
+       ce_choices=[(choice.pk, choice.last_name + ", " + choice.first_name) for choice in User.objects.filter(groups__name='CE').order_by('last_name')]
+
     """
     for choice in ce_choices:
        print(choice)
@@ -1011,6 +1040,10 @@ def register_details(request, pk):
     if user_type=='SDM':
        manager_id=user.id
        ce_choices=[(choice.pk, choice.last_name  + ", " + choice.first_name) for choice in User.objects.filter(groups__name='CE').filter(employee__manager=manager_id).order_by('last_name')]
+    if user_type=='SUPER':
+       #manager_id=user.id
+       ce_choices=[(choice.pk, choice.last_name  + ", " + choice.first_name) for choice in User.objects.filter(groups__name='CE').order_by('last_name')]
+
     """
     for choice in ce_choices:
        print(choice)
@@ -1033,7 +1066,12 @@ def register_details(request, pk):
         """
     else:
         form = RegisterForm(user, register_id, ce_choices, instance=register)
-    return render(request, 'ce_availability/register_details.html', {'form': form, 'register': register})
+        data = {
+            'form':form,
+            'register': register,
+            'user_type':user_type
+        }
+    return render(request, 'ce_availability/register_details.html', data)
 
 @login_required
 def register_details_popup(request, pk):
@@ -1046,16 +1084,22 @@ def register_details_popup(request, pk):
     if user_type=='SDM':
        manager_id=user.id
        ce_choices=[(choice.pk, choice.last_name  + ", " + choice.first_name) for choice in User.objects.filter(groups__name='CE').filter(employee__manager=manager_id).order_by('last_name')]
+    if user_type=='SUPER':
+       #manager_id=user.id
+       ce_choices=[(choice.pk, choice.last_name  + ", " + choice.first_name) for choice in User.objects.filter(groups__name='CE').order_by('last_name')]
+
     """
     for choice in ce_choices:
        print(choice)
     """
+
     register = get_object_or_404(Register, pk=pk)
+    #print(register)
     register_id=register.id
     if request.method == "POST":
-        #print("INFO: VIEWS.register_details: POST")
+        print("INFO: VIEWS.register_details: POST")
         form = RegisterForm(user, register_id, ce_choices, request.POST, instance=register)
-        #print("INFO: VIEWS.register_details: form=" +str(form))
+        print("INFO: VIEWS.register_details: form=" +str(form))
         if form.is_valid():
             #print("INFO: VIEWS.register_details: FORM_IS_VALID")
 
@@ -1081,7 +1125,12 @@ def register_details_popup(request, pk):
         """
     else:
         form = RegisterForm(user, register_id, ce_choices, instance=register)
-    return render(request, 'ce_availability/register_details_popup.html', {'form': form, 'register': register})
+        data = {
+            'form':form,
+            'register': register,
+            'user_type':user_type
+        }
+    return render(request, 'ce_availability/register_details_popup.html', data)
 
 @login_required
 def register_delete(request, pk):

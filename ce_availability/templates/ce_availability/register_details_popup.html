@@ -22,7 +22,7 @@
 	{% comment %}
 	<p>If you have proper persmissions, you can modify or delete an unavailability<p>
 	{% endcomment %}
-      	{% if register.user.id == user.id  or register.user.employee.manager.id == user.id%}
+      	{% if register.user.id == user.id  or register.user.employee.manager.id == user.id or user_type == "SUPER"%}
 	<div class="modify_register">
 		<form method="POST" class="post-form" novalidate>{% csrf_token %}
                 {% comment %}
@@ -96,7 +96,7 @@
                 </div>
 	</div>
 	{% else %}
-	<div class="modify_register">_insert		
+	<div class="modify_register">		
 		<div class="fieldWrapper">
                 <label for="{{ form.id.id_for_label }}">ID:</label>
                 <div class="input_field_insert"> {{ register.id }} </div>
@@ -133,7 +133,7 @@
                 <hr>
                 <p>Unavailability created by <i>{{ register.createdby.first_name }} {{ register.createdby.last_name }}</i> at {{ register.created_date }} </p>
                 <hr>
-	{% if register.user.id == user.id  or register.user.employee.manager.id == user.id%}
+	{% if register.user.id == user.id  or register.user.employee.manager.id == user.id or user_type == "SUPER"%}
 
                 <a href='/ce_availability/delete_popup/{{ register.id }}'><p><span class="glyphicon glyphicon-remove"></span></a> Delete Unavailability
                 <button type="submit" class="update-button">Update</button>
