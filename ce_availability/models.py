@@ -45,6 +45,7 @@ class Employee(models.Model):
     #location = models.CharField(max_length=30, blank=True)
     phone = models.CharField(max_length=40, blank=True)
     manager = models.ForeignKey(User, related_name='Manager', default=1)
+    tele_chat_id = models.IntegerField(blank=True, default=1)
     #manager = models.ForeignKey(User, on_delete=models.CASCADE, related_name='Mgr', default=0)
 
     def __str__(self):

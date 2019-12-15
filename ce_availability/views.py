@@ -540,7 +540,7 @@ def calendar(request):
 def calendar_edit(request):
     user=request.user
     user_type=getUserType(user)
-    if user_type!='SDM':
+    if user_type!='SDM' and user_type!='SUPER':
        return HttpResponseRedirect("/ce_availability/calendar/")
     currentMonth = datetime.now().month
     currentYear = datetime.now().year
@@ -553,6 +553,9 @@ def calendar_edit(request):
        ce=user.id
     if user_type=='SDM':
        manager_id=user.id
+       ce='All'
+    if user_type=='SUPER':
+       #manager_id=user.id
        ce='All'
     location='All'
     kindofday='All'
@@ -568,6 +571,9 @@ def calendar_edit_filter(request, location, kindofday, year, month):
         'year_selector': year,
         'month_selector': month,
     }
+
+    #print(initial)
+
     queryset = CalendarEvent.objects.filter(start_date__year=year).order_by('-start_date')
     if (month !="All"):
         queryset = queryset.filter(start_date__month=month)
@@ -595,8 +601,6 @@ def calendar_edit_filter(request, location, kindofday, year, month):
             return HttpResponseRedirect("/ce_availability/calendar_edit/" + str(location) + "/" + str(kindofday) + "/" + str(year) + "/" + str(month))
     else:
         form = CalendarEventFilterForm(request.user, location_choices, kindofday_choices, initial)
-
-
 
     #print(employee_day_category)
     data = {
@@ -1099,7 +1103,7 @@ def register_details_popup(request, pk):
     if request.method == "POST":
         print("INFO: VIEWS.register_details: POST")
         form = RegisterForm(user, register_id, ce_choices, request.POST, instance=register)
-        print("INFO: VIEWS.register_details: form=" +str(form))
+        #print("INFO: VIEWS.register_details: form=" +str(form))
         if form.is_valid():
             #print("INFO: VIEWS.register_details: FORM_IS_VALID")
 
