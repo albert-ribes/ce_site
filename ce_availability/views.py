@@ -280,7 +280,7 @@ def calendar_filter(request, location, mode, year, month):
             day_week = day_week + 1
 
     user=request.user
-    #print(user.id)
+    print(user.id)
     user_type=getUserType(user)
     #print(user_type)
 
@@ -288,8 +288,8 @@ def calendar_filter(request, location, mode, year, month):
        manager_id=user.employee.manager.id
        employees=User.objects.filter(id=user.id)
        employee_count = 1
-       employee_location=Employee.objects.filter(id=user.id).values_list('location', flat=True).get()
-       #print("employee_location: " + str(employee_location))
+       employee_location=Employee.objects.filter(id=user.id).values_list('location', flat=True)#.get()
+       print("employee_location: " + str(employee_location))
 
        manager_id=str(user.employee.manager.id)
        location_choices=[(choice.pk, choice.location) for choice in Location.objects.filter(id=user.employee.location.id).order_by('location')]
