@@ -1,4 +1,5 @@
 db.sqlite3
+*.bck
 ce_site/settings.py
 /home/projects/django/ce_site/ce_availability/migrations/
 /home/projects/django/ce_site/log/
